@@ -112,6 +112,7 @@
 				5C34764422F71C56007F9694 /* Sources */,
 				5C34764522F71C56007F9694 /* Frameworks */,
 				5C34764622F71C56007F9694 /* Resources */,
+				5C2CA84122F77EC80037BE10 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -167,6 +168,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5C2CA84122F77EC80037BE10 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint --no-cache\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5C34764422F71C56007F9694 /* Sources */ = {
@@ -313,7 +334,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "CurrencyConverterCalculator/Resources/Preview\\ Content";
+				DEVELOPMENT_ASSET_PATHS = "CurrencyConverterCalculator/Preview\\ Content";
 				DEVELOPMENT_TEAM = 8MTR5SHZFD;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = CurrencyConverterCalculator/Resources/Info.plist;
@@ -333,7 +354,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "CurrencyConverterCalculator/Resources/Preview\\ Content";
+				DEVELOPMENT_ASSET_PATHS = "CurrencyConverterCalculator/Preview\\ Content";
 				DEVELOPMENT_TEAM = 8MTR5SHZFD;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = CurrencyConverterCalculator/Resources/Info.plist;
