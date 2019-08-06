@@ -9,8 +9,15 @@
 import SwiftUI
 
 struct MainView: View {
+    
+    @ObservedObject
+    private var viewModel = MainViewModel()
+    
     var body: some View {
-        Text("Hello World")
+        
+        NavigationView {
+            BarView(input: $viewModel.input)
+        }
     }
 }
 
