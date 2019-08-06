@@ -16,6 +16,7 @@
 		5C34765B22F71C56007F9694 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C34765922F71C56007F9694 /* LaunchScreen.storyboard */; };
 		5C3790D122FA04BC00C8DBE9 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3790D022FA04BC00C8DBE9 /* BarView.swift */; };
 		5C3790D322FA098900C8DBE9 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3790D222FA098900C8DBE9 /* MainViewModel.swift */; };
+		5C3790D522FA184400C8DBE9 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3790D422FA184400C8DBE9 /* KeyboardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		5C34765C22F71C56007F9694 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C3790D022FA04BC00C8DBE9 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		5C3790D222FA098900C8DBE9 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		5C3790D422FA184400C8DBE9 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				5C3790D022FA04BC00C8DBE9 /* BarView.swift */,
+				5C3790D422FA184400C8DBE9 /* KeyboardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -210,6 +213,7 @@
 			files = (
 				5C34765122F71C56007F9694 /* CurrencyConverterCalculator.xcdatamodeld in Sources */,
 				5C34764C22F71C56007F9694 /* AppDelegate.swift in Sources */,
+				5C3790D522FA184400C8DBE9 /* KeyboardView.swift in Sources */,
 				5C34765322F71C56007F9694 /* MainView.swift in Sources */,
 				5C34764E22F71C56007F9694 /* SceneDelegate.swift in Sources */,
 				5C3790D122FA04BC00C8DBE9 /* BarView.swift in Sources */,
