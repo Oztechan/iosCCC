@@ -14,7 +14,7 @@ final class MainViewModel: ObservableObject {
     let willChange = PassthroughSubject<MainViewModel, Never>()
     
     @Published
-    var input = "" {
+    var input = "Test Input" {
         didSet { willChange.send(self) }
     }
 }

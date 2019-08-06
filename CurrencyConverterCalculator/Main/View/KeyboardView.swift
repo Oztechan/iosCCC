@@ -37,13 +37,19 @@ struct KeyboardView: View {
                 
             }
             HStack {
-                KeyboardItem(itemIdentifer: "000").font(.title)
-                KeyboardItem(itemIdentifer: "AC").font(.title)
-                KeyboardItem(itemIdentifer: "DEL").font(.title)
+                KeyboardItem(itemIdentifer: "000")
+                KeyboardItem(itemIdentifer: "AC")
+                KeyboardItem(itemIdentifer: "DEL")
             }
         }
-        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-        .background(Color(UIColor(named: "Primary")!))
+        .frame(
+            minWidth: 0,
+            maxWidth: .infinity,
+            minHeight: 0,
+            maxHeight: .infinity,
+            alignment: .topLeading
+        )
+        .background(Color(UIColor(named: "PrimaryDark")!))
         .foregroundColor(Color(UIColor(named: "Acent")!))
     }
 }

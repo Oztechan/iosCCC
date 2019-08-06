@@ -15,9 +15,16 @@ struct MainView: View {
     
     var body: some View {
         
-        NavigationView {
+        VStack {
             BarView(input: $viewModel.input)
-        }
+            
+            List(1..<20) { _ in
+                ItemView()
+            }
+            
+            KeyboardView()
+        }.edgesIgnoringSafeArea(.bottom)
+        
     }
 }
 
