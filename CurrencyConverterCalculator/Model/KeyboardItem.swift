@@ -29,7 +29,8 @@ enum KeyboardItem: String {
     case ac = "AC"
     case del = "DEL"
     
-    func operateAction(input: String) -> String{
+    // swiftlint:disable cyclomatic_complexity
+    func operateAction(input: String) -> String {
         switch self {
         case .zero :
             return input + "0"

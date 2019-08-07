@@ -11,7 +11,7 @@ import SwiftUI
 struct MainView: View {
     
     @ObservedObject
-    private var viewModel = MainViewModel()
+    private(set) var viewModel: MainViewModel
     
     var body: some View {
         
@@ -23,7 +23,7 @@ struct MainView: View {
             }
             
             KeyboardView()
-        }.edgesIgnoringSafeArea(.bottom)
+        }.edgesIgnoringSafeArea(.all)
         
     }
 }
@@ -31,7 +31,7 @@ struct MainView: View {
 #if DEBUG
 struct ContentViewPreviews: PreviewProvider {
     static var previews: some View {
-        MainView()
+        MainView(viewModel: MainViewModel())
     }
 }
 #endif

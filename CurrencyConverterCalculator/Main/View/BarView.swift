@@ -15,12 +15,16 @@ struct BarView: View {
     var body: some View {
         ZStack {
             Color(UIColor(named: "PrimaryDark")!)
-            HStack {
-                Text(input)
-                    .padding(.horizontal, 8)
-                    .frame(height: 32)
-                    .foregroundColor(Color(UIColor(named: "Acent")!))
-                    .cornerRadius(8)
+            VStack {
+                Color(UIColor(named: "PrimaryDark")!)
+                HStack {
+                    Text(input)
+                        .padding(.horizontal, 8)
+                        .frame(height: 32)
+                        .foregroundColor(Color(UIColor(named: "Acent")!))
+                        .cornerRadius(8)
+                }
+                .padding(.horizontal, 16)
             }
             .padding([.leading, .trailing], 16)
         }
