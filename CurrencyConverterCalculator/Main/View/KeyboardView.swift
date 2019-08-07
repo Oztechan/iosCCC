@@ -12,34 +12,34 @@ struct KeyboardView: View {
     var body: some View {
         VStack {
             HStack {
-                KeyboardItem(itemIdentifer: "7")
-                KeyboardItem(itemIdentifer: "8")
-                KeyboardItem(itemIdentifer: "9")
-                KeyboardItem(itemIdentifer: "*")
+                KeyboardButton(keyboardItem: KeyboardItem.seven)
+                KeyboardButton(keyboardItem: KeyboardItem.eight)
+                KeyboardButton(keyboardItem: KeyboardItem.nine)
+                KeyboardButton(keyboardItem: KeyboardItem.multiply)
             }
             HStack {
-                KeyboardItem(itemIdentifer: "4")
-                KeyboardItem(itemIdentifer: "5")
-                KeyboardItem(itemIdentifer: "6")
-                KeyboardItem(itemIdentifer: "/")
+                KeyboardButton(keyboardItem: KeyboardItem.four)
+                KeyboardButton(keyboardItem: KeyboardItem.five)
+                KeyboardButton(keyboardItem: KeyboardItem.six)
+                KeyboardButton(keyboardItem: KeyboardItem.divide)
             }
             HStack {
-                KeyboardItem(itemIdentifer: "1")
-                KeyboardItem(itemIdentifer: "2")
-                KeyboardItem(itemIdentifer: "3")
-                KeyboardItem(itemIdentifer: "-")
+                KeyboardButton(keyboardItem: KeyboardItem.one)
+                KeyboardButton(keyboardItem: KeyboardItem.two)
+                KeyboardButton(keyboardItem: KeyboardItem.three)
+                KeyboardButton(keyboardItem: KeyboardItem.minus)
             }
             HStack {
-                KeyboardItem(itemIdentifer: ".")
-                KeyboardItem(itemIdentifer: "0")
-                KeyboardItem(itemIdentifer: "%")
-                KeyboardItem(itemIdentifer: "+")
+                KeyboardButton(keyboardItem: KeyboardItem.dot)
+                KeyboardButton(keyboardItem: KeyboardItem.zero)
+                KeyboardButton(keyboardItem: KeyboardItem.percentage)
+                KeyboardButton(keyboardItem: KeyboardItem.plus)
                 
             }
             HStack {
-                KeyboardItem(itemIdentifer: "000")
-                KeyboardItem(itemIdentifer: "AC")
-                KeyboardItem(itemIdentifer: "DEL")
+                KeyboardButton(keyboardItem: KeyboardItem.tribleZero)
+                KeyboardButton(keyboardItem: KeyboardItem.ac)
+                KeyboardButton(keyboardItem: KeyboardItem.del)
             }
         }
         .frame(
@@ -49,18 +49,24 @@ struct KeyboardView: View {
             maxHeight: .infinity,
             alignment: .topLeading
         )
-        .background(Color(UIColor(named: "PrimaryDark")!))
-        .foregroundColor(Color(UIColor(named: "Acent")!))
+            .background(Color(UIColor(named: "PrimaryDark")!))
+            .foregroundColor(Color(UIColor(named: "Acent")!))
     }
 }
 
-struct KeyboardItem: View {
-    var itemIdentifer: String
+struct KeyboardButton: View {
+    @ObservedObject
+    private var viewModel = MainViewModel()
+    
+    var keyboardItem: KeyboardItem
     var body: some View {
-        Text(itemIdentifer)
+        Text(keyboardItem.rawValue)
             .font(.title)
             .bold()
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+            .onTapGesture {
+                self.viewModel.input = self.keyboardItem.operateAction(input: self.viewModel.input)
+        }
     }
 }
 
