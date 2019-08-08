@@ -63,13 +63,19 @@ struct KeyboardButton: View {
     
     var keyboardItem: KeyboardItem
     var body: some View {
-        Text(keyboardItem.rawValue)
-            .font(.title)
-            .bold()
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-            .onTapGesture {
+        
+        Button(
+            action: {
                 self.input = self.keyboardItem.operateAction(input: self.$input.value)
+                
+        },
+            label: {
+                Text(keyboardItem.rawValue)
+                    .font(.title)
+                    .bold()
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
         }
+        )
     }
 }
 
