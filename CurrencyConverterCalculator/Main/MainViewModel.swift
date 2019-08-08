@@ -15,4 +15,8 @@ final class MainViewModel: ObservableObject {
     var output = "0" {
         didSet { print("Output changed to \(self.output)") }
     }
+    
+    func calculateOutput(input: String) {
+        output = input // for now
+    }
 }

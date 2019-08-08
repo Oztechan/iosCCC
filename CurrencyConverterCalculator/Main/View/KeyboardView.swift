@@ -61,13 +61,16 @@ struct KeyboardButton: View {
     @Binding
     var input: String
     
+    @EnvironmentObject
+    var viewModel: MainViewModel
+    
     var keyboardItem: KeyboardItem
     var body: some View {
         
         Button(
             action: {
                 self.input = self.keyboardItem.operateAction(input: self.$input.value)
-                
+                self.viewModel.calculateOutput(input: self.$input.value)
         },
             label: {
                 Text(keyboardItem.rawValue)

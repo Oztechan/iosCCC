@@ -10,8 +10,8 @@ import SwiftUI
 
 struct MainView: View {
     
-    @ObservedObject
-    private(set) var viewModel: MainViewModel
+    @EnvironmentObject
+    var viewModel: MainViewModel
     
     @State
     var input = ""
@@ -29,12 +29,13 @@ struct MainView: View {
         }.edgesIgnoringSafeArea(.all)
         
     }
+    
 }
 
 #if DEBUG
 struct ContentViewPreviews: PreviewProvider {
     static var previews: some View {
-        MainView(viewModel: MainViewModel())
+        MainView().environmentObject(MainViewModel())
     }
 }
 #endif
