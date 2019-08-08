@@ -13,16 +13,19 @@ struct MainView: View {
     @ObservedObject
     private(set) var viewModel: MainViewModel
     
+    @State
+    var input = ""
+    
     var body: some View {
         
         VStack {
-            BarView(input: $viewModel.input)
+            BarView(input: $input)
             
             List(1..<20) { _ in
                 ItemView()
             }
             
-            KeyboardView()
+            KeyboardView(input: self.$input)
         }.edgesIgnoringSafeArea(.all)
         
     }

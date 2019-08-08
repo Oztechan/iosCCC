@@ -9,37 +9,40 @@
 import SwiftUI
 
 struct KeyboardView: View {
+    @Binding
+    var input: String
+    
     var body: some View {
         VStack {
             HStack {
-                KeyboardButton(keyboardItem: KeyboardItem.seven)
-                KeyboardButton(keyboardItem: KeyboardItem.eight)
-                KeyboardButton(keyboardItem: KeyboardItem.nine)
-                KeyboardButton(keyboardItem: KeyboardItem.multiply)
+                KeyboardButton(input: $input, keyboardItem: KeyboardItem.seven)
+                KeyboardButton(input: $input, keyboardItem: KeyboardItem.eight)
+                KeyboardButton(input: $input, keyboardItem: KeyboardItem.nine)
+                KeyboardButton(input: $input, keyboardItem: KeyboardItem.multiply)
             }
             HStack {
-                KeyboardButton(keyboardItem: KeyboardItem.four)
-                KeyboardButton(keyboardItem: KeyboardItem.five)
-                KeyboardButton(keyboardItem: KeyboardItem.six)
-                KeyboardButton(keyboardItem: KeyboardItem.divide)
+                KeyboardButton(input: $input, keyboardItem: KeyboardItem.four)
+                KeyboardButton(input: $input, keyboardItem: KeyboardItem.five)
+                KeyboardButton(input: $input, keyboardItem: KeyboardItem.six)
+                KeyboardButton(input: $input, keyboardItem: KeyboardItem.divide)
             }
             HStack {
-                KeyboardButton(keyboardItem: KeyboardItem.one)
-                KeyboardButton(keyboardItem: KeyboardItem.two)
-                KeyboardButton(keyboardItem: KeyboardItem.three)
-                KeyboardButton(keyboardItem: KeyboardItem.minus)
+                KeyboardButton(input: $input, keyboardItem: KeyboardItem.one)
+                KeyboardButton(input: $input, keyboardItem: KeyboardItem.two)
+                KeyboardButton(input: $input, keyboardItem: KeyboardItem.three)
+                KeyboardButton(input: $input, keyboardItem: KeyboardItem.minus)
             }
             HStack {
-                KeyboardButton(keyboardItem: KeyboardItem.dot)
-                KeyboardButton(keyboardItem: KeyboardItem.zero)
-                KeyboardButton(keyboardItem: KeyboardItem.percentage)
-                KeyboardButton(keyboardItem: KeyboardItem.plus)
+                KeyboardButton(input: $input, keyboardItem: KeyboardItem.dot)
+                KeyboardButton(input: $input, keyboardItem: KeyboardItem.zero)
+                KeyboardButton(input: $input, keyboardItem: KeyboardItem.percentage)
+                KeyboardButton(input: $input, keyboardItem: KeyboardItem.plus)
                 
             }
             HStack {
-                KeyboardButton(keyboardItem: KeyboardItem.tribleZero)
-                KeyboardButton(keyboardItem: KeyboardItem.ac)
-                KeyboardButton(keyboardItem: KeyboardItem.del)
+                KeyboardButton(input: $input, keyboardItem: KeyboardItem.tribleZero)
+                KeyboardButton(input: $input, keyboardItem: KeyboardItem.ac)
+                KeyboardButton(input: $input, keyboardItem: KeyboardItem.del)
             }
         }
         .frame(
@@ -55,8 +58,8 @@ struct KeyboardView: View {
 }
 
 struct KeyboardButton: View {
-    @ObservedObject
-    private var viewModel = MainViewModel()
+    @Binding
+    var input: String
     
     var keyboardItem: KeyboardItem
     var body: some View {
@@ -65,7 +68,7 @@ struct KeyboardButton: View {
             .bold()
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
             .onTapGesture {
-                self.viewModel.input = self.keyboardItem.operateAction(input: self.viewModel.input)
+                self.input = self.keyboardItem.operateAction(input: self.$input.value)
         }
     }
 }
@@ -73,7 +76,7 @@ struct KeyboardButton: View {
 #if DEBUG
 struct KeyboardViewPreviews: PreviewProvider {
     static var previews: some View {
-        KeyboardView()
+        KeyboardView(input: .constant("123"))
     }
 }
 #endif
