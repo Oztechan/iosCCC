@@ -22,7 +22,7 @@ struct MainView: View {
             BarView(input: $input, output: $viewModel.output)
             
             List(1..<20) { _ in
-                ItemView()
+                ItemView(value: self.$viewModel.output)
             }
             
             KeyboardView(input: self.$input)

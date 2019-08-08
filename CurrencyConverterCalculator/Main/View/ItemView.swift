@@ -9,9 +9,12 @@
 import SwiftUI
 
 struct ItemView: View {
+    @Binding
+    var value : String
+    
     var body: some View {
         HStack {
-            Text("12312312")
+            Text(value)
             Text("$")
             Spacer()
             Text("USD")
@@ -23,7 +26,7 @@ struct ItemView: View {
 #if DEBUG
 struct ItemViewPreviews: PreviewProvider {
     static var previews: some View {
-        ItemView()
+        ItemView(value: .constant("123"))
             .previewLayout(.fixed(width: 300, height: 60))
     }
 }
