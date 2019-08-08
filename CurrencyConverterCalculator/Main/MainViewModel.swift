@@ -11,10 +11,8 @@ import Combine
 
 final class MainViewModel: ObservableObject {
     
-    let willChange = PassthroughSubject<MainViewModel, Never>()
-    
     @Published
-    var input = "Test Input" {
-        didSet { willChange.send(self) }
+    var output = "0" {
+        didSet { print("Output changed to \(self.output)") }
     }
 }

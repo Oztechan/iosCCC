@@ -19,7 +19,7 @@ struct MainView: View {
     var body: some View {
         
         VStack {
-            BarView(input: $input)
+            BarView(input: $input, output: $viewModel.output)
             
             List(1..<20) { _ in
                 ItemView()

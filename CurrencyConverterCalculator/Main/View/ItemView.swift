@@ -17,8 +17,6 @@ struct ItemView: View {
             Text("USD")
             Image(systemName: "dollarsign.circle")
         }
-//        .background(Color(UIColor(named: "Primary")!))
-//            .foregroundColor(Color(UIColor(named: "Acent")!))
     }
 }
 
