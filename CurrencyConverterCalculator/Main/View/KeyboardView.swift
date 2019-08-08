@@ -12,73 +12,38 @@ struct KeyboardView: View {
     @Binding
     var input: String
     
-    var body: some View {
-        VStack {
-            HStack {
-                KeyboardButton(input: $input, keyboardItem: KeyboardItem.seven)
-                KeyboardButton(input: $input, keyboardItem: KeyboardItem.eight)
-                KeyboardButton(input: $input, keyboardItem: KeyboardItem.nine)
-                KeyboardButton(input: $input, keyboardItem: KeyboardItem.multiply)
-            }
-            HStack {
-                KeyboardButton(input: $input, keyboardItem: KeyboardItem.four)
-                KeyboardButton(input: $input, keyboardItem: KeyboardItem.five)
-                KeyboardButton(input: $input, keyboardItem: KeyboardItem.six)
-                KeyboardButton(input: $input, keyboardItem: KeyboardItem.divide)
-            }
-            HStack {
-                KeyboardButton(input: $input, keyboardItem: KeyboardItem.one)
-                KeyboardButton(input: $input, keyboardItem: KeyboardItem.two)
-                KeyboardButton(input: $input, keyboardItem: KeyboardItem.three)
-                KeyboardButton(input: $input, keyboardItem: KeyboardItem.minus)
-            }
-            HStack {
-                KeyboardButton(input: $input, keyboardItem: KeyboardItem.dot)
-                KeyboardButton(input: $input, keyboardItem: KeyboardItem.zero)
-                KeyboardButton(input: $input, keyboardItem: KeyboardItem.percentage)
-                KeyboardButton(input: $input, keyboardItem: KeyboardItem.plus)
-                
-            }
-            HStack {
-                KeyboardButton(input: $input, keyboardItem: KeyboardItem.tribleZero)
-                KeyboardButton(input: $input, keyboardItem: KeyboardItem.ac)
-                KeyboardButton(input: $input, keyboardItem: KeyboardItem.del)
-            }
-        }
-        .frame(
-            minWidth: 0,
-            maxWidth: .infinity,
-            minHeight: 0,
-            maxHeight: .infinity,
-            alignment: .topLeading
-        )
-            .background(Color(UIColor(named: "PrimaryDark")!))
-            .foregroundColor(Color(UIColor(named: "Acent")!))
-    }
-}
-
-struct KeyboardButton: View {
-    @Binding
-    var input: String
-    
     @EnvironmentObject
     var viewModel: MainViewModel
     
-    var keyboardItem: KeyboardItem
+    let data = [[KeyboardItem.seven, KeyboardItem.eight, KeyboardItem.nine, KeyboardItem.multiply],
+                [KeyboardItem.four, KeyboardItem.five, KeyboardItem.six, KeyboardItem.divide],
+                [KeyboardItem.one, KeyboardItem.two, KeyboardItem.three, KeyboardItem.minus],
+                [KeyboardItem.dot, KeyboardItem.zero, KeyboardItem.divide, KeyboardItem.plus],
+                [KeyboardItem.tribleZero, KeyboardItem.ac, KeyboardItem.del]]
+    
     var body: some View {
-        
-        Button(
-            action: {
-                self.input = self.keyboardItem.operateAction(input: self.$input.value)
-                self.viewModel.calculateOutput(input: self.$input.value)
-        },
-            label: {
-                Text(keyboardItem.rawValue)
-                    .font(.title)
-                    .bold()
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+        VStack(alignment: .center) {
+            ForEach(data, id: \.self) { items in
+                HStack(alignment: .center) {
+                    ForEach(items, id: \.self) { item in
+                        Button(
+                            action: {
+                                self.input = item.operateAction(input: self.$input.value)
+                                self.viewModel.calculateOutput(input: self.input)
+                            },
+                            label: {
+                                Text(item.rawValue)
+                                    .font(.title)
+                                    .bold()
+                                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                            }
+                        )
+                    }
+                }
+            }
         }
-        )
+        .background(Color(UIColor(named: "PrimaryDark")!))
+        .foregroundColor(Color(UIColor(named: "Acent")!))
     }
 }
 
