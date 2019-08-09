@@ -26,8 +26,13 @@ struct ItemView: View {
 #if DEBUG
 struct ItemViewPreviews: PreviewProvider {
     static var previews: some View {
-        ItemView(item: CurrencyItem(value: "123"))
-            .previewLayout(.fixed(width: 300, height: 60))
+        ItemView(item: CurrencyItem(
+            value: "123",
+            symbol: "$",
+            shortCode: "USD",
+            imageName: "dollarsign.circle"
+        ))
+        .previewLayout(.fixed(width: 300, height: 60))
     }
 }
 #endif

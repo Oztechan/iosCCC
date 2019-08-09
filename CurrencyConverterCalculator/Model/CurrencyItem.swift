@@ -10,11 +10,7 @@ import Foundation
 
 struct CurrencyItem {
     var value: String
-    var symbol: String = "$"
-    var shortCode: String = "USD"
-    var imageName: String = "dollarsign.circle"
-    
-    init(value: String) {
-        self.value = value
-    }
+    var symbol: String
+    var shortCode: String
+    var imageName: String
 }

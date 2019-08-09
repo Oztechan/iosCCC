@@ -21,14 +21,16 @@ struct MainView: View {
         VStack {
             BarView(input: $input, output: $viewModel.output)
             
-            List(1..<20) { _ in
-                ItemView(item: CurrencyItem(value: self.$viewModel.output.value))
+            List {
+                ForEach(viewModel.currencyList, id: \.value) { currency in
+                    ItemView(item: currency)
+                }
             }
             
             KeyboardView(input: self.$input)
         }
         .onAppear {
-            self.viewModel.fetchRates(base: Currencies.EUR)
+            self.viewModel.fetchRates()
         }
         .edgesIgnoringSafeArea(.all)
         

@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Currencies {
+enum Currencies: CaseIterable {
     case AED
     case AFN
     case ALL
@@ -177,4 +177,8 @@ enum Currencies {
     case ZMK
     case ZMW
     case ZWL
+    
+    var description: String {
+        return String(describing: self)
+    }
 }

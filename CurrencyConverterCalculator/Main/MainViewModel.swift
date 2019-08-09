@@ -15,8 +15,14 @@ final class MainViewModel: ObservableObject {
     
     @Published
     var output = "0" {
-        didSet { print("Output changed to \(self.output)") }
+        didSet { updateList() }
     }
+    
+    @Published
+    var currencyList = [CurrencyItem]()
+    
+    private var baseCurrency = Currencies.EUR
+    private var isFirts = true
     private var rates: Rates? = Rates()
     
     deinit { cancelable?.cancel() }
@@ -25,15 +31,46 @@ final class MainViewModel: ObservableObject {
         output = input // for now
     }
     
-    func fetchRates(base: Currencies) {
+    func fetchRates() {
         
-        cancelable = BackendHelper.FetchRatesByBase(base: base)
+        cancelable = BackendHelper.FetchRatesByBase(base: baseCurrency)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {
                 if case let .failure(error) = $0 {
                     print(error)
                 }
             }, receiveValue: {
+                if self.isFirts {
+                    self.initList()
+                    self.isFirts  = false
+                }
                 self.rates = $0.rates
+                self.updateList()
             })
+    }
+    
+    func updateList() {
+        if rates != nil {
+            for index in 0..<(currencyList.count) {
+                currencyList[index].value = self.output
+            }
+            
+        } else {
+            fetchRates()
+        }
+    }
+    
+    func initList() {
+        Currencies.allCases.forEach { currency in
+            print(currency)
+            self.currencyList.append(
+                CurrencyItem(
+                    value: output,
+                    symbol: "$",
+                    shortCode: currency.description,
+                    imageName: "dollarsign.circle"
+                )
+            )
+        }
     }
 }
