@@ -26,7 +26,11 @@ struct MainView: View {
             }
             
             KeyboardView(input: self.$input)
-        }.edgesIgnoringSafeArea(.all)
+        }
+        .onAppear {
+            self.viewModel.fetchRates(base: Currencies.EUR)
+        }
+        .edgesIgnoringSafeArea(.all)
         
     }
     
