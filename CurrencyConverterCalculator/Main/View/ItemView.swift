@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ItemView: View {
     
-    var item : CurrencyItem
+    var item: CurrencyItem
     
     var body: some View {
         HStack {

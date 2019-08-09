@@ -18,6 +18,8 @@
 		5C3790D322FA098900C8DBE9 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3790D222FA098900C8DBE9 /* MainViewModel.swift */; };
 		5C3790D522FA184400C8DBE9 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3790D422FA184400C8DBE9 /* KeyboardView.swift */; };
 		5C3790D722FA243500C8DBE9 /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3790D622FA243500C8DBE9 /* ItemView.swift */; };
+		5C82CEA122FDC4480030F72E /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5C82CEA022FDC4480030F72E /* Config.xcconfig */; };
+		5C82CEA422FDCC420030F72E /* BackendHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C82CEA322FDCC420030F72E /* BackendHelper.swift */; };
 		5C97B62222FCD00C005F62BA /* CurrencyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C97B62122FCD00C005F62BA /* CurrencyItem.swift */; };
 		5CF75F1022FB5F910024EB77 /* KeyboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF75F0F22FB5F910024EB77 /* KeyboardItem.swift */; };
 /* End PBXBuildFile section */
@@ -36,6 +38,8 @@
 		5C3790D222FA098900C8DBE9 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		5C3790D422FA184400C8DBE9 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		5C3790D622FA243500C8DBE9 /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
+		5C82CEA022FDC4480030F72E /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		5C82CEA322FDCC420030F72E /* BackendHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendHelper.swift; sourceTree = "<group>"; };
 		5C97B62122FCD00C005F62BA /* CurrencyItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyItem.swift; sourceTree = "<group>"; };
 		5CF75F0F22FB5F910024EB77 /* KeyboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,6 +77,7 @@
 		5C2CA84022F720F90037BE10 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5C82CEA022FDC4480030F72E /* Config.xcconfig */,
 				5C34765422F71C56007F9694 /* Assets.xcassets */,
 				5C34765922F71C56007F9694 /* LaunchScreen.storyboard */,
 				5C34765C22F71C56007F9694 /* Info.plist */,
@@ -103,6 +108,7 @@
 				5CF75F0E22FB5F6E0024EB77 /* Model */,
 				5C2CA83E22F720CD0037BE10 /* App */,
 				5C2CA83F22F720E00037BE10 /* Main */,
+				5C82CEA222FDCC1F0030F72E /* Util */,
 				5C2CA84022F720F90037BE10 /* Resources */,
 				5C34765622F71C56007F9694 /* Preview Content */,
 			);
@@ -125,6 +131,14 @@
 				5C3790D622FA243500C8DBE9 /* ItemView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		5C82CEA222FDCC1F0030F72E /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				5C82CEA322FDCC420030F72E /* BackendHelper.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 		5CF75F0E22FB5F6E0024EB77 /* Model */ = {
@@ -195,6 +209,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C82CEA122FDC4480030F72E /* Config.xcconfig in Resources */,
 				5C34765B22F71C56007F9694 /* LaunchScreen.storyboard in Resources */,
 				5C34765822F71C56007F9694 /* Preview Assets.xcassets in Resources */,
 				5C34765522F71C56007F9694 /* Assets.xcassets in Resources */,
@@ -236,6 +251,7 @@
 				5C34765322F71C56007F9694 /* MainView.swift in Sources */,
 				5C34764E22F71C56007F9694 /* SceneDelegate.swift in Sources */,
 				5C3790D122FA04BC00C8DBE9 /* BarView.swift in Sources */,
+				5C82CEA422FDCC420030F72E /* BackendHelper.swift in Sources */,
 				5C3790D322FA098900C8DBE9 /* MainViewModel.swift in Sources */,
 				5C97B62222FCD00C005F62BA /* CurrencyItem.swift in Sources */,
 			);
@@ -371,6 +387,7 @@
 		};
 		5C34766022F71C56007F9694 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5C82CEA022FDC4480030F72E /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -391,6 +408,7 @@
 		};
 		5C34766122F71C56007F9694 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5C82CEA022FDC4480030F72E /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
