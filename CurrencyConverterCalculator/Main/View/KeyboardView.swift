@@ -18,7 +18,7 @@ struct KeyboardView: View {
     let data = [[KeyboardItem.seven, KeyboardItem.eight, KeyboardItem.nine, KeyboardItem.multiply],
                 [KeyboardItem.four, KeyboardItem.five, KeyboardItem.six, KeyboardItem.divide],
                 [KeyboardItem.one, KeyboardItem.two, KeyboardItem.three, KeyboardItem.minus],
-                [KeyboardItem.dot, KeyboardItem.zero, KeyboardItem.divide, KeyboardItem.plus],
+                [KeyboardItem.dot, KeyboardItem.zero, KeyboardItem.percentage, KeyboardItem.plus],
                 [KeyboardItem.tribleZero, KeyboardItem.ac, KeyboardItem.del]]
     
     var body: some View {

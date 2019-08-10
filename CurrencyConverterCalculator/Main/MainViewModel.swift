@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import Expression
 
 final class MainViewModel: ObservableObject {
     
@@ -23,7 +24,19 @@ final class MainViewModel: ObservableObject {
     deinit { cancelable?.cancel() }
     
     func calculateOutput(input: String) {
-        output = input // for now
+        var temp = input
+        
+        temp = temp.replacingOccurrences(of: "%", with: "/100*")
+        
+        let expression = Expression(temp)
+        do {
+            let result = try expression.evaluate()
+            print("Input \(temp) Result: \(result)")
+            output = String(result)
+        } catch {
+            output = "0"
+            print("Input \(temp) Error: \(error)")
+        }
         updateList()
     }
     
