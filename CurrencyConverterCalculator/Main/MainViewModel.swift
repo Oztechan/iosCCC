@@ -12,23 +12,19 @@ import Combine
 final class MainViewModel: ObservableObject {
     
     private var cancelable: Cancellable?
+    private var baseCurrency = Currencies.EUR
+    private var rates: Rates? = Rates()
     
-    @Published
-    var output = "0" {
-        didSet { updateList() }
-    }
-    
-    @Published
     var currencyList = [CurrencyItem]()
     
-    private var baseCurrency = Currencies.EUR
-    private var isFirts = true
-    private var rates: Rates? = Rates()
+    @Published
+    var output = "0"
     
     deinit { cancelable?.cancel() }
     
     func calculateOutput(input: String) {
         output = input // for now
+        updateList()
     }
     
     func fetchRates() {
@@ -40,16 +36,17 @@ final class MainViewModel: ObservableObject {
                     print(error)
                 }
             }, receiveValue: {
-                if self.isFirts {
-                    self.initList()
-                    self.isFirts  = false
-                }
                 self.rates = $0.rates
                 self.updateList()
             })
     }
     
     func updateList() {
+        
+        if currencyList.isEmpty {
+            initList()
+        }
+        
         if rates != nil {
             for index in 0..<(currencyList.count) {
                 currencyList[index].value = self.output
