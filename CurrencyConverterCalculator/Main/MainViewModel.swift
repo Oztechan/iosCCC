@@ -62,11 +62,34 @@ final class MainViewModel: ObservableObject {
         
         if rates != nil {
             for index in 0..<(currencyList.count) {
-                currencyList[index].value = self.output
+                let rateOfCurrentRow = valueFor(
+                    property: currencyList[index].shortCode.lowercased(),
+                    of: rates ?? 0.0
+                    )as? Double  ?? 0.0
+                let expression = Expression("\(rateOfCurrentRow)*\(output)")
+                do {
+                    let result = try expression.evaluate()
+                    currencyList[index].value = String(result)
+                } catch {
+                    currencyList[index].value = "0"
+                }
             }
             
         } else {
             fetchRates()
+        }
+    }
+    
+    func isNilDescendant(_ any: Any?) -> Bool {
+        return String(describing: any) == "Optional(nil)"
+    }
+    
+    func valueFor(property: String, of object: Any) -> Any? {
+        let mirror = Mirror(reflecting: object)
+        if let child = mirror.descendant(property), !isNilDescendant(child) {
+            return child
+        } else {
+            return nil
         }
     }
     
