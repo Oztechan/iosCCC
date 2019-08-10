@@ -18,7 +18,7 @@ struct ItemView: View {
             Text(item.symbol)
             Spacer()
             Text(item.shortCode)
-            Image(systemName: item.imageName)
+            Image(item.shortCode.lowercased())
         }
     }
 }
