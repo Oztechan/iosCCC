@@ -11,6 +11,6 @@ import Foundation
 struct CurrencyItem: Hashable {
     var value: String
     var symbol: String
-    var shortCode: String
+    var shortCode: Currencies
     var imageName: String
 }

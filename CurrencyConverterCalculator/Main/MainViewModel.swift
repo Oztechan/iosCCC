@@ -19,10 +19,10 @@ final class MainViewModel: ObservableObject {
     
     @Published var output = "0"
     @Published var isLoading = true
-    @Published var baseCurrency = Currencies.EUR {
+    @Published var baseCurrency = Currencies.EUR
+    @Published var baseCurrencyIndex = 0 {
         didSet {  refreshIndex() }
     }
-    @Published var baseCurrencyIndex = 0
     
     deinit { cancelable?.cancel() }
     
@@ -60,7 +60,7 @@ final class MainViewModel: ObservableObject {
         if rates != nil {
             for index in 0..<(currencyList.count) {
                 let rateOfCurrentRow = valueFor(
-                    property: currencyList[index].shortCode.lowercased(),
+                    property: currencyList[index].shortCode.description.lowercased(),
                     of: rates ?? 0.0
                     )as? Double  ?? 0.0
                 let expression = Expression("\(rateOfCurrentRow)*\(output)")
@@ -98,7 +98,7 @@ final class MainViewModel: ObservableObject {
                 CurrencyItem(
                     value: output,
                     symbol: "",
-                    shortCode: currency.description,
+                    shortCode: currency,
                     imageName: currency.description.lowercased()
                 )
             )
@@ -106,7 +106,6 @@ final class MainViewModel: ObservableObject {
     }
     
     func refreshIndex() {
-        self.baseCurrencyIndex = currencyList.map { $0.shortCode }
-            .firstIndex(of: baseCurrency.description) ?? 0
+        self.baseCurrency = currencyList[baseCurrencyIndex].shortCode
     }
 }

@@ -17,9 +17,9 @@ struct ItemView: View {
             Text(item.value)
             Text(item.symbol)
             Spacer()
-            Text(item.shortCode)
-            Image(item.shortCode.lowercased())
-        }
+            Text(item.shortCode.description)
+            Image(item.shortCode.description.lowercased())
+        }.foregroundColor(Color(UIColor(named: "Acent")!))
     }
 }
 
@@ -29,7 +29,7 @@ struct ItemViewPreviews: PreviewProvider {
         ItemView(item: CurrencyItem(
             value: "123",
             symbol: "$",
-            shortCode: "USD",
+            shortCode: Currencies.USD,
             imageName: "dollarsign.circle"
         ))
         .previewLayout(.fixed(width: 300, height: 60))
