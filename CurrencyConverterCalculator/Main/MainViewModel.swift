@@ -24,18 +24,13 @@ final class MainViewModel: ObservableObject {
     deinit { cancelable?.cancel() }
     
     func calculateOutput(input: String) {
-        var temp = input
-        
-        temp = temp.replacingOccurrences(of: "%", with: "/100*")
-        
-        let expression = Expression(temp)
+        isLoading = true
+        let expression = Expression(input.replacingOccurrences(of: "%", with: "/100*"))
         do {
             let result = try expression.evaluate()
-            print("Input \(temp) Result: \(result)")
             output = String(result)
         } catch {
             output = "0"
-            print("Input \(temp) Error: \(error)")
         }
         updateList()
     }
@@ -55,8 +50,6 @@ final class MainViewModel: ObservableObject {
     }
     
     func updateList() {
-        isLoading = true
-        
         if currencyList.isEmpty {
             initList()
         }
@@ -98,7 +91,6 @@ final class MainViewModel: ObservableObject {
     
     func initList() {
         Currencies.allCases.forEach { currency in
-            print(currency)
             self.currencyList.append(
                 CurrencyItem(
                     value: output,

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct CurrencyItem {
+struct CurrencyItem: Hashable {
     var value: String
     var symbol: String
     var shortCode: String

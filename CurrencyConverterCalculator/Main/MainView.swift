@@ -21,19 +21,18 @@ struct MainView: View {
             if viewModel.isLoading {
                 IndicatorView()
             } else {
-                List {
-                    ForEach(viewModel.currencyList, id: \.value) { currency in
+                List(viewModel.currencyList, id: \.self) { currency in
+                    if !currency.value.isEqual("0.0") {
                         ItemView(item: currency)
                     }
                 }
+                .listRowBackground(Color(UIColor(named: "Primary")!))
             }
             
             KeyboardView(input: self.$input)
         }
         .background(Color(UIColor(named: "Primary")!))
-        .onAppear {
-            self.viewModel.fetchRates()
-        }
+        .onAppear { self.viewModel.fetchRates() }
         .edgesIgnoringSafeArea(.all)
         
     }
