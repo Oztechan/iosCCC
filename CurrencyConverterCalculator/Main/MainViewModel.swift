@@ -18,8 +18,8 @@ final class MainViewModel: ObservableObject {
     
     var currencyList = [CurrencyItem]()
     
-    @Published
-    var output = "0"
+    @Published var output = "0"
+    @Published var isLoading = true
     
     deinit { cancelable?.cancel() }
     
@@ -55,6 +55,7 @@ final class MainViewModel: ObservableObject {
     }
     
     func updateList() {
+        isLoading = true
         
         if currencyList.isEmpty {
             initList()
@@ -78,6 +79,8 @@ final class MainViewModel: ObservableObject {
         } else {
             fetchRates()
         }
+        
+        isLoading  = false
     }
     
     func isNilDescendant(_ any: Any?) -> Bool {

@@ -10,25 +10,27 @@ import SwiftUI
 
 struct MainView: View {
     
-    @EnvironmentObject
-    var viewModel: MainViewModel
-    
-    @State
-    var input = ""
+    @EnvironmentObject var viewModel: MainViewModel
+    @State var input = ""
     
     var body: some View {
         
         VStack {
             BarView(input: $input, output: $viewModel.output)
             
-            List {
-                ForEach(viewModel.currencyList, id: \.value) { currency in
-                    ItemView(item: currency)
+            if viewModel.isLoading {
+                IndicatorView()
+            } else {
+                List {
+                    ForEach(viewModel.currencyList, id: \.value) { currency in
+                        ItemView(item: currency)
+                    }
                 }
             }
             
             KeyboardView(input: self.$input)
         }
+        .background(Color(UIColor(named: "Primary")!))
         .onAppear {
             self.viewModel.fetchRates()
         }
