@@ -14,29 +14,44 @@ struct MainView: View {
     @State var input = ""
     
     var body: some View {
-        
-        VStack {
-            BarView(input: $input, output: $viewModel.output)
+        NavigationView {
             
-            if viewModel.isLoading {
-                IndicatorView()
-            } else {
-                List(viewModel.currencyList, id: \.self) { currency in
-                    if !currency.value.isEqual("0.0") {
-                        ItemView(item: currency)
+            VStack {
+                
+                Form {
+                    
+                    Text(input)
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+                    
+                    Picker(
+                        selection: $viewModel.baseCurrencyIndex,
+                        label: Text("\(viewModel.baseCurrency.description) = \(viewModel.output)")
+                    ) {
+                        ForEach(self.viewModel.currencyList.map { $0.shortCode }, id: \.self) { currency in
+                            Text(currency).tag(currency)
+                        }
+                    }
+                    
+                    if viewModel.isLoading {
+                        IndicatorView()
+                    } else {
+                        List(viewModel.currencyList, id: \.self) { currency in
+                            if !currency.value.isEqual("0.0") {
+                                ItemView(item: currency)
+                            }
+                        }
+                        
                     }
                 }
-                .listRowBackground(Color(UIColor(named: "Primary")!))
+                
+                KeyboardView(input: self.$input)
+                
             }
             
-            KeyboardView(input: self.$input)
         }
-        .background(Color(UIColor(named: "Primary")!))
         .onAppear { self.viewModel.fetchRates() }
-        .edgesIgnoringSafeArea(.all)
-        
+        .edgesIgnoringSafeArea(.top)
     }
-    
 }
 
 #if DEBUG

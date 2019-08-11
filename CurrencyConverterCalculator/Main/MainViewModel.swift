@@ -13,13 +13,16 @@ import Expression
 final class MainViewModel: ObservableObject {
     
     private var cancelable: Cancellable?
-    private var baseCurrency = Currencies.EUR
     private var rates: Rates? = Rates()
     
     var currencyList = [CurrencyItem]()
     
     @Published var output = "0"
     @Published var isLoading = true
+    @Published var baseCurrency = Currencies.EUR {
+        didSet {  refreshIndex() }
+    }
+    @Published var baseCurrencyIndex = 0
     
     deinit { cancelable?.cancel() }
     
@@ -94,11 +97,16 @@ final class MainViewModel: ObservableObject {
             self.currencyList.append(
                 CurrencyItem(
                     value: output,
-                    symbol: "$",
+                    symbol: "",
                     shortCode: currency.description,
-                    imageName: "dollarsign.circle"
+                    imageName: currency.description.lowercased()
                 )
             )
         }
+    }
+    
+    func refreshIndex() {
+        self.baseCurrencyIndex = currencyList.map { $0.shortCode }
+            .firstIndex(of: baseCurrency.description) ?? 0
     }
 }
