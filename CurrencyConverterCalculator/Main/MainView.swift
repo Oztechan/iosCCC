@@ -15,48 +15,41 @@ struct MainView: View {
     
     var body: some View {
         
-        NavigationView {
+        VStack {
             
-            VStack {
-                
-                Form {
-                    
+            ZStack {
+                Color(UIColor(named: "PrimaryDark")!)
+                VStack {
                     Text(input)
-                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-                        .background(Color(UIColor(named: "PrimaryDark")!))
-                        .foregroundColor(Color(UIColor(named: "Acent")!))
-                        .listRowBackground(Color(UIColor(named: "PrimaryDark")!))
-                    Picker(
-                        selection: $viewModel.baseCurrencyIndex,
-                        label: Text("\(viewModel.baseCurrency.description) = \(viewModel.output)")
-                    ) {
-                        ForEach(self.viewModel.currencyList.map { $0.shortCode.description }, id: \.self) { currency in
-                            Text(currency).tag(currency)
-                        }
-                    }.listRowBackground(Color(UIColor(named: "PrimaryDark")!))
-                        .background(Color(UIColor(named: "PrimaryDark")!))
-                        .foregroundColor(Color(UIColor(named: "Acent")!))
-                    
-                    if viewModel.isLoading {
-                        IndicatorView()
-                    } else {
-                        List(viewModel.currencyList, id: \.self) { currency in
-                            ItemView(item: currency)
-                        }
-                        .listRowBackground(Color(UIColor(named: "Primary")!))
-                        
-                    }
+                    Text("\(viewModel.baseCurrency.description) = \(viewModel.output)")
+                }
+                .font(.headline)
+                .frame(height: 64)
+                .foregroundColor(Color(UIColor(named: "Acent")!))
+                .padding(.top, 32)
+                .padding([.leading, .trailing], 16)
+            }
+            .frame(height: 96)
+            
+            Form {
+                if viewModel.isLoading {
+                    IndicatorView()
+                } else {
+                    List(viewModel.currencyList, id: \.self) { currency in
+                        ItemView(item: currency)
+                    }.listRowBackground(Color(UIColor(named: "Primary")!))
+                        .background(Color(UIColor(named: "Primary")!))
                     
                 }
-                
-                KeyboardView(input: self.$input)
-                
             }
-            .background(Color(UIColor(named: "PrimaryDark")!))
+            
+            KeyboardView(input: self.$input)
+            
         }
+            
         .background(Color(UIColor(named: "PrimaryDark")!))
         .onAppear { self.viewModel.fetchRates() }
-        .edgesIgnoringSafeArea(.top)
+        .edgesIgnoringSafeArea(.all)
         
     }
     
