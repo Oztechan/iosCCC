@@ -17,37 +17,16 @@ struct MainView: View {
         
         VStack {
             
-            ZStack {
-                Color(UIColor(named: "PrimaryDark")!)
-                VStack {
-                    Text(input)
-                    Text("\(viewModel.baseCurrency.description) = \(viewModel.output)")
-                }
-                .font(.headline)
-                .frame(height: 64)
-                .foregroundColor(Color(UIColor(named: "Acent")!))
-                .padding(.top, 32)
-                .padding([.leading, .trailing], 16)
-            }
-            .frame(height: 96)
+            Text(input)
+            Text("\(viewModel.baseCurrency.description) = \(viewModel.output)")
             
-            Form {
-                if viewModel.isLoading {
-                    IndicatorView()
-                } else {
-                    List(viewModel.currencyList, id: \.self) { currency in
-                        ItemView(item: currency)
-                    }.listRowBackground(Color(UIColor(named: "Primary")!))
-                        .background(Color(UIColor(named: "Primary")!))
-                    
-                }
+            List(viewModel.currencyList, id: \.self) { currency in
+                ItemView(item: currency)
             }
             
             KeyboardView(input: self.$input)
             
         }
-            
-        .background(Color(UIColor(named: "PrimaryDark")!))
         .onAppear { self.viewModel.fetchRates() }
         .edgesIgnoringSafeArea(.all)
         

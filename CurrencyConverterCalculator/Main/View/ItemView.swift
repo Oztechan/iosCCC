@@ -19,7 +19,7 @@ struct ItemView: View {
             Spacer()
             Text(item.shortCode.description)
             Image(item.shortCode.description.lowercased())
-        }.foregroundColor(Color(UIColor(named: "Acent")!))
+        }
     }
 }
 

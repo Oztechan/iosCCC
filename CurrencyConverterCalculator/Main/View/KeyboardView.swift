@@ -42,8 +42,6 @@ struct KeyboardView: View {
                 }
             }
         }
-        .background(Color(UIColor(named: "PrimaryDark")!))
-        .foregroundColor(Color(UIColor(named: "Acent")!))
     }
 }
 
