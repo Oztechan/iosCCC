@@ -11,24 +11,31 @@ import SwiftUI
 struct MainView: View {
     
     @EnvironmentObject var viewModel: MainViewModel
-    @State var input = "0"
+    @State var input = ""
     
     var body: some View {
         
         VStack {
             
             Text(input)
-            Text("\(viewModel.baseCurrency.description) = \(viewModel.output)")
             
-            List(viewModel.currencyList, id: \.self) { currency in
-                ItemView(item: currency)
+            if viewModel.output.isEmpty {
+                Text(viewModel.baseCurrency.description)
+            } else {
+                Text("\(viewModel.output) \(viewModel.baseCurrency.description)")
             }
+            List (
+                viewModel.currencyList.filter {
+                    $0.value != "0.0" && $0.value != "0"
+                },
+                id: \.self
+            ) { currency in ItemView(item: currency) }
             
             KeyboardView(input: self.$input)
             
         }
         .onAppear { self.viewModel.fetchRates() }
-        .edgesIgnoringSafeArea(.all)
+        .edgesIgnoringSafeArea(.bottom)
         
     }
     

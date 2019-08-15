@@ -17,7 +17,7 @@ final class MainViewModel: ObservableObject {
     
     var currencyList = [CurrencyItem]()
     
-    @Published var output = "0"
+    @Published var output = ""
     @Published var isLoading = true
     @Published var baseCurrency = Currencies.EUR
     @Published var baseCurrencyIndex = 0 {
@@ -33,7 +33,7 @@ final class MainViewModel: ObservableObject {
             let result = try expression.evaluate()
             output = String(result)
         } catch {
-            output = "0"
+            output = ""
         }
         updateList()
     }
