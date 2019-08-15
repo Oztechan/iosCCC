@@ -18,28 +18,34 @@ struct MainView: View {
         
         VStack {
             
-            Button(action: { self.isPresented.toggle() }) {
-                
-                Text(input)
-                
-                if viewModel.output.isEmpty {
-                    Text(viewModel.baseCurrency.description)
-                } else {
-                    Text("\(viewModel.output) \(viewModel.baseCurrency.description)")
-                }
-            }.sheet(isPresented: $isPresented, content: {
-                List (
-                    self.viewModel.currencyList.map {
-                        $0.shortCode
-                    },
-                    id: \.self
-                ) { currency in Text(currency.description).onTapGesture {
-                    self.viewModel.baseCurrency = currency
-                    self.isPresented = false
-                    } }
-                
-            })
-            
+            Button(
+                action: {
+                    self.isPresented.toggle()
+            },
+                label: {
+                    Text(input)
+                    
+                    if viewModel.output.isEmpty {
+                        Text(viewModel.baseCurrency.description)
+                    } else {
+                        Text("\(viewModel.output) \(viewModel.baseCurrency.description)")
+                    }
+            }
+            ).sheet(
+                isPresented: $isPresented,
+                content: {
+                    Text("Change the base currency")
+                        .padding(.top, 32)
+                    List (self.viewModel.currencyList.map { $0.shortCode }, id: \.self) { currency in
+                        Text(currency.description)
+                            .onTapGesture {
+                                self.viewModel.baseCurrency = currency
+                                self.isPresented = false
+                        }
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+                    }
+            }
+            )
             
             List (
                 viewModel.currencyList.filter {

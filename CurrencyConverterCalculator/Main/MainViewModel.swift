@@ -19,9 +19,8 @@ final class MainViewModel: ObservableObject {
     
     @Published var output = ""
     @Published var isLoading = true
-    @Published var baseCurrency = Currencies.EUR
-    @Published var baseCurrencyIndex = 0 {
-        didSet {  refreshIndex() }
+    @Published var baseCurrency = Currencies.EUR {
+        didSet { fetchRates() }
     }
     
     deinit { cancelable?.cancel() }
@@ -39,7 +38,7 @@ final class MainViewModel: ObservableObject {
     }
     
     func fetchRates() {
-        
+        isLoading  = true
         cancelable = BackendHelper.FetchRatesByBase(base: baseCurrency)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {
@@ -103,9 +102,5 @@ final class MainViewModel: ObservableObject {
                 )
             )
         }
-    }
-    
-    func refreshIndex() {
-        self.baseCurrency = currencyList[baseCurrencyIndex].shortCode
     }
 }
