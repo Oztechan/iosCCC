@@ -15,27 +15,37 @@ struct MainView: View {
     
     var body: some View {
         
-        VStack {
+        NavigationView {
             
-            Text(input)
-            
-            if viewModel.output.isEmpty {
-                Text(viewModel.baseCurrency.description)
-            } else {
-                Text("\(viewModel.output) \(viewModel.baseCurrency.description)")
+            VStack {
+                
+                List (viewModel.currencyList.filter { $0.value != "0.0" && $0.value != "0" },
+                      id: \.self
+                ) {
+                    currency in ItemView(item: currency)
+                }
+                
+                KeyboardView(input: self.$input)
+                
             }
-            List (
-                viewModel.currencyList.filter {
-                    $0.value != "0.0" && $0.value != "0"
+            .edgesIgnoringSafeArea(.bottom)
+            .onAppear { self.viewModel.fetchRates() }
+            .navigationBarItems(
+                leading: NavBarView(
+                    input: $input,
+                    output: $viewModel.output,
+                    baseCurrency: $viewModel.baseCurrency
+                ),
+                trailing: Button(
+                    action: {
                 },
-                id: \.self
-            ) { currency in ItemView(item: currency) }
-            
-            KeyboardView(input: self.$input)
+                    label: {
+                        Text("Settings")
+                }
+                )
+            )
             
         }
-        .onAppear { self.viewModel.fetchRates() }
-        .edgesIgnoringSafeArea(.bottom)
         
     }
     
