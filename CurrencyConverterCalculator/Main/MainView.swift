@@ -12,40 +12,47 @@ struct MainView: View {
     
     @EnvironmentObject var viewModel: MainViewModel
     @State var input = ""
+    @State var isPresented = false
     
     var body: some View {
         
-        NavigationView {
+        VStack {
             
-            VStack {
+            Button(action: { self.isPresented.toggle() }) {
                 
-                List (viewModel.currencyList.filter { $0.value != "0.0" && $0.value != "0" },
-                      id: \.self
-                ) {
-                    currency in ItemView(item: currency)
+                Text(input)
+                
+                if viewModel.output.isEmpty {
+                    Text(viewModel.baseCurrency.description)
+                } else {
+                    Text("\(viewModel.output) \(viewModel.baseCurrency.description)")
                 }
+            }.sheet(isPresented: $isPresented, content: {
+                List (
+                    self.viewModel.currencyList.map {
+                        $0.shortCode
+                    },
+                    id: \.self
+                ) { currency in Text(currency.description).onTapGesture {
+                    self.viewModel.baseCurrency = currency
+                    self.isPresented = false
+                    } }
                 
-                KeyboardView(input: self.$input)
-                
-            }
-            .edgesIgnoringSafeArea(.bottom)
-            .onAppear { self.viewModel.fetchRates() }
-            .navigationBarItems(
-                leading: NavBarView(
-                    input: $input,
-                    output: $viewModel.output,
-                    baseCurrency: $viewModel.baseCurrency
-                ),
-                trailing: Button(
-                    action: {
+            })
+            
+            
+            List (
+                viewModel.currencyList.filter {
+                    $0.value != "0.0" && $0.value != "0"
                 },
-                    label: {
-                        Text("Settings")
-                }
-                )
-            )
+                id: \.self
+            ) { currency in ItemView(item: currency) }
+            
+            KeyboardView(input: self.$input)
             
         }
+        .onAppear { self.viewModel.fetchRates() }
+        .edgesIgnoringSafeArea(.bottom)
         
     }
     
