@@ -16,8 +16,8 @@ final class MainViewModel: ObservableObject {
     private var rates: Rates? = Rates()
     
     var currencyList = [CurrencyItem]()
+    var output = ""
     
-    @Published var output = ""
     @Published var isLoading = true
     @Published var baseCurrency = Currencies.EUR {
         didSet { fetchRates() }
@@ -101,6 +101,14 @@ final class MainViewModel: ObservableObject {
                     imageName: currency.description.lowercased()
                 )
             )
+        }
+    }
+    
+    func getOutputText() -> String {
+        if output.isEmpty {
+            return baseCurrency.description
+        } else {
+            return "\(output) \(baseCurrency.description)"
         }
     }
 }

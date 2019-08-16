@@ -23,23 +23,18 @@ struct MainView: View {
                     self.isPresented.toggle()
             },
                 label: {
-                    Text(input)
-                    
-                    if viewModel.output.isEmpty {
-                        Text(viewModel.baseCurrency.description)
-                    } else {
-                        Text("\(viewModel.output) \(viewModel.baseCurrency.description)")
-                    }
+                    Text(input).font(.headline)
+                    Text(viewModel.getOutputText()).font(.title)
             }
             ).sheet(
                 isPresented: $isPresented,
                 content: {
                     Text("Change the base currency")
                         .padding(.top, 32)
-                    List (self.viewModel.currencyList.map { $0.shortCode }, id: \.self) { currency in
-                        Text(currency.description)
+                    List (self.viewModel.currencyList, id: \.self) { currency in
+                        SelectionView(item: currency)
                             .onTapGesture {
-                                self.viewModel.baseCurrency = currency
+                                self.viewModel.baseCurrency = currency.shortCode
                                 self.isPresented = false
                         }
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C157A6D2306FACA0088E712 /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C157A6C2306FACA0088E712 /* SelectionView.swift */; };
 		5C34764C22F71C56007F9694 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C34764B22F71C56007F9694 /* AppDelegate.swift */; };
 		5C34764E22F71C56007F9694 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C34764D22F71C56007F9694 /* SceneDelegate.swift */; };
 		5C34765122F71C56007F9694 /* CurrencyConverterCalculator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C34764F22F71C56007F9694 /* CurrencyConverterCalculator.xcdatamodeld */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5C157A6C2306FACA0088E712 /* SelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
 		5C34764822F71C56007F9694 /* CurrencyConverterCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyConverterCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C34764B22F71C56007F9694 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C34764D22F71C56007F9694 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				5C3790D422FA184400C8DBE9 /* KeyboardView.swift */,
 				5C3790D622FA243500C8DBE9 /* ItemView.swift */,
 				5C4EE4A822FFF3F4000B898E /* IndicatorView.swift */,
+				5C157A6C2306FACA0088E712 /* SelectionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 				5C82CEA422FDCC420030F72E /* BackendHelper.swift in Sources */,
 				5C3790D322FA098900C8DBE9 /* MainViewModel.swift in Sources */,
 				5C97B62222FCD00C005F62BA /* CurrencyItem.swift in Sources */,
+				5C157A6D2306FACA0088E712 /* SelectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
