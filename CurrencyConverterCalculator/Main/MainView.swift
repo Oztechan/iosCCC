@@ -12,51 +12,21 @@ struct MainView: View {
     
     @EnvironmentObject var viewModel: MainViewModel
     @State var input = ""
-    @State var isPresented = false
     
     var body: some View {
         
         VStack {
             
-            Button(
-                action: {
-                    self.isPresented.toggle()
-                },
-                label: {
-                    Text(input).font(.headline)
-                    Text(viewModel.getOutputText()).font(.title)
-                }
-            ).sheet(
-                isPresented: $isPresented,
-                content: {
-                    NavigationView {
-                        List (self.viewModel.currencyList, id: \.self) { currency in
-                            SelectionView(item: currency)
-                                .onTapGesture {
-                                    self.viewModel.baseCurrency = currency.shortCode
-                                    self.isPresented = false
-                                }
-                                .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-                        }
-                        .navigationBarItems(
-                            trailing: Button(
-                                action: {
-                                    // todo settings will be open here
-                                },
-                                label: { Text("Settings") }
-                            )
-                        )
-                        .navigationBarTitle("Base Currency")
-                    }
-                }
-            )
+            BarView(input: $input)
             
             List (
                 viewModel.currencyList.filter {
-                    $0.value != "0.0" && $0.value != "0"
+                    $0.value != "0.0" &&
+                        $0.value != "0" &&
+                        $0.shortCode != viewModel.baseCurrency
                 },
                 id: \.self
-            ) { currency in ItemView(item: currency) }
+            ) { currency in MainItemView(item: currency) }
             
             KeyboardView(input: self.$input)
             

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ItemView: View {
+struct MainItemView: View {
     
     var item: CurrencyItem
     
@@ -24,9 +24,9 @@ struct ItemView: View {
 }
 
 #if DEBUG
-struct ItemViewPreviews: PreviewProvider {
+struct MainItemViewPreviews: PreviewProvider {
     static var previews: some View {
-        ItemView(item: CurrencyItem(
+        MainItemView(item: CurrencyItem(
             value: "123",
             symbol: "$",
             shortCode: Currencies.USD,
