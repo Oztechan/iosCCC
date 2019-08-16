@@ -18,11 +18,11 @@ struct BarView: View {
         Button(
             action: {
                 self.isPresented.toggle()
-        },
+            },
             label: {
                 Text(input).font(.headline)
                 Text(viewModel.getOutputText()).font(.title)
-        }
+            }
         ).sheet(
             isPresented: $isPresented,
             content: {
@@ -32,20 +32,17 @@ struct BarView: View {
                             .onTapGesture {
                                 self.viewModel.baseCurrency = currency.shortCode
                                 self.isPresented = false
-                        }
-                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+                            }
+                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                     }
                     .navigationBarItems(
-                        trailing: Button(
-                            action: {
-                                // todo settings will be open here
-                        },
-                            label: { Text("Settings") }
-                        )
+                        trailing: NavigationLink(destination: SettingsView()) {
+                            Text("Settings")
+                        }
                     )
-                        .navigationBarTitle("Base Currency")
+                    .navigationBarTitle("Base Currency")
                 }
-        }
+            }
         )
     }
 }

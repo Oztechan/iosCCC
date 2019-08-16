@@ -28,7 +28,7 @@ struct MainView: View {
                 id: \.self
             ) { currency in MainItemView(item: currency) }
             
-            KeyboardView(input: self.$input)
+            KeyboardView(input: $input)
             
         }
         .onAppear { self.viewModel.fetchRates() }
