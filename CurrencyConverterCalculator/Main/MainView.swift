@@ -21,25 +21,34 @@ struct MainView: View {
             Button(
                 action: {
                     self.isPresented.toggle()
-            },
+                },
                 label: {
                     Text(input).font(.headline)
                     Text(viewModel.getOutputText()).font(.title)
-            }
+                }
             ).sheet(
                 isPresented: $isPresented,
                 content: {
-                    Text("Change the base currency")
-                        .padding(.top, 32)
-                    List (self.viewModel.currencyList, id: \.self) { currency in
-                        SelectionView(item: currency)
-                            .onTapGesture {
-                                self.viewModel.baseCurrency = currency.shortCode
-                                self.isPresented = false
+                    NavigationView {
+                        List (self.viewModel.currencyList, id: \.self) { currency in
+                            SelectionView(item: currency)
+                                .onTapGesture {
+                                    self.viewModel.baseCurrency = currency.shortCode
+                                    self.isPresented = false
+                                }
+                                .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                         }
-                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+                        .navigationBarItems(
+                            trailing: Button(
+                                action: {
+                                    // todo settings will be open here
+                                },
+                                label: { Text("Settings") }
+                            )
+                        )
+                        .navigationBarTitle("Base Currency")
                     }
-            }
+                }
             )
             
             List (
@@ -56,7 +65,6 @@ struct MainView: View {
         .edgesIgnoringSafeArea(.bottom)
         
     }
-    
 }
 
 #if DEBUG
