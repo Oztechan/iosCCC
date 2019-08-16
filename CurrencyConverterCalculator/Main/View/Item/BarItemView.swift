@@ -25,9 +25,11 @@ struct BarItemViewPreviews: PreviewProvider {
     static var previews: some View {
         BarItemView(item: CurrencyItem(
             value: "123",
+            name: "Euro",
             symbol: "$",
             shortCode: Currencies.USD,
-            imageName: "dollarsign.circle"
+            imageName: "dollarsign.circle",
+            isActive: true
         ))
         .previewLayout(.fixed(width: 300, height: 60))
     }

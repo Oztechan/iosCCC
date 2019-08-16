@@ -10,6 +10,7 @@
 		5C157A6D2306FACA0088E712 /* BarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C157A6C2306FACA0088E712 /* BarItemView.swift */; };
 		5C157A7223074A440088E712 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C157A7123074A440088E712 /* BarView.swift */; };
 		5C157A7523074C7A0088E712 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C157A7423074C7A0088E712 /* SettingsView.swift */; };
+		5C157A77230751B00088E712 /* SettingsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C157A76230751B00088E712 /* SettingsItemView.swift */; };
 		5C34764C22F71C56007F9694 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C34764B22F71C56007F9694 /* AppDelegate.swift */; };
 		5C34764E22F71C56007F9694 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C34764D22F71C56007F9694 /* SceneDelegate.swift */; };
 		5C34765122F71C56007F9694 /* CurrencyConverterCalculator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C34764F22F71C56007F9694 /* CurrencyConverterCalculator.xcdatamodeld */; };
@@ -35,6 +36,7 @@
 		5C157A6C2306FACA0088E712 /* BarItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarItemView.swift; sourceTree = "<group>"; };
 		5C157A7123074A440088E712 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		5C157A7423074C7A0088E712 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		5C157A76230751B00088E712 /* SettingsItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItemView.swift; sourceTree = "<group>"; };
 		5C34764822F71C56007F9694 /* CurrencyConverterCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyConverterCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C34764B22F71C56007F9694 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C34764D22F71C56007F9694 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				5C157A7423074C7A0088E712 /* SettingsView.swift */,
+				5C157A76230751B00088E712 /* SettingsItemView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				5C82CEA622FDCE510030F72E /* CurrencyResponse.swift in Sources */,
 				5C4EE4A922FFF3F4000B898E /* IndicatorView.swift in Sources */,
 				5C157A7523074C7A0088E712 /* SettingsView.swift in Sources */,
+				5C157A77230751B00088E712 /* SettingsItemView.swift in Sources */,
 				5C3790D522FA184400C8DBE9 /* KeyboardView.swift in Sources */,
 				5C3790D722FA243500C8DBE9 /* MainItemView.swift in Sources */,
 				5C82CEA822FDCFA90030F72E /* Rates.swift in Sources */,

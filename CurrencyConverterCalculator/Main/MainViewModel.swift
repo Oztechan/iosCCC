@@ -96,9 +96,11 @@ final class MainViewModel: ObservableObject {
             self.currencyList.append(
                 CurrencyItem(
                     value: output,
+                    name: "Euro",
                     symbol: "",
                     shortCode: currency,
-                    imageName: currency.description.lowercased()
+                    imageName: currency.description.lowercased(),
+                    isActive: true
                 )
             )
         }

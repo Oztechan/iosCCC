@@ -14,11 +14,12 @@ struct MainItemView: View {
     
     var body: some View {
         HStack {
-            Text(item.value)
-            Text(item.symbol)
+            Image(item.shortCode.description.lowercased())
+            
             Spacer()
             Text(item.shortCode.description)
-            Image(item.shortCode.description.lowercased())
+            Text(item.symbol)
+            
         }
     }
 }
@@ -28,9 +29,11 @@ struct MainItemViewPreviews: PreviewProvider {
     static var previews: some View {
         MainItemView(item: CurrencyItem(
             value: "123",
+            name: "Euro",
             symbol: "$",
             shortCode: Currencies.USD,
-            imageName: "dollarsign.circle"
+            imageName: "dollarsign.circle",
+            isActive: true
         ))
         .previewLayout(.fixed(width: 300, height: 60))
     }
