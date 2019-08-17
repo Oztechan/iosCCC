@@ -30,7 +30,7 @@ struct BarView: View {
                     List (self.viewModel.currencyList, id: \.value) { currency in
                         BarItemView(item: currency)
                             .onTapGesture {
-                                self.viewModel.baseCurrency = currency.name
+                                self.viewModel.baseCurrency = Currencies.withLabel(currency.name)
                                 self.isPresented = false
                             }
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)

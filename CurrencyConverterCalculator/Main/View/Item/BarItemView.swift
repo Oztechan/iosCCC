@@ -13,9 +13,11 @@ struct BarItemView: View {
     
     var body: some View {
         HStack {
-            Image(item.name.stringValue.lowercased())
-            Text(item.name.stringValue)
+            Image(item.name.lowercased())
+            Text(item.name)
+            Text(item.longName)
             Text(item.symbol)
+            Spacer()
         }
     }
 }
@@ -25,7 +27,7 @@ struct BarItemViewPreviews: PreviewProvider {
     static var previews: some View {
         BarItemView(
             item: Currency(
-                name: Currencies.USD,
+                name: Currencies.USD.stringValue,
                 longName: "United StatesDolar",
                 symbol: "$"
             )

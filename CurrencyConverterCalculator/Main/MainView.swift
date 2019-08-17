@@ -23,7 +23,7 @@ struct MainView: View {
                 viewModel.currencyList.filter {
                     $0.value != "0.0" &&
                         $0.value != "0" &&
-                        $0.name != viewModel.baseCurrency
+                        $0.name != viewModel.baseCurrency.stringValue
                 },
                 id: \.value
             ) { currency in MainItemView(item: currency) }

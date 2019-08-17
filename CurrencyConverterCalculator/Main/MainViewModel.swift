@@ -64,7 +64,7 @@ final class MainViewModel: ObservableObject {
         if rates != nil {
             for index in 0..<(currencyList.count) {
                 let rateOfCurrentRow = valueFor(
-                    property: currencyList[index].name.stringValue.lowercased(),
+                    property: currencyList[index].name.lowercased(),
                     of: rates ?? 0.0
                     )as? Double  ?? 0.0
                 let expression = Expression("\(rateOfCurrentRow)*\(output)")
@@ -97,14 +97,11 @@ final class MainViewModel: ObservableObject {
     }
     
     func initList() {
-        Currencies.allCases.forEach { currency in
-            self.currencyList.append(
-                Currency(
-                    name: currency,
-                    longName: currency.stringValue,
-                    symbol: "$"
-                )
-            )
+        InitializationHelper.loadJson(filename: "Currencies")?.forEach { currency in
+            if Currencies.withLabel(currency.name) != Currencies.NULL {
+                self.currencyList.append(currency)
+                
+            }
         }
     }
     

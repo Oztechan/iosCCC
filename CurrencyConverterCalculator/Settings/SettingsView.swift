@@ -13,7 +13,7 @@ struct SettingsView: View {
         
         NavigationView {
             
-            Text("Hello World!")
+            Text("Todo")
             
         }.navigationBarTitle("Settings")
         

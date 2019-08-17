@@ -17,8 +17,8 @@ struct MainItemView: View {
             Text(item.value)
             Text(item.symbol)
             Spacer()
-            Text(item.name.stringValue)
-            Image(item.name.stringValue.lowercased())
+            Text(item.name)
+            Image(item.name.lowercased())
         }
     }
 }
@@ -28,7 +28,7 @@ struct MainItemViewPreviews: PreviewProvider {
     static var previews: some View {
         MainItemView(
             item: Currency(
-                name: Currencies.USD,
+                name: Currencies.USD.stringValue,
                 longName: "United StatesDolar",
                 symbol: "$"
             )

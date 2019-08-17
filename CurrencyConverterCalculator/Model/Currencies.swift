@@ -177,8 +177,15 @@ enum Currencies: CaseIterable {
     case ZMK
     case ZMW
     case ZWL
+    case NULL
     
     var stringValue: String {
         return String(describing: self)
+    }
+    
+    static func withLabel(_ label: String) -> Currencies {
+        return self.allCases.first {
+            "\($0)" == label
+            } ?? NULL
     }
 }
