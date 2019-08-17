@@ -27,7 +27,7 @@ struct BarView: View {
             isPresented: $isPresented,
             content: {
                 NavigationView {
-                    List (self.viewModel.currencyList, id: \.value) { currency in
+                    List (self.viewModel.currencyList, id: \.name) { currency in
                         BarItemView(item: currency)
                             .onTapGesture {
                                 self.viewModel.baseCurrency = Currencies.withLabel(currency.name)
@@ -36,7 +36,7 @@ struct BarView: View {
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                     }
                     .navigationBarItems(
-                        trailing: NavigationLink(destination: SettingsView()) {
+                        trailing: NavigationLink(destination: SettingsView().environmentObject(self.viewModel)) {
                             Text("Settings")
                         }
                     )

@@ -15,7 +15,7 @@ final class MainViewModel: ObservableObject {
     private var cancelable: Cancellable?
     private var rates: Rates? = Rates()
     
-    var currencyList = [Currency]()
+    @Published var currencyList = [Currency]()
     var output = ""
     
     @Published var isLoading = true
@@ -111,5 +111,19 @@ final class MainViewModel: ObservableObject {
         } else {
             return "\(output) \(baseCurrency.stringValue)"
         }
+    }
+    
+    func getFilteredList() -> [Currency] {
+        return currencyList.filter { currency in
+            currency.value != "0.0" &&
+                currency.value != "0" &&
+                currency.name != baseCurrency.stringValue &&
+                Currencies.withLabel(currency.name) != Currencies.NULL &&
+                currency.isActive
+        }
+    }
+    
+    func activateAll(state: Bool) {
+        currencyList.forEach { $0.isActive = state }
     }
 }

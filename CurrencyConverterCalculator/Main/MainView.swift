@@ -19,14 +19,13 @@ struct MainView: View {
             
             BarView(input: $input)
             
-            List (
-                viewModel.currencyList.filter {
-                    $0.value != "0.0" &&
-                        $0.value != "0" &&
-                        $0.name != viewModel.baseCurrency.stringValue
-                },
-                id: \.value
-            ) { currency in MainItemView(item: currency) }
+            if viewModel.isLoading {
+                IndicatorView()
+            } else {
+                List (viewModel.getFilteredList(), id: \.value) { currency in
+                    MainItemView(item: currency)
+                }
+            }
             
             KeyboardView(input: $input)
             
