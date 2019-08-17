@@ -27,10 +27,10 @@ struct BarView: View {
             isPresented: $isPresented,
             content: {
                 NavigationView {
-                    List (self.viewModel.currencyList, id: \.self) { currency in
+                    List (self.viewModel.currencyList, id: \.value) { currency in
                         BarItemView(item: currency)
                             .onTapGesture {
-                                self.viewModel.baseCurrency = currency.shortCode
+                                self.viewModel.baseCurrency = currency.name
                                 self.isPresented = false
                             }
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)

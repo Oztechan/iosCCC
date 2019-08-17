@@ -178,7 +178,7 @@ enum Currencies: CaseIterable {
     case ZMW
     case ZWL
     
-    var description: String {
+    var stringValue: String {
         return String(describing: self)
     }
 }

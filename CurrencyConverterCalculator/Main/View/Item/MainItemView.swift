@@ -10,16 +10,15 @@ import SwiftUI
 
 struct MainItemView: View {
     
-    var item: CurrencyItem
+    var item: Currency
     
     var body: some View {
         HStack {
-            Image(item.shortCode.description.lowercased())
-            
-            Spacer()
-            Text(item.shortCode.description)
+            Text(item.value)
             Text(item.symbol)
-            
+            Spacer()
+            Text(item.name.stringValue)
+            Image(item.name.stringValue.lowercased())
         }
     }
 }
@@ -27,14 +26,13 @@ struct MainItemView: View {
 #if DEBUG
 struct MainItemViewPreviews: PreviewProvider {
     static var previews: some View {
-        MainItemView(item: CurrencyItem(
-            value: "123",
-            name: "Euro",
-            symbol: "$",
-            shortCode: Currencies.USD,
-            imageName: "dollarsign.circle",
-            isActive: true
-        ))
+        MainItemView(
+            item: Currency(
+                name: Currencies.USD,
+                longName: "United StatesDolar",
+                symbol: "$"
+            )
+        )
         .previewLayout(.fixed(width: 300, height: 60))
     }
 }

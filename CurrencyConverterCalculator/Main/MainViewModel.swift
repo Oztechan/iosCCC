@@ -15,7 +15,7 @@ final class MainViewModel: ObservableObject {
     private var cancelable: Cancellable?
     private var rates: Rates? = Rates()
     
-    var currencyList = [CurrencyItem]()
+    var currencyList = [Currency]()
     var output = ""
     
     @Published var isLoading = true
@@ -30,7 +30,12 @@ final class MainViewModel: ObservableObject {
         let expression = Expression(input.replacingOccurrences(of: "%", with: "/100*"))
         do {
             let result = try expression.evaluate()
-            output = String(result)
+            if String(result) == "inf" {
+                output =  ""
+            } else {
+                output = String(result)
+            }
+            
         } catch {
             output = ""
         }
@@ -59,7 +64,7 @@ final class MainViewModel: ObservableObject {
         if rates != nil {
             for index in 0..<(currencyList.count) {
                 let rateOfCurrentRow = valueFor(
-                    property: currencyList[index].shortCode.description.lowercased(),
+                    property: currencyList[index].name.stringValue.lowercased(),
                     of: rates ?? 0.0
                     )as? Double  ?? 0.0
                 let expression = Expression("\(rateOfCurrentRow)*\(output)")
@@ -94,13 +99,10 @@ final class MainViewModel: ObservableObject {
     func initList() {
         Currencies.allCases.forEach { currency in
             self.currencyList.append(
-                CurrencyItem(
-                    value: output,
-                    name: "Euro",
-                    symbol: "",
-                    shortCode: currency,
-                    imageName: currency.description.lowercased(),
-                    isActive: true
+                Currency(
+                    name: currency,
+                    longName: currency.stringValue,
+                    symbol: "$"
                 )
             )
         }
@@ -108,9 +110,9 @@ final class MainViewModel: ObservableObject {
     
     func getOutputText() -> String {
         if output.isEmpty {
-            return baseCurrency.description
+            return baseCurrency.stringValue
         } else {
-            return "\(output) \(baseCurrency.description)"
+            return "\(output) \(baseCurrency.stringValue)"
         }
     }
 }

@@ -23,9 +23,9 @@ struct MainView: View {
                 viewModel.currencyList.filter {
                     $0.value != "0.0" &&
                         $0.value != "0" &&
-                        $0.shortCode != viewModel.baseCurrency
+                        $0.name != viewModel.baseCurrency
                 },
-                id: \.self
+                id: \.value
             ) { currency in MainItemView(item: currency) }
             
             KeyboardView(input: $input)

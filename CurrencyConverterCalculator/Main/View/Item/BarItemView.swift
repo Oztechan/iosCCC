@@ -9,12 +9,12 @@
 import SwiftUI
 
 struct BarItemView: View {
-    var item: CurrencyItem
+    var item: Currency
     
     var body: some View {
         HStack {
-            Image(item.shortCode.description.lowercased())
-            Text(item.shortCode.description)
+            Image(item.name.stringValue.lowercased())
+            Text(item.name.stringValue)
             Text(item.symbol)
         }
     }
@@ -23,14 +23,13 @@ struct BarItemView: View {
 #if DEBUG
 struct BarItemViewPreviews: PreviewProvider {
     static var previews: some View {
-        BarItemView(item: CurrencyItem(
-            value: "123",
-            name: "Euro",
-            symbol: "$",
-            shortCode: Currencies.USD,
-            imageName: "dollarsign.circle",
-            isActive: true
-        ))
+        BarItemView(
+            item: Currency(
+                name: Currencies.USD,
+                longName: "United StatesDolar",
+                symbol: "$"
+            )
+        )
         .previewLayout(.fixed(width: 300, height: 60))
     }
 }
