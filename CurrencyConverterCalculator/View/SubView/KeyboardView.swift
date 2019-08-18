@@ -30,13 +30,18 @@ struct KeyboardView: View {
                             action: {
                                 self.input = item.operateAction(input: self.$input.value)
                                 self.viewModel.calculateOutput(input: self.input)
-                            },
+                        },
                             label: {
                                 Text(item.rawValue)
                                     .font(.title)
                                     .bold()
-                                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-                            }
+                                    .frame(
+                                        minWidth: 0,
+                                        maxWidth: .infinity,
+                                        minHeight: 0,
+                                        maxHeight: .infinity
+                                )
+                        }
                         )
                     }
                 }
@@ -49,6 +54,8 @@ struct KeyboardView: View {
 struct KeyboardViewPreviews: PreviewProvider {
     static var previews: some View {
         KeyboardView(input: .constant("123"))
+            .environmentObject(MainViewModel())
+            .previewLayout(.fixed(width: 300, height: 500))
     }
 }
 #endif

@@ -14,12 +14,16 @@ struct SettingsItemView: View {
     var body: some View {
         HStack {
             Image(item.name.lowercased())
-            Text(item.name)
-            Text(item.longName)
-            Text(item.symbol)
+            Text(item.name).frame(width: 45)
+            Text(item.longName).font(.footnote)
+            Text(item.symbol).font(.footnote)
             Spacer()
-            Toggle(isOn: $item.isActive) { EmptyView() }.padding()
+            Toggle(isOn: $item.isActive) { EmptyView() }
         }
+        .onTapGesture {
+            self.item.isActive = !self.item.isActive
+        }
+        .lineLimit(1)
     }
 }
 
@@ -35,7 +39,7 @@ struct SettingsItemViewPreviews: PreviewProvider {
                 )
             )
         )
-        .previewLayout(.fixed(width: 300, height: 60))
+            .previewLayout(.fixed(width: 300, height: 36))
     }
 }
 #endif

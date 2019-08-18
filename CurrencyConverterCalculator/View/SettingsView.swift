@@ -19,15 +19,15 @@ struct SettingsView: View {
                 SettingsItemView(item: $0)
             }.navigationBarItems(
                 leading: Button(
-                    action: { self.viewModel.activateAll(state: true) },
+                    action: { self.viewModel.changeAllStates(state: true) },
                     label: { Text("Select All") }
                 ),
                 trailing: Button(
-                    action: { self.viewModel.activateAll(state: false) },
+                    action: { self.viewModel.changeAllStates(state: false) },
                     label: { Text("Deselect All") }
                 )
             )
-            .navigationBarTitle("Settings")
+                .navigationBarTitle("Settings")
             
         }
     }
@@ -36,7 +36,8 @@ struct SettingsView: View {
 #if DEBUG
 struct SettingsViewPreviews: PreviewProvider {
     static var previews: some View {
-        SettingsView().environmentObject(MainViewModel())
+        SettingsView()
+            .environmentObject(MainViewModel())
     }
 }
 #endif

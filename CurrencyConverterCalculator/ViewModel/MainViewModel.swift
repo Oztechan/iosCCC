@@ -25,16 +25,19 @@ final class MainViewModel: ObservableObject {
     
     deinit { cancelable?.cancel() }
     
+    func setBaseCurrency(base: String) {
+        baseCurrency = Currencies.withLabel(base)
+    }
+    
     func calculateOutput(input: String) {
         isLoading = true
         let expression = Expression(input.replacingOccurrences(of: "%", with: "/100*"))
         do {
             let result = try expression.evaluate()
-            if String(result) == "inf" {
-                output =  ""
-            } else {
-                output = String(result)
-            }
+            
+            output = String(result)
+                .replacingOccurrences(of: "inf", with: "")
+                .replacingOccurrences(of: "NULL", with: "")
             
         } catch {
             output = ""
@@ -109,7 +112,7 @@ final class MainViewModel: ObservableObject {
         if output.isEmpty {
             return baseCurrency.stringValue
         } else {
-            return "\(output) \(baseCurrency.stringValue)"
+            return "\(output) \(baseCurrency.stringValue.replacingOccurrences(of: "NULL", with: ""))"
         }
     }
     
@@ -123,7 +126,14 @@ final class MainViewModel: ObservableObject {
         }
     }
     
-    func activateAll(state: Bool) {
+    func changeAllStates(state: Bool) {
+        if !state {
+            baseCurrency = Currencies.NULL
+        } else {
+            if baseCurrency == Currencies.NULL {
+                baseCurrency = Currencies.EUR
+            }
+        }
         currencyList.forEach { $0.isActive = state }
     }
 }

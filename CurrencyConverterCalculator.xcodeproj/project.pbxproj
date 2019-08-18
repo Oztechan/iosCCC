@@ -94,16 +94,6 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		5C2CA83F22F720E00037BE10 /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				5C3790CD22FA03E800C8DBE9 /* SubViews */,
-				5C34765222F71C56007F9694 /* MainView.swift */,
-				5C3790D222FA098900C8DBE9 /* MainViewModel.swift */,
-			);
-			path = Main;
-			sourceTree = "<group>";
-		};
 		5C2CA84022F720F90037BE10 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,7 +128,8 @@
 			children = (
 				5C2CA83E22F720CD0037BE10 /* App */,
 				5CF75F0E22FB5F6E0024EB77 /* Model */,
-				5C2CA83F22F720E00037BE10 /* Main */,
+				5CCF64012309B11D001E4E32 /* View */,
+				5CCF64022309B144001E4E32 /* ViewModel */,
 				5C82CEA222FDCC1F0030F72E /* Util */,
 				5C2CA84022F720F90037BE10 /* Resources */,
 				5C34765622F71C56007F9694 /* Preview Content */,
@@ -154,18 +145,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		5C3790CD22FA03E800C8DBE9 /* SubViews */ = {
-			isa = PBXGroup;
-			children = (
-				5C157A6E230749050088E712 /* Item */,
-				5C4EE4A822FFF3F4000B898E /* IndicatorView.swift */,
-				5C3790D422FA184400C8DBE9 /* KeyboardView.swift */,
-				5C2F6E9623089BCB00FD9D31 /* SettingsView.swift */,
-				5C157A7123074A440088E712 /* BarView.swift */,
-			);
-			path = SubViews;
-			sourceTree = "<group>";
-		};
 		5C82CEA222FDCC1F0030F72E /* Util */ = {
 			isa = PBXGroup;
 			children = (
@@ -173,6 +152,35 @@
 				5CDB1E7E230863E600CB9332 /* InitializationHelper.swift */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		5CCF64012309B11D001E4E32 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5CCF64032309B18B001E4E32 /* SubView */,
+				5C157A6E230749050088E712 /* Item */,
+				5C34765222F71C56007F9694 /* MainView.swift */,
+				5C157A7123074A440088E712 /* BarView.swift */,
+				5C2F6E9623089BCB00FD9D31 /* SettingsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5CCF64022309B144001E4E32 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				5C3790D222FA098900C8DBE9 /* MainViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		5CCF64032309B18B001E4E32 /* SubView */ = {
+			isa = PBXGroup;
+			children = (
+				5C3790D422FA184400C8DBE9 /* KeyboardView.swift */,
+				5C4EE4A822FFF3F4000B898E /* IndicatorView.swift */,
+			);
+			path = SubView;
 			sourceTree = "<group>";
 		};
 		5CF75F0E22FB5F6E0024EB77 /* Model */ = {

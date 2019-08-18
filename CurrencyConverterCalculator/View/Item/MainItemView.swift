@@ -1,38 +1,39 @@
 //
-//  SelectionView.swift
+//  ItemView.swift
 //  CurrencyConverterCalculator
 //
-//  Created by Mustafa Ozhan on 16/08/2019.
+//  Created by Mustafa Ozhan on 06/08/2019.
 //  Copyright © 2019 Mustafa Ozhan. All rights reserved.
 //
 
 import SwiftUI
 
-struct BarItemView: View {
+struct MainItemView: View {
+    
     var item: Currency
     
     var body: some View {
         HStack {
-            Image(item.name.lowercased())
-            Text(item.name)
-            Text(item.longName)
+            Text(item.value)
             Text(item.symbol)
             Spacer()
+            Text(item.name)
+            Image(item.name.lowercased())
         }
     }
 }
 
 #if DEBUG
-struct BarItemViewPreviews: PreviewProvider {
+struct MainItemViewPreviews: PreviewProvider {
     static var previews: some View {
-        BarItemView(
+        MainItemView(
             item: Currency(
                 name: Currencies.USD.stringValue,
                 longName: "United StatesDolar",
                 symbol: "$"
             )
         )
-        .previewLayout(.fixed(width: 300, height: 60))
+            .previewLayout(.fixed(width: 300, height: 60))
     }
 }
 #endif

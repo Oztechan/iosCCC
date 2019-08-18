@@ -18,7 +18,8 @@ struct IndicatorView: View {
                 parentSize: geometry.size,
                 size: self.$size
             )
-        }.frame(height: size.height)
+        }
+        .frame(height: size.height)
     }
     
     struct InnerView: UIViewRepresentable {
@@ -48,6 +49,7 @@ struct IndicatorViewPreviews: PreviewProvider {
     
     static var previews: some View {
         IndicatorView()
+            .previewLayout(.fixed(width: 60, height: 60))
     }
 }
 #endif

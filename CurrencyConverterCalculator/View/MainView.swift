@@ -21,10 +21,10 @@ struct MainView: View {
             
             if viewModel.isLoading {
                 IndicatorView()
-            } else {
-                List (viewModel.getFilteredList(), id: \.value) { currency in
-                    MainItemView(item: currency)
-                }
+            }
+            
+            List (viewModel.getFilteredList(), id: \.value) { currency in
+                MainItemView(item: currency)
             }
             
             KeyboardView(input: $input)
