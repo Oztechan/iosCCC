@@ -15,7 +15,7 @@ struct SettingsView: View {
     var body: some View {
         
         NavigationView {
-            List($viewModel.currencyList) {
+            List(viewModel.currencyList) {
                 SettingsItemView(item: $0)
             }.navigationBarItems(
                 leading: Button(
@@ -28,7 +28,6 @@ struct SettingsView: View {
                 )
             )
                 .navigationBarTitle("Settings")
-            
         }
     }
 }

@@ -28,7 +28,7 @@ struct KeyboardView: View {
                     ForEach(items, id: \.self) { item in
                         Button(
                             action: {
-                                self.input = item.operateAction(input: self.$input.value)
+                                self.input = item.operateAction(input: self.$input.wrappedValue)
                                 self.viewModel.calculateOutput(input: self.input)
                         },
                             label: {

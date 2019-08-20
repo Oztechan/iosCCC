@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SettingsItemView: View {
-    @Binding var item: Currency
+    @State var item: Currency
     
     var body: some View {
         HStack {
@@ -30,13 +30,11 @@ struct SettingsItemView: View {
 #if DEBUG
 struct SettingsItemViewPreviews: PreviewProvider {
     static var previews: some View {
-        SettingsItemView(
-            item: .constant(
-                Currency(
-                    name: Currencies.USD.stringValue,
-                    longName: "United StatesDolar",
-                    symbol: "$"
-                )
+        SettingsItemView(item:
+            Currency(
+                name: Currencies.USD.stringValue,
+                longName: "United StatesDolar",
+                symbol: "$"
             )
         )
             .previewLayout(.fixed(width: 300, height: 36))
