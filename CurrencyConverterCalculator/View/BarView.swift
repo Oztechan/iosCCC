@@ -24,7 +24,6 @@ struct BarView: View {
                 Text(viewModel.getOutputText()).font(.title)
                 Image(viewModel.baseCurrency.stringValue.lowercased())
             }
-            
         }
         .lineLimit(1)
         .onTapGesture {

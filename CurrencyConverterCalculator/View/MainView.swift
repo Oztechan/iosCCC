@@ -15,23 +15,34 @@ struct MainView: View {
     
     var body: some View {
         
-        VStack {
+        NavigationView {
             
-            BarView(input: $input)
-            
-            if viewModel.isLoading {
-                IndicatorView()
+            VStack {
+                
+                if viewModel.isLoading {
+                    IndicatorView()
+                }
+                
+                List (viewModel.getFilteredList(), id: \.value) { currency in
+                    MainItemView(item: currency)
+                }
+                
+                KeyboardView(input: $input)
+                
             }
-            
-            List (viewModel.getFilteredList(), id: \.value) { currency in
-                MainItemView(item: currency)
-            }
-            
-            KeyboardView(input: $input)
-            
+            .navigationBarTitle(Text(viewModel.output).font(.footnote))
+            .navigationBarItems(
+                leading: HStack {
+                    Image(viewModel.baseCurrency.stringValue.lowercased())
+                    Text("\(viewModel.baseCurrency.stringValue) \(input)").font(.caption)
+                },
+                trailing: Button(
+                    action: {},
+                    label: { Text("Settings") }
+                )
+            )
         }
         .onAppear { self.viewModel.fetchRates() }
-        .edgesIgnoringSafeArea(.bottom)
         
     }
 }
