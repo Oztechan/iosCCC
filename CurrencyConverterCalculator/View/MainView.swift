@@ -12,37 +12,60 @@ struct MainView: View {
     
     @EnvironmentObject var viewModel: MainViewModel
     @State var input = ""
+    @State var isPresented = false
     
     var body: some View {
         
-        NavigationView {
+        NavigationView{
+        VStack {
             
-            VStack {
-                
-                if viewModel.isLoading {
-                    IndicatorView()
-                }
-                
-                List (viewModel.getFilteredList(), id: \.value) { currency in
-                    MainItemView(item: currency)
-                }
-                
-                KeyboardView(input: $input)
-                
-            }
-            .navigationBarTitle(Text(viewModel.output).font(.footnote))
-            .navigationBarItems(
-                leading: HStack {
+            HStack {
+                HStack {
                     Image(viewModel.baseCurrency.stringValue.lowercased())
-                    Text("\(viewModel.baseCurrency.stringValue) \(input)").font(.caption)
-                },
-                trailing: Button(
-                    action: {},
-                    label: { Text("Settings") }
-                )
-            )
+                    Text(input)
+                    Text(viewModel.baseCurrency.stringValue)
+                }.onTapGesture {
+                    self.isPresented.toggle()
+                }
+                
+                Spacer()
+                NavigationLink(destination: SettingsView().environmentObject(self.viewModel)) {
+                    Text("Settings")
+                }
+            }.padding()
+            
+            if viewModel.isLoading {
+                IndicatorView()
+            }
+            
+            List (viewModel.getFilteredList(), id: \.value) { currency in
+                MainItemView(item: currency)
+            }
+            
+            KeyboardView(input: $input)
+            
+        }.navigationBarHidden(true).edgesIgnoringSafeArea(.top)
+        
+        .sheet(
+            isPresented: $isPresented,
+            content: {
+                NavigationView {
+                    List(self.viewModel.currencyList.filter { $0.isActive }, id: \.name) { currency in
+                        BarItemView(item: currency)
+                            .onTapGesture {
+                                self.viewModel.baseCurrency = Currencies.withLabel(currency.name)
+                                self.isPresented = false
+                        }
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+                        
+                    }
+                    .navigationBarTitle("Base Currency")
+                    
+                }
         }
-        .onAppear { self.viewModel.fetchRates() }
+        )
+        
+        }.onAppear { self.viewModel.fetchRates() }
         
     }
 }

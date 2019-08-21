@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5C157A6D2306FACA0088E712 /* BarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C157A6C2306FACA0088E712 /* BarItemView.swift */; };
-		5C157A7223074A440088E712 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C157A7123074A440088E712 /* BarView.swift */; };
 		5C2F6E9723089BCB00FD9D31 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2F6E9623089BCB00FD9D31 /* SettingsView.swift */; };
 		5C2F6E9A23089C1300FD9D31 /* SettingsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2F6E9923089C1300FD9D31 /* SettingsItemView.swift */; };
 		5C34764C22F71C56007F9694 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C34764B22F71C56007F9694 /* AppDelegate.swift */; };
@@ -30,13 +29,13 @@
 		5C82CEAA22FDD5020030F72E /* Currencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C82CEA922FDD5020030F72E /* Currencies.swift */; };
 		5C97B62222FCD00C005F62BA /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C97B62122FCD00C005F62BA /* Currency.swift */; };
 		5CDB1E7F230863E600CB9332 /* InitializationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDB1E7E230863E600CB9332 /* InitializationHelper.swift */; };
+		5CEE59FE230DD3AB0007F300 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEE59FD230DD3AB0007F300 /* BarView.swift */; };
 		5CF436832308126000164126 /* Currencies.json in Resources */ = {isa = PBXBuildFile; fileRef = 5CF436822308126000164126 /* Currencies.json */; };
 		5CF75F1022FB5F910024EB77 /* KeyboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF75F0F22FB5F910024EB77 /* KeyboardItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5C157A6C2306FACA0088E712 /* BarItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarItemView.swift; sourceTree = "<group>"; };
-		5C157A7123074A440088E712 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		5C2F6E9623089BCB00FD9D31 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5C2F6E9923089C1300FD9D31 /* SettingsItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItemView.swift; sourceTree = "<group>"; };
 		5C34764822F71C56007F9694 /* CurrencyConverterCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyConverterCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,6 +58,7 @@
 		5C82CEA922FDD5020030F72E /* Currencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currencies.swift; sourceTree = "<group>"; };
 		5C97B62122FCD00C005F62BA /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		5CDB1E7E230863E600CB9332 /* InitializationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializationHelper.swift; sourceTree = "<group>"; };
+		5CEE59FD230DD3AB0007F300 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		5CF436822308126000164126 /* Currencies.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Currencies.json; sourceTree = "<group>"; };
 		5CF75F0F22FB5F910024EB77 /* KeyboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -160,7 +160,6 @@
 				5CCF64032309B18B001E4E32 /* SubView */,
 				5C157A6E230749050088E712 /* Item */,
 				5C34765222F71C56007F9694 /* MainView.swift */,
-				5C157A7123074A440088E712 /* BarView.swift */,
 				5C2F6E9623089BCB00FD9D31 /* SettingsView.swift */,
 			);
 			path = View;
@@ -179,6 +178,7 @@
 			children = (
 				5C3790D422FA184400C8DBE9 /* KeyboardView.swift */,
 				5C4EE4A822FFF3F4000B898E /* IndicatorView.swift */,
+				5CEE59FD230DD3AB0007F300 /* BarView.swift */,
 			);
 			path = SubView;
 			sourceTree = "<group>";
@@ -297,6 +297,7 @@
 			files = (
 				5C34765122F71C56007F9694 /* CurrencyConverterCalculator.xcdatamodeld in Sources */,
 				5CDB1E7F230863E600CB9332 /* InitializationHelper.swift in Sources */,
+				5CEE59FE230DD3AB0007F300 /* BarView.swift in Sources */,
 				5CF75F1022FB5F910024EB77 /* KeyboardItem.swift in Sources */,
 				5C2F6E9723089BCB00FD9D31 /* SettingsView.swift in Sources */,
 				5C34764C22F71C56007F9694 /* AppDelegate.swift in Sources */,
@@ -306,7 +307,6 @@
 				5C3790D522FA184400C8DBE9 /* KeyboardView.swift in Sources */,
 				5C3790D722FA243500C8DBE9 /* MainItemView.swift in Sources */,
 				5C82CEA822FDCFA90030F72E /* Rates.swift in Sources */,
-				5C157A7223074A440088E712 /* BarView.swift in Sources */,
 				5C34765322F71C56007F9694 /* MainView.swift in Sources */,
 				5C82CEAA22FDD5020030F72E /* Currencies.swift in Sources */,
 				5C34764E22F71C56007F9694 /* SceneDelegate.swift in Sources */,
