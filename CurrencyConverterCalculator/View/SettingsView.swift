@@ -14,21 +14,28 @@ struct SettingsView: View {
     
     var body: some View {
         
-        NavigationView {
-            List(viewModel.currencyList) {
-                SettingsItemView(item: $0)
-            }.navigationBarItems(
-                leading: Button(
+        VStack {
+            
+            HStack {
+                
+                Spacer()
+                
+                Button(
                     action: { self.viewModel.changeAllStates(state: true) },
                     label: { Text("Select All") }
-                ),
-                trailing: Button(
+                )
+                
+                Button(
                     action: { self.viewModel.changeAllStates(state: false) },
                     label: { Text("Deselect All") }
                 )
-            )
-                .navigationBarTitle("Settings")
-        }
+                
+            }
+            
+            List(viewModel.currencyList) {
+                SettingsItemView(item: $0)
+            }
+        }.padding()
     }
 }
 
