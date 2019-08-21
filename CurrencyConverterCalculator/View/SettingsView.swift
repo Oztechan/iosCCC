@@ -5,7 +5,6 @@
 //  Created by Mustafa Ozhan on 17/08/2019.
 //  Copyright © 2019 Mustafa Ozhan. All rights reserved.
 //
-
 import SwiftUI
 
 struct SettingsView: View {
@@ -14,28 +13,21 @@ struct SettingsView: View {
     
     var body: some View {
         
-        VStack {
-            
-            HStack {
-                
-                Spacer()
-                
-                Button(
+        NavigationView {
+            List(viewModel.currencyList) {
+                SettingsItemView(item: $0)
+            }.navigationBarItems(
+                leading: Button(
                     action: { self.viewModel.changeAllStates(state: true) },
                     label: { Text("Select All") }
-                )
-                
-                Button(
+                ),
+                trailing: Button(
                     action: { self.viewModel.changeAllStates(state: false) },
                     label: { Text("Deselect All") }
                 )
-                
-            }
-            
-            List(viewModel.currencyList) {
-                SettingsItemView(item: $0)
-            }
-        }.padding()
+            )
+                .navigationBarTitle("Settings")
+        }
     }
 }
 

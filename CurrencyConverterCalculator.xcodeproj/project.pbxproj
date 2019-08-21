@@ -160,6 +160,7 @@
 				5CCF64032309B18B001E4E32 /* SubView */,
 				5C157A6E230749050088E712 /* Item */,
 				5C34765222F71C56007F9694 /* MainView.swift */,
+				5CEE59FD230DD3AB0007F300 /* BarView.swift */,
 				5C2F6E9623089BCB00FD9D31 /* SettingsView.swift */,
 			);
 			path = View;
@@ -178,7 +179,6 @@
 			children = (
 				5C3790D422FA184400C8DBE9 /* KeyboardView.swift */,
 				5C4EE4A822FFF3F4000B898E /* IndicatorView.swift */,
-				5CEE59FD230DD3AB0007F300 /* BarView.swift */,
 			);
 			path = SubView;
 			sourceTree = "<group>";
