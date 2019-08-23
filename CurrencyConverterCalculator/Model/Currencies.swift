@@ -183,7 +183,7 @@ enum Currencies: CaseIterable {
         return String(describing: self)
     }
     
-    static func withLabel(_ label: String) -> Currencies {
+    static func withLabel(_ label: String?) -> Currencies {
         return self.allCases.first {
             "\($0)" == label
             } ?? NULL

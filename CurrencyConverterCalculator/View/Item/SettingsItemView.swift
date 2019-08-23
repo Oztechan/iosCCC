@@ -26,8 +26,8 @@ struct SettingsItemView: View {
 #if DEBUG
 struct SettingsItemViewPreviews: PreviewProvider {
     static var previews: some View {
-        SettingsItemView(item:
-            Currency(
+        SettingsItemView(
+            item: Currency(
                 name: Currencies.USD.stringValue,
                 longName: "United StatesDolar",
                 symbol: "$"
