@@ -19,9 +19,6 @@ struct SettingsItemView: View {
             Spacer()
             Toggle(isOn: $item.isActive) { EmptyView() }
         }
-        .onTapGesture {
-            self.item.isActive = !self.item.isActive
-        }
         .lineLimit(1)
     }
 }

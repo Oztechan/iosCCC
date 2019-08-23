@@ -33,7 +33,10 @@ struct BarView: View {
             content: {
                 NavigationView {
                     
-                    List(self.viewModel.currencyList.filter { $0.isActive }, id: \.name) { currency in
+                    List(self.viewModel.currencyList.filter {
+                        $0.isActive &&
+                            $0.name != self.viewModel.baseCurrency.stringValue
+                    }, id: \.name) { currency in
                         
                         BarItemView(item: currency)
                             .onTapGesture {
