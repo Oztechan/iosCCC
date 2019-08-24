@@ -25,13 +25,7 @@ struct MainItemView: View {
 #if DEBUG
 struct MainItemViewPreviews: PreviewProvider {
     static var previews: some View {
-        MainItemView(
-            item: Currency(
-                name: Currencies.USD.stringValue,
-                longName: "United StatesDolar",
-                symbol: "$"
-            )
-        )
+        MainItemView(item: Currency() )
             .previewLayout(.fixed(width: 300, height: 60))
     }
 }

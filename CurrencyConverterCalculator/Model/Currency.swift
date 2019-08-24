@@ -9,35 +9,54 @@
 import Foundation
 import CoreData
 
-public class Currency: Identifiable, Codable {
-    var name: String
-    var longName: String
-    var symbol: String
-    var value: String = "0.0"
-    var isActive: Bool = true
-
+public class Currency: NSManagedObject, Identifiable, Codable {
+    
     private enum CodingKeys: String, CodingKey {
         case name
         case longName
         case symbol
+        case value
+        case isActive
     }
     
-    init(
-        name: String,
-        longName: String,
-        symbol: String
-    ) {
-        self.name = name
-        self.longName = value
-        self.symbol = symbol
-    }
+    // MARK: - Core Data Managed Object
+    @NSManaged var name: String
+    @NSManaged var longName: String
+    @NSManaged var symbol: String
+    @NSManaged var value: String
+    @NSManaged var isActive: Bool
     
-    required public init(from decoder: Decoder) throws {
+    // MARK: - Decodable
+    required convenience public init(from decoder: Decoder) throws {
+        guard let codingUserInfoKeyManagedObjectContext = CodingUserInfoKey.managedObjectContext,
+            let managedObjectContext = decoder.userInfo[codingUserInfoKeyManagedObjectContext] as? NSManagedObjectContext,
+            let entity = NSEntityDescription.entity(forEntityName: "Currency", in: managedObjectContext) else {
+            fatalError("Failed to decode Currency")
+        }
+        
+        self.init(entity: entity, insertInto: managedObjectContext)
+        
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        name = try container.decode(String.self, forKey: .name)
-        longName = try container.decode(String.self, forKey: .longName)
-        symbol = try container.decode(String.self, forKey: .symbol)
-        value = "0.0"
-        isActive =  true
+        self.name = try container.decode(String.self, forKey: .name)
+        self.longName = try container.decode(String.self, forKey: .longName)
+        self.symbol = try container.decode(String.self, forKey: .symbol)
+        self.value = "0.0"
+        self.isActive =  true
     }
+    
+    // MARK: - Encodable
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(longName, forKey: .longName)
+        try container.encode(symbol, forKey: .symbol)
+        try container.encode(value, forKey: .value)
+        try container.encode(isActive, forKey: .isActive)
+    }
+
+}
+
+public extension CodingUserInfoKey {
+    // Helper property to retrieve the context
+    static let managedObjectContext = CodingUserInfoKey(rawValue: "managedObjectContext")
 }

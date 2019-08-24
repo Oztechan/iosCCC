@@ -25,13 +25,7 @@ struct BarItemView: View {
 #if DEBUG
 struct BarItemViewPreviews: PreviewProvider {
     static var previews: some View {
-        BarItemView(
-            item: Currency(
-                name: Currencies.USD.stringValue,
-                longName: "United StatesDolar",
-                symbol: "$"
-            )
-        )
+        BarItemView(item: Currency())
             .previewLayout(.fixed(width: 300, height: 60))
     }
 }
