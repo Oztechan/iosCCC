@@ -34,7 +34,7 @@ final class MainViewModel: ObservableObject {
         do {
             let result = try expression.evaluate()
             
-            output = String(result)
+            output = String(format: "%.3f", result)
                 .replacingOccurrences(of: "inf", with: "")
                 .replacingOccurrences(of: "NULL", with: "")
             
@@ -72,7 +72,7 @@ final class MainViewModel: ObservableObject {
                 let expression = Expression("\(rateOfCurrentRow)*\(output)")
                 do {
                     let result = try expression.evaluate()
-                    currencyList[index].value = String(result)
+                    currencyList[index].value = String(format: "%.3f", result)
                 } catch {
                     currencyList[index].value = "0"
                 }

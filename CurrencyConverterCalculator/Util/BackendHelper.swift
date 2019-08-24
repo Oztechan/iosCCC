@@ -31,6 +31,6 @@ class BackendHelper {
     
     static func getBackendUrl() -> String {
         return (Bundle.main.infoDictionary?["Backend Url"] as? String)?
-            .replacingOccurrences(of: "\\", with: "") ?? "Here should be backedn url, can not be public"
+            .replacingOccurrences(of: "\\", with: "") ?? "Here should be backend url, it can not be public"
     }
 }
