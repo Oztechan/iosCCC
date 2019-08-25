@@ -88,7 +88,6 @@
 			children = (
 				5C157A6C2306FACA0088E712 /* BarItemView.swift */,
 				5C3790D622FA243500C8DBE9 /* MainItemView.swift */,
-				5C2F6E9923089C1300FD9D31 /* SettingsItemView.swift */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -134,11 +133,11 @@
 		5C34764A22F71C56007F9694 /* CurrencyConverterCalculator */ = {
 			isa = PBXGroup;
 			children = (
-				5CCA74822311D17E00CFF721 /* Extensions */,
 				5C2CA83E22F720CD0037BE10 /* App */,
 				5CF75F0E22FB5F6E0024EB77 /* Model */,
-				5CCF64012309B11D001E4E32 /* View */,
-				5CCF64022309B144001E4E32 /* ViewModel */,
+				5CCA74892312E47C00CFF721 /* Main */,
+				5CCA748A2312E48200CFF721 /* Settings */,
+				5CCA74822311D17E00CFF721 /* Extensions */,
 				5C82CEA222FDCC1F0030F72E /* Util */,
 				5C2CA84022F720F90037BE10 /* Resources */,
 				5C34765622F71C56007F9694 /* Preview Content */,
@@ -173,29 +172,38 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		5CCF64012309B11D001E4E32 /* View */ = {
+		5CCA74892312E47C00CFF721 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				5CCF64032309B18B001E4E32 /* SubView */,
 				5C157A6E230749050088E712 /* Item */,
+				5CCF64032309B18B001E4E32 /* SubView */,
 				5C34765222F71C56007F9694 /* MainView.swift */,
-				5CEE59FD230DD3AB0007F300 /* BarView.swift */,
-				5C2F6E9623089BCB00FD9D31 /* SettingsView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		5CCF64022309B144001E4E32 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
 				5C3790D222FA098900C8DBE9 /* MainViewModel.swift */,
 			);
-			path = ViewModel;
+			path = Main;
+			sourceTree = "<group>";
+		};
+		5CCA748A2312E48200CFF721 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				5CCA748B2312E49300CFF721 /* Item */,
+				5C2F6E9623089BCB00FD9D31 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		5CCA748B2312E49300CFF721 /* Item */ = {
+			isa = PBXGroup;
+			children = (
+				5C2F6E9923089C1300FD9D31 /* SettingsItemView.swift */,
+			);
+			path = Item;
 			sourceTree = "<group>";
 		};
 		5CCF64032309B18B001E4E32 /* SubView */ = {
 			isa = PBXGroup;
 			children = (
+				5CEE59FD230DD3AB0007F300 /* BarView.swift */,
 				5C3790D422FA184400C8DBE9 /* KeyboardView.swift */,
 				5C4EE4A822FFF3F4000B898E /* IndicatorView.swift */,
 			);

@@ -10,19 +10,17 @@ import SwiftUI
 struct BarView: View {
     
     @EnvironmentObject var viewModel: MainViewModel
-    @Binding var input: String
     @State var isPresented = false
     
     var body: some View {
         
-        VStack {
-            
-            Text(input).font(.headline)
+        VStack(alignment: .leading) {
             
             HStack {
-                Text(viewModel.getOutputText()).font(.title)
                 Image(viewModel.baseCurrency.stringValue.lowercased())
-            }
+                Text(viewModel.getOutputText()).font(.headline)
+                Spacer()
+            }.padding()
             
         }
         .lineLimit(1)
@@ -46,11 +44,7 @@ struct BarView: View {
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                         
                     }
-                    .navigationBarItems(
-                        trailing: NavigationLink(destination: SettingsView().environmentObject(self.viewModel)) {
-                            Text("Settings")
-                        }
-                    ).navigationBarTitle("Base Currency")
+                    .navigationBarTitle("Base Currency")
                     
                 }
         }
@@ -62,8 +56,7 @@ struct BarView: View {
 #if DEBUG
 struct BarViewPreviews: PreviewProvider {
     static var previews: some View {
-        BarView(input: .constant("123"))
-            .environmentObject(MainViewModel())
+        BarView().environmentObject(MainViewModel())
     }
 }
 #endif
