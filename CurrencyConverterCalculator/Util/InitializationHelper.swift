@@ -10,12 +10,13 @@ import Foundation
 
 class InitializationHelper {
     struct ResponseData: Decodable {
-        var currencies: [Currency]
+        var currencies: [InititalCurrency]
     }
     
-    static func loadJson(filename fileName: String) -> [Currency]? {
+    static func loadJson(filename fileName: String) -> [InititalCurrency]? {
         if let url = Bundle.main.url(forResource: fileName, withExtension: "json") {
             do {
+                
                 let data = try Data(contentsOf: url)
                 let jsonData = try JSONDecoder().decode(ResponseData.self, from: data)
                 return jsonData.currencies

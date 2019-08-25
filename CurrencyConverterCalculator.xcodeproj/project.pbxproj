@@ -28,6 +28,10 @@
 		5C82CEA822FDCFA90030F72E /* Rates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C82CEA722FDCFA90030F72E /* Rates.swift */; };
 		5C82CEAA22FDD5020030F72E /* Currencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C82CEA922FDD5020030F72E /* Currencies.swift */; };
 		5C97B62222FCD00C005F62BA /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C97B62122FCD00C005F62BA /* Currency.swift */; };
+		5CCA74812311D0E900CFF721 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA74802311D0E900CFF721 /* CoreDataManager.swift */; };
+		5CCA74842311D51E00CFF721 /* NSManagedObjectContextExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA74832311D51E00CFF721 /* NSManagedObjectContextExtension.swift */; };
+		5CCA74862311FB1900CFF721 /* InitialCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA74852311FB1900CFF721 /* InitialCurrency.swift */; };
+		5CCA74882312A0D800CFF721 /* CodingUserInfoKeyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA74872312A0D800CFF721 /* CodingUserInfoKeyExtension.swift */; };
 		5CDB1E7F230863E600CB9332 /* InitializationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDB1E7E230863E600CB9332 /* InitializationHelper.swift */; };
 		5CEE59FE230DD3AB0007F300 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEE59FD230DD3AB0007F300 /* BarView.swift */; };
 		5CF436832308126000164126 /* Currencies.json in Resources */ = {isa = PBXBuildFile; fileRef = 5CF436822308126000164126 /* Currencies.json */; };
@@ -57,6 +61,10 @@
 		5C82CEA722FDCFA90030F72E /* Rates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rates.swift; sourceTree = "<group>"; };
 		5C82CEA922FDD5020030F72E /* Currencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currencies.swift; sourceTree = "<group>"; };
 		5C97B62122FCD00C005F62BA /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		5CCA74802311D0E900CFF721 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		5CCA74832311D51E00CFF721 /* NSManagedObjectContextExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContextExtension.swift; sourceTree = "<group>"; };
+		5CCA74852311FB1900CFF721 /* InitialCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialCurrency.swift; sourceTree = "<group>"; };
+		5CCA74872312A0D800CFF721 /* CodingUserInfoKeyExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingUserInfoKeyExtension.swift; sourceTree = "<group>"; };
 		5CDB1E7E230863E600CB9332 /* InitializationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializationHelper.swift; sourceTree = "<group>"; };
 		5CEE59FD230DD3AB0007F300 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		5CF436822308126000164126 /* Currencies.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Currencies.json; sourceTree = "<group>"; };
@@ -126,6 +134,7 @@
 		5C34764A22F71C56007F9694 /* CurrencyConverterCalculator */ = {
 			isa = PBXGroup;
 			children = (
+				5CCA74822311D17E00CFF721 /* Extensions */,
 				5C2CA83E22F720CD0037BE10 /* App */,
 				5CF75F0E22FB5F6E0024EB77 /* Model */,
 				5CCF64012309B11D001E4E32 /* View */,
@@ -150,8 +159,18 @@
 			children = (
 				5C82CEA322FDCC420030F72E /* BackendHelper.swift */,
 				5CDB1E7E230863E600CB9332 /* InitializationHelper.swift */,
+				5CCA74802311D0E900CFF721 /* CoreDataManager.swift */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		5CCA74822311D17E00CFF721 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5CCA74832311D51E00CFF721 /* NSManagedObjectContextExtension.swift */,
+				5CCA74872312A0D800CFF721 /* CodingUserInfoKeyExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		5CCF64012309B11D001E4E32 /* View */ = {
@@ -191,6 +210,7 @@
 				5C82CEA522FDCE510030F72E /* CurrencyResponse.swift */,
 				5C82CEA722FDCFA90030F72E /* Rates.swift */,
 				5C82CEA922FDD5020030F72E /* Currencies.swift */,
+				5CCA74852311FB1900CFF721 /* InitialCurrency.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -296,9 +316,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C34765122F71C56007F9694 /* CurrencyConverterCalculator.xcdatamodeld in Sources */,
+				5CCA74842311D51E00CFF721 /* NSManagedObjectContextExtension.swift in Sources */,
+				5CCA74882312A0D800CFF721 /* CodingUserInfoKeyExtension.swift in Sources */,
 				5CDB1E7F230863E600CB9332 /* InitializationHelper.swift in Sources */,
 				5CEE59FE230DD3AB0007F300 /* BarView.swift in Sources */,
 				5CF75F1022FB5F910024EB77 /* KeyboardItem.swift in Sources */,
+				5CCA74862311FB1900CFF721 /* InitialCurrency.swift in Sources */,
 				5C2F6E9723089BCB00FD9D31 /* SettingsView.swift in Sources */,
 				5C34764C22F71C56007F9694 /* AppDelegate.swift in Sources */,
 				5C82CEA622FDCE510030F72E /* CurrencyResponse.swift in Sources */,
@@ -313,6 +336,7 @@
 				5C82CEA422FDCC420030F72E /* BackendHelper.swift in Sources */,
 				5C3790D322FA098900C8DBE9 /* MainViewModel.swift in Sources */,
 				5C97B62222FCD00C005F62BA /* Currency.swift in Sources */,
+				5CCA74812311D0E900CFF721 /* CoreDataManager.swift in Sources */,
 				5C157A6D2306FACA0088E712 /* BarItemView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
