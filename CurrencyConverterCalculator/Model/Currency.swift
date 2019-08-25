@@ -31,7 +31,7 @@ public class Currency: NSManagedObject, Identifiable, Codable {
         guard let codingUserInfoKeyManagedObjectContext = CodingUserInfoKey.managedObjectContext,
             let managedObjectContext = decoder.userInfo[codingUserInfoKeyManagedObjectContext] as? NSManagedObjectContext,
             let entity = NSEntityDescription.entity(forEntityName: "Currency", in: managedObjectContext) else {
-            fatalError("Failed to decode Currency")
+                fatalError("Failed to decode Currency")
         }
         
         self.init(entity: entity, insertInto: managedObjectContext)
@@ -53,10 +53,5 @@ public class Currency: NSManagedObject, Identifiable, Codable {
         try container.encode(value, forKey: .value)
         try container.encode(isActive, forKey: .isActive)
     }
-
-}
-
-public extension CodingUserInfoKey {
-    // Helper property to retrieve the context
-    static let managedObjectContext = CodingUserInfoKey(rawValue: "managedObjectContext")
+    
 }
