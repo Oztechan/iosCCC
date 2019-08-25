@@ -24,6 +24,9 @@ class CoreDataManager {
         var currencies = [Currency]()
         
         let currencyRequest: NSFetchRequest<Currency> = Currency.fetchRequest() as! NSFetchRequest<Currency>
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        
+        currencyRequest.sortDescriptors = [sortDescriptor]
         
         do {
             currencies = try self.moc.fetch(currencyRequest)
@@ -35,13 +38,6 @@ class CoreDataManager {
     }
     
     func saveCurrency(currency: Currency) -> Bool {
-        let temp = Currency(context: moc)
-        temp.name = currency.name
-        temp.longName = currency.longName
-        temp.symbol = currency.symbol
-        temp.value = "0.0"
-        temp.isActive = true
-        
         do {
             try self.moc.save()
             return true

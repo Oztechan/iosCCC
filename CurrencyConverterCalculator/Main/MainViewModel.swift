@@ -18,15 +18,23 @@ final class MainViewModel: ObservableObject {
     var output = ""
     
     @Published var isLoading = true
-    @Published var baseCurrency = Currencies.EUR {
-        didSet { fetchRates() }
+    @Published var baseCurrency: Currencies {
+        didSet {
+            UserDefaults.standard.setBaseCurrency(value: baseCurrency)
+            fetchRates()
+        }
+    }
+    
+    init() {
+        let inititalBase = UserDefaults.standard.getBaseCurrency()
+        if inititalBase == Currencies.NULL {
+            baseCurrency = Currencies.EUR
+        } else {
+            baseCurrency = inititalBase
+        }
     }
     
     deinit { cancelable?.cancel() }
-    
-    func setBaseCurrency(base: String) {
-        baseCurrency = Currencies.withLabel(base)
-    }
     
     func calculateOutput(input: String) {
         isLoading = true
@@ -104,15 +112,10 @@ final class MainViewModel: ObservableObject {
         if database.isEmpty {
             InitializationHelper.loadJson(filename: "Currencies")?.forEach { initialCurrency in
                 if Currencies.withLabel(initialCurrency.name) != Currencies.NULL {
-                    let temp = Currency(context: CoreDataManager.shared.moc)
-                    temp.name = initialCurrency.name
-                    temp.longName = initialCurrency.longName
-                    temp.symbol = initialCurrency.symbol
-                    temp.value = "0.0"
-                    temp.isActive = true
+                    
+                    let temp = initialCurrency.getInitializedCurrency()
                     
                     if CoreDataManager.shared.saveCurrency(currency: temp) {
-                        
                         self.currencyList.append(temp)
                     }
                 }
@@ -143,16 +146,5 @@ final class MainViewModel: ObservableObject {
                 Currencies.withLabel(currency.name) != Currencies.NULL &&
                 currency.isActive
         }
-    }
-    
-    func changeAllStates(state: Bool) {
-        if !state {
-            baseCurrency = Currencies.NULL
-        } else {
-            if baseCurrency == Currencies.NULL {
-                baseCurrency = Currencies.EUR
-            }
-        }
-        currencyList.forEach { $0.isActive = state }
     }
 }

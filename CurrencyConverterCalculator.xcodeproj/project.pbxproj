@@ -32,6 +32,9 @@
 		5CCA74842311D51E00CFF721 /* NSManagedObjectContextExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA74832311D51E00CFF721 /* NSManagedObjectContextExtension.swift */; };
 		5CCA74862311FB1900CFF721 /* InitialCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA74852311FB1900CFF721 /* InitialCurrency.swift */; };
 		5CCA74882312A0D800CFF721 /* CodingUserInfoKeyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA74872312A0D800CFF721 /* CodingUserInfoKeyExtension.swift */; };
+		5CCA748D2312EFC000CFF721 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA748C2312EFC000CFF721 /* SettingsViewModel.swift */; };
+		5CCA74922313100600CFF721 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA74912313100600CFF721 /* UserDefaultsExtension.swift */; };
+		5CCA74942313102B00CFF721 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA74932313102B00CFF721 /* UserDefaultsKeys.swift */; };
 		5CDB1E7F230863E600CB9332 /* InitializationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDB1E7E230863E600CB9332 /* InitializationHelper.swift */; };
 		5CEE59FE230DD3AB0007F300 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEE59FD230DD3AB0007F300 /* BarView.swift */; };
 		5CF436832308126000164126 /* Currencies.json in Resources */ = {isa = PBXBuildFile; fileRef = 5CF436822308126000164126 /* Currencies.json */; };
@@ -65,6 +68,9 @@
 		5CCA74832311D51E00CFF721 /* NSManagedObjectContextExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContextExtension.swift; sourceTree = "<group>"; };
 		5CCA74852311FB1900CFF721 /* InitialCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialCurrency.swift; sourceTree = "<group>"; };
 		5CCA74872312A0D800CFF721 /* CodingUserInfoKeyExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingUserInfoKeyExtension.swift; sourceTree = "<group>"; };
+		5CCA748C2312EFC000CFF721 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		5CCA74912313100600CFF721 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
+		5CCA74932313102B00CFF721 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		5CDB1E7E230863E600CB9332 /* InitializationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializationHelper.swift; sourceTree = "<group>"; };
 		5CEE59FD230DD3AB0007F300 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		5CF436822308126000164126 /* Currencies.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Currencies.json; sourceTree = "<group>"; };
@@ -156,9 +162,9 @@
 		5C82CEA222FDCC1F0030F72E /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				5CCA74802311D0E900CFF721 /* CoreDataManager.swift */,
 				5C82CEA322FDCC420030F72E /* BackendHelper.swift */,
 				5CDB1E7E230863E600CB9332 /* InitializationHelper.swift */,
-				5CCA74802311D0E900CFF721 /* CoreDataManager.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -168,6 +174,7 @@
 			children = (
 				5CCA74832311D51E00CFF721 /* NSManagedObjectContextExtension.swift */,
 				5CCA74872312A0D800CFF721 /* CodingUserInfoKeyExtension.swift */,
+				5CCA74912313100600CFF721 /* UserDefaultsExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -188,6 +195,7 @@
 			children = (
 				5CCA748B2312E49300CFF721 /* Item */,
 				5C2F6E9623089BCB00FD9D31 /* SettingsView.swift */,
+				5CCA748C2312EFC000CFF721 /* SettingsViewModel.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -219,6 +227,7 @@
 				5C82CEA722FDCFA90030F72E /* Rates.swift */,
 				5C82CEA922FDD5020030F72E /* Currencies.swift */,
 				5CCA74852311FB1900CFF721 /* InitialCurrency.swift */,
+				5CCA74932313102B00CFF721 /* UserDefaultsKeys.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -325,6 +334,7 @@
 			files = (
 				5C34765122F71C56007F9694 /* CurrencyConverterCalculator.xcdatamodeld in Sources */,
 				5CCA74842311D51E00CFF721 /* NSManagedObjectContextExtension.swift in Sources */,
+				5CCA74942313102B00CFF721 /* UserDefaultsKeys.swift in Sources */,
 				5CCA74882312A0D800CFF721 /* CodingUserInfoKeyExtension.swift in Sources */,
 				5CDB1E7F230863E600CB9332 /* InitializationHelper.swift in Sources */,
 				5CEE59FE230DD3AB0007F300 /* BarView.swift in Sources */,
@@ -338,6 +348,7 @@
 				5C3790D522FA184400C8DBE9 /* KeyboardView.swift in Sources */,
 				5C3790D722FA243500C8DBE9 /* MainItemView.swift in Sources */,
 				5C82CEA822FDCFA90030F72E /* Rates.swift in Sources */,
+				5CCA74922313100600CFF721 /* UserDefaultsExtension.swift in Sources */,
 				5C34765322F71C56007F9694 /* MainView.swift in Sources */,
 				5C82CEAA22FDD5020030F72E /* Currencies.swift in Sources */,
 				5C34764E22F71C56007F9694 /* SceneDelegate.swift in Sources */,
@@ -346,6 +357,7 @@
 				5C97B62222FCD00C005F62BA /* Currency.swift in Sources */,
 				5CCA74812311D0E900CFF721 /* CoreDataManager.swift in Sources */,
 				5C157A6D2306FACA0088E712 /* BarItemView.swift in Sources */,
+				5CCA748D2312EFC000CFF721 /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

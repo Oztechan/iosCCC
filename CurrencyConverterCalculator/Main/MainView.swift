@@ -32,7 +32,7 @@ struct MainView: View {
             }
             .navigationBarTitle(input)
             .navigationBarItems(
-                trailing: NavigationLink(destination: SettingsView().environmentObject(self.viewModel)) {
+                trailing: NavigationLink(destination: SettingsView(viewModel: SettingsViewModel())) {
                     Text("Settings")
                 }
             )

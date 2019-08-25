@@ -9,24 +9,30 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @EnvironmentObject var viewModel: MainViewModel
+    @ObservedObject var viewModel: SettingsViewModel
     
     var body: some View {
         
         NavigationView {
+            
             List(viewModel.currencyList) {
                 SettingsItemView(item: $0)
             }.navigationBarItems(
+                
                 leading: Button(
                     action: { self.viewModel.changeAllStates(state: true) },
                     label: { Text("Select All") }
                 ),
+                
                 trailing: Button(
                     action: { self.viewModel.changeAllStates(state: false) },
                     label: { Text("Deselect All") }
                 )
-            )
-                .navigationBarTitle("Settings")
+                
+            ).navigationBarTitle("Settings")
+            
+        }.onAppear {
+            self.viewModel.initList()
         }
     }
 }
@@ -34,8 +40,7 @@ struct SettingsView: View {
 #if DEBUG
 struct SettingsViewPreviews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
-            .environmentObject(MainViewModel())
+        SettingsView(viewModel: SettingsViewModel())
     }
 }
 #endif
