@@ -99,10 +99,30 @@ final class MainViewModel: ObservableObject {
     }
     
     func initList() {
-        InitializationHelper.loadJson(filename: "Currencies")?.forEach { currency in
-            if Currencies.withLabel(currency.name) != Currencies.NULL {
-                self.currencyList.append(currency)
-                
+        let database = CoreDataManager.shared.getAllCurrencies()
+        
+        if database.isEmpty {
+            InitializationHelper.loadJson(filename: "Currencies")?.forEach { initialCurrency in
+                if Currencies.withLabel(initialCurrency.name) != Currencies.NULL {
+                    let temp = Currency(context: CoreDataManager.shared.moc)
+                    temp.name = initialCurrency.name
+                    temp.longName = initialCurrency.longName
+                    temp.symbol = initialCurrency.symbol
+                    temp.value = "0.0"
+                    temp.isActive = true
+                    
+                    if CoreDataManager.shared.saveCurrency(currency: temp) {
+                        
+                        self.currencyList.append(temp)
+                    }
+                }
+            }
+        } else {
+            database.forEach { currency in
+                if Currencies.withLabel(currency.name) != Currencies.NULL {
+                    self.currencyList.append(currency)
+                    
+                }
             }
         }
     }

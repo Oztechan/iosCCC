@@ -19,4 +19,35 @@ class CoreDataManager {
         self.moc = moc
     }
     
+    // swiftlint:disable force_cast
+    func getAllCurrencies() -> [Currency] {
+        var currencies = [Currency]()
+        
+        let currencyRequest: NSFetchRequest<Currency> = Currency.fetchRequest() as! NSFetchRequest<Currency>
+        
+        do {
+            currencies = try self.moc.fetch(currencyRequest)
+        } catch let error as NSError {
+            print(error)
+        }
+        
+        return currencies
+    }
+    
+    func saveCurrency(currency: Currency) -> Bool {
+        let temp = Currency(context: moc)
+        temp.name = currency.name
+        temp.longName = currency.longName
+        temp.symbol = currency.symbol
+        temp.value = "0.0"
+        temp.isActive = true
+        
+        do {
+            try self.moc.save()
+            return true
+        } catch {
+            print(error)
+            return false
+        }
+    }
 }
