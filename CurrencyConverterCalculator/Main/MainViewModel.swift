@@ -111,13 +111,8 @@ final class MainViewModel: ObservableObject {
         
         if database.isEmpty {
             InitializationHelper.loadJson(filename: "Currencies")?.forEach { initialCurrency in
-                if Currencies.withLabel(initialCurrency.name) != Currencies.NULL {
-                    
-                    let temp = initialCurrency.getInitializedCurrency()
-                    
-                    if CoreDataManager.shared.saveCurrency(currency: temp) {
-                        self.currencyList.append(temp)
-                    }
+                if let temp = CoreDataManager.shared.insertInitialCurrency(initialCurrency: initialCurrency) {
+                    self.currencyList.append(temp)
                 }
             }
         } else {
@@ -134,7 +129,7 @@ final class MainViewModel: ObservableObject {
         if output.isEmpty {
             return baseCurrency.stringValue
         } else {
-            return "\(baseCurrency.stringValue.replacingOccurrences(of: "NULL", with: ""))=\(output)"
+            return "\(baseCurrency.stringValue.replacingOccurrences(of: "NULL", with: "")) = \(output)"
         }
     }
     

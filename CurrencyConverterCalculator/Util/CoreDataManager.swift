@@ -37,13 +37,41 @@ class CoreDataManager {
         return currencies
     }
     
-    func saveCurrency(currency: Currency) -> Bool {
+    func insertInitialCurrency(initialCurrency: InititalCurrency) -> Currency? {
+        
+        let temCurrency = Currency(context: self.moc)
+        temCurrency.name = initialCurrency.name
+        temCurrency.longName = initialCurrency.longName
+        temCurrency.symbol = initialCurrency.symbol
+        temCurrency.value = "0.0"
+        temCurrency.isActive = true
+        
         do {
             try self.moc.save()
-            return true
+            return temCurrency
         } catch {
             print(error)
-            return false
+            return nil
+        }
+    }
+    
+    func updateCurrencyStateByName(name: String, state: Bool) {
+        
+        let currencyRequest: NSFetchRequest<Currency> = Currency.fetchRequest() as! NSFetchRequest<Currency>
+        let predicate = NSPredicate(format: "name = '\(name)'")
+        currencyRequest.predicate = predicate
+        do {
+            let object = try self.moc.fetch(currencyRequest)
+            if object.count == 1 {
+                object.first?.setValue(state, forKey: "isActive")
+                do {
+                    try self.moc.save()
+                } catch {
+                    print(error)
+                }
+            }
+        } catch {
+            print(error)
         }
     }
 }

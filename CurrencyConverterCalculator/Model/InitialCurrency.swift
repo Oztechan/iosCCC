@@ -37,14 +37,3 @@ public class InititalCurrency: Identifiable, Codable {
     }
     
 }
-extension InititalCurrency {
-    func getInitializedCurrency() -> Currency {
-        let temCurrency = Currency(context: CoreDataManager.shared.moc)
-        temCurrency.name = self.name
-        temCurrency.longName = self.longName
-        temCurrency.symbol = self.symbol
-        temCurrency.value = "0.0"
-        temCurrency.isActive = true
-        return temCurrency
-    }
-}

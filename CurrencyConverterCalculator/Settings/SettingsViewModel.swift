@@ -38,6 +38,9 @@ final class SettingsViewModel: ObservableObject {
                 baseCurrency = Currencies.EUR
             }
         }
-        currencyList.forEach { $0.isActive = state }
+        currencyList.forEach {
+            $0.isActive = state
+            CoreDataManager.shared.updateCurrencyStateByName(name: $0.name, state: state)
+        }
     }
 }
