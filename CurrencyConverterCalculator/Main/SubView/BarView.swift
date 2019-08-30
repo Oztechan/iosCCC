@@ -19,8 +19,9 @@ struct BarView: View {
             HStack {
                 Image(viewModel.baseCurrency.stringValue.lowercased())
                 Text(viewModel.getOutputText()).font(.headline)
-                Spacer()
-            }.padding()
+            }
+            .frame(minWidth: 0, maxWidth: .infinity, alignment: .bottomLeading)
+            .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
             
         }
         .lineLimit(1)
