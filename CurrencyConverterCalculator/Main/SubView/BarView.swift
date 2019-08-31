@@ -18,6 +18,7 @@ struct BarView: View {
             
             HStack {
                 Image(viewModel.baseCurrency.stringValue.lowercased())
+                    .shadow(radius: 3)
                 Text(viewModel.getOutputText()).font(.headline)
             }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .bottomLeading)

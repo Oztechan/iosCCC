@@ -18,6 +18,7 @@ struct MainItemView: View {
             Spacer()
             Text(item.name)
             Image(item.name.lowercased())
+                .shadow(radius: 3)
         }
     }
 }

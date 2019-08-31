@@ -13,6 +13,7 @@ struct BarItemView: View {
     var body: some View {
         HStack {
             Image(item.name.lowercased())
+                .shadow(radius: 3)
             Text(item.name).frame(width: 45)
             Text(item.longName).font(.footnote)
             Text(item.symbol).font(.footnote)
