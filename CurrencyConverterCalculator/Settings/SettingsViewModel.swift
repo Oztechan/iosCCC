@@ -42,6 +42,8 @@ final class SettingsViewModel: ObservableObject {
             $0.isActive = state
             CoreDataManager.shared.updateCurrencyStateByName(name: $0.name, state: state)
         }
+        let temp = currencyList
+        currencyList = temp
     }
     
     func updateItem(item: Currency) {
