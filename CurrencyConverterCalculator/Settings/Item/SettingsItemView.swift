@@ -18,7 +18,7 @@ struct SettingsItemView: View {
             Text(item.longName).font(.footnote)
             Text(item.symbol).font(.footnote)
             Spacer()
-            Toggle(isOn: $item.isActive) { EmptyView() }
+            Image(systemName: item.isActive ? "checkmark.circle.fill" : "circle")
         }
         .lineLimit(1)
     }
