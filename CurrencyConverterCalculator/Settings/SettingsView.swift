@@ -14,10 +14,12 @@ struct SettingsView: View {
     var body: some View {
         
         NavigationView {
-            
-            List(viewModel.currencyList) {
-                SettingsItemView(item: $0)
-            }.navigationBarItems(
+            List {
+                ForEach(0..<viewModel.currencyList.count) { index in
+                    SettingsItemView(item: self.$viewModel.currencyList[index])
+                }
+            }
+            .navigationBarItems(
                 
                 leading: Button(
                     action: { self.viewModel.changeAllStates(state: true) },
