@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @ObservedObject var viewModel: SettingsViewModel
+    @ObservedObject var viewModel: EnviromentViewModel
     
     var body: some View {
         
@@ -42,7 +42,7 @@ struct SettingsView: View {
 #if DEBUG
 struct SettingsViewPreviews: PreviewProvider {
     static var previews: some View {
-        SettingsView(viewModel: SettingsViewModel())
+        SettingsView(viewModel: EnviromentViewModel())
     }
 }
 #endif

@@ -7,7 +7,7 @@
 //
 import SwiftUI
 
-struct MainItemView: View {
+struct CalculatorItemView: View {
     
     var item: Currency
     
@@ -24,9 +24,9 @@ struct MainItemView: View {
 }
 
 #if DEBUG
-struct MainItemViewPreviews: PreviewProvider {
+struct CalculatorItemViewPreviews: PreviewProvider {
     static var previews: some View {
-        MainItemView(item: Currency() )
+        CalculatorItemView(item: Currency() )
             .previewLayout(.fixed(width: 300, height: 60))
     }
 }

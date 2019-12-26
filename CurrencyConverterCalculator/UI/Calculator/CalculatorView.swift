@@ -7,9 +7,9 @@
 //
 import SwiftUI
 
-struct MainView: View {
+struct CalculatorView: View {
     
-    @EnvironmentObject var viewModel: MainViewModel
+    @EnvironmentObject var viewModel: EnviromentViewModel
     @State var input = ""
     
     var body: some View {
@@ -24,7 +24,7 @@ struct MainView: View {
                 }
                 
                 List (viewModel.getFilteredList(), id: \.value) { currency in
-                    MainItemView(item: currency)
+                    CalculatorItemView(item: currency)
                 }
                 
                 KeyboardView(input: $input)
@@ -32,7 +32,7 @@ struct MainView: View {
             }
             .navigationBarTitle(input)
             .navigationBarItems(
-                trailing: NavigationLink(destination: SettingsView(viewModel: SettingsViewModel())) {
+                trailing: NavigationLink(destination: SettingsView(viewModel: EnviromentViewModel())) {
                     Text("Settings")
                 }
             )
@@ -44,9 +44,9 @@ struct MainView: View {
 }
 
 #if DEBUG
-struct ContentViewPreviews: PreviewProvider {
+struct CalculatorViewCalculatorViewPreviews: PreviewProvider {
     static var previews: some View {
-        MainView().environmentObject(MainViewModel())
+        CalculatorView().environmentObject(EnviromentViewModel())
     }
 }
 #endif

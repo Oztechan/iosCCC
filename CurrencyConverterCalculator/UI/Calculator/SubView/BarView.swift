@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BarView: View {
     
-    @EnvironmentObject var viewModel: MainViewModel
+    @EnvironmentObject var viewModel: EnviromentViewModel
     @State var isPresented = false
     
     var body: some View {
@@ -58,7 +58,7 @@ struct BarView: View {
 #if DEBUG
 struct BarViewPreviews: PreviewProvider {
     static var previews: some View {
-        BarView().environmentObject(MainViewModel())
+        BarView().environmentObject(EnviromentViewModel())
     }
 }
 #endif

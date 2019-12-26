@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import Expression
 
-final class MainViewModel: ObservableObject {
+final class EnviromentViewModel: ObservableObject {
     
     private var cancelable: Cancellable?
     private var rates: Rates? = Rates()
@@ -141,5 +141,25 @@ final class MainViewModel: ObservableObject {
                 Currencies.withLabel(currency.name) != Currencies.NULL &&
                 currency.isActive
         }
+    }
+    
+    func changeAllStates(state: Bool) {
+        if !state {
+            baseCurrency = Currencies.NULL
+        } else {
+            if baseCurrency == Currencies.NULL {
+                baseCurrency = Currencies.EUR
+            }
+        }
+        currencyList.forEach {
+            $0.isActive = state
+            CoreDataManager.shared.updateCurrencyStateByName(name: $0.name, state: state)
+        }
+        let temp = currencyList
+        currencyList = temp
+    }
+    
+    func updateItem(item: Currency) {
+        currencyList.filter { $0.name == item.name }.first?.isActive = item.isActive
     }
 }

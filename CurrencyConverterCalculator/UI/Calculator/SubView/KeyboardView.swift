@@ -13,7 +13,7 @@ struct KeyboardView: View {
     var input: String
     
     @EnvironmentObject
-    var viewModel: MainViewModel
+    var viewModel: EnviromentViewModel
     
     let data = [
         [
@@ -80,7 +80,7 @@ struct KeyboardView: View {
 struct KeyboardViewPreviews: PreviewProvider {
     static var previews: some View {
         KeyboardView(input: .constant("123"))
-            .environmentObject(MainViewModel())
+            .environmentObject(EnviromentViewModel())
             .previewLayout(.fixed(width: 300, height: 500))
     }
 }
