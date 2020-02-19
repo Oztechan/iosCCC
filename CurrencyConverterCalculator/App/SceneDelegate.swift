@@ -18,12 +18,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         willConnectTo session: UISceneSession,
         options connectionOptions: UIScene.ConnectionOptions
     ) {
-        if let windowScene = scene as? UIWindowScene {
-            let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: CalculatorView().environmentObject(EnviromentViewModel()))
-            self.window = window
-            window.makeKeyAndVisible()
+        
+        let dependecyContainer = (UIApplication.shared.delegate as! AppDelegate).dependencyContainer
+        
+        dependecyContainer.loadDependencies {
+            let context = dependecyContainer.persistentContainer.viewContext
+            let enviromentObject = EnviromentViewModel()
+            let contentView = CalculatorView().environment(\.managedObjectContext, context).environmentObject(enviromentObject)
+            
+            if let windowScene = scene as? UIWindowScene {
+                let window = UIWindow(windowScene: windowScene)
+                window.rootViewController = UIHostingController(rootView: contentView)
+                self.window = window
+                window.makeKeyAndVisible()
+            }
+            
         }
+        
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {}
