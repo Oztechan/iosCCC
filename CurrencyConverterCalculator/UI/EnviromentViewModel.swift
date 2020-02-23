@@ -55,6 +55,11 @@ final class EnviromentViewModel: ObservableObject {
     func fetchRates() {
         isLoading  = true
         cancelable = BackendHelper.FetchRatesByBase(base: baseCurrency)
+            .handleEvents(receiveSubscription: { print("Receive subscription: \($0)") },
+                          receiveOutput: { print("Receive output: \($0)") },
+                          receiveCompletion: { print("Receive completion: \($0)") },
+                          receiveCancel: { print("Receive cancel") },
+                          receiveRequest: { print("Receive request: \($0)") })
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {
                 if case let .failure(error) = $0 {
