@@ -27,7 +27,6 @@
 		5C82CEA822FDCFA90030F72E /* Rates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C82CEA722FDCFA90030F72E /* Rates.swift */; };
 		5C82CEAA22FDD5020030F72E /* Currencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C82CEA922FDD5020030F72E /* Currencies.swift */; };
 		5C97B62222FCD00C005F62BA /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C97B62122FCD00C005F62BA /* Currency.swift */; };
-		5C9DEA5C23A6B3560022F6CD /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5C9DEA5B23A6B3560022F6CD /* Config.xcconfig */; };
 		5CCA74812311D0E900CFF721 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA74802311D0E900CFF721 /* CoreDataManager.swift */; };
 		5CCA74842311D51E00CFF721 /* NSManagedObjectContextExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA74832311D51E00CFF721 /* NSManagedObjectContextExtension.swift */; };
 		5CCA74862311FB1900CFF721 /* InitialCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA74852311FB1900CFF721 /* InitialCurrency.swift */; };
@@ -252,7 +251,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Mustafa Ozhan";
 				TargetAttributes = {
 					5C34764722F71C56007F9694 = {
@@ -287,7 +286,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CF436832308126000164126 /* Currencies.json in Resources */,
-				5C9DEA5C23A6B3560022F6CD /* Config.xcconfig in Resources */,
 				5C34765B22F71C56007F9694 /* LaunchScreen.storyboard in Resources */,
 				5C34765822F71C56007F9694 /* Preview Assets.xcassets in Resources */,
 				5C34765522F71C56007F9694 /* Assets.xcassets in Resources */,
@@ -390,6 +388,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -451,6 +450,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
