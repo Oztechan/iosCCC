@@ -12,7 +12,7 @@ final class DependencyContainer {
     let persistentContainer: NSPersistentContainer
     
     init() {
-        self.persistentContainer = NSPersistentContainer(name: "CurrencyConverterCalculator")
+        self.persistentContainer = NSPersistentContainer(name: "CoreDataCombineSwiftUI")
     }
     
     func loadDependencies(withCompletionHandler completionHandler: @escaping () -> Void) {
