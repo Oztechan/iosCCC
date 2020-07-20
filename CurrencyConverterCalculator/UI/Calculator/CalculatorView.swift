@@ -20,7 +20,7 @@ struct CalculatorView: View {
                 BarView()
                 
                 if viewModel.isLoading {
-                    IndicatorView()
+                    ProgressView()
                 }
                 
                 List (viewModel.getFilteredList(), id: \.value) { currency in
