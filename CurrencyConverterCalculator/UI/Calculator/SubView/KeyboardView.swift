@@ -41,9 +41,11 @@ struct KeyboardView: View {
             KeyboardItem.plus
         ],
         [
+            KeyboardItem.openParenthesis,
             KeyboardItem.tribleZero,
             KeyboardItem.ac,
-            KeyboardItem.del
+            KeyboardItem.del,
+            KeyboardItem.closeParenthesis
         ]
     ]
     

@@ -25,9 +25,11 @@ enum KeyboardItem: String {
     case dot = "."
     case percentage = "%"
     case plus = "+"
+    case openParenthesis = "("
     case tribleZero = "000"
     case ac = "AC"
     case del = "DEL"
+    case closeParenthesis = ")"
     
     // swiftlint:disable cyclomatic_complexity
     func operateAction(input: String) -> String {
@@ -46,9 +48,11 @@ enum KeyboardItem: String {
         case .divide : return input + "/"
         case .minus : return input + "-"
         case .dot : return input + "."
+        case .openParenthesis : return input + "("
         case .percentage :return input + "%"
         case .plus : return input + "+"
         case .tribleZero : return input + "000"
+        case .closeParenthesis : return input + ")"
         case .ac : return ""
         case .del : return String(input.dropLast())
         }
