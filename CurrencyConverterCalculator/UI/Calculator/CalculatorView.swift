@@ -12,6 +12,18 @@ struct CalculatorView: View {
     @EnvironmentObject var viewModel: EnviromentViewModel
     @State var input = ""
     
+    init() {
+        UITableView.appearance().tableHeaderView = UIView(
+            frame: CGRect(
+                x: 0,
+                y: 0,
+                width: 0,
+                height: Double.leastNonzeroMagnitude
+            )
+        )
+        UITableView.appearance().backgroundColor = UIColor(Color("ColorBackground"))
+    }
+    
     var body: some View {
         
         NavigationView {
@@ -39,7 +51,9 @@ struct CalculatorView: View {
             .navigationBarTitle(input)
             .navigationBarItems(
                 trailing: NavigationLink(destination: SettingsView(viewModel: EnviromentViewModel())) {
-                    Text("Settings")
+                    Image(systemName: "gear")
+                        .imageScale(.large)
+                        .accentColor(Color("ColorText"))
                 }
             )
             
