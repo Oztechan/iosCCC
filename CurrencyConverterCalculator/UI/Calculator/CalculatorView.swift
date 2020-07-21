@@ -21,10 +21,10 @@ struct CalculatorView: View {
                 
                 if viewModel.isLoading {
                     ProgressView()
-                }
-                
-                List (viewModel.getFilteredList(), id: \.value) { currency in
-                    CalculatorItemView(item: currency)
+                } else {
+                    List (viewModel.getFilteredList(), id: \.value) { currency in
+                        CalculatorItemView(item: currency)
+                    }
                 }
                 
                 KeyboardView(input: $input)

@@ -61,7 +61,7 @@ struct KeyboardView: View {
                         },
                             label: {
                                 Text(item.rawValue)
-                                    .font(.title)
+                                    .font(.title2)
                                     .bold()
                                     .frame(
                                         minWidth: 0,
