@@ -63,6 +63,7 @@ struct KeyboardView: View {
                                 Text(item.rawValue)
                                     .font(.title2)
                                     .bold()
+                                    .foregroundColor(Color("ColorText"))
                                     .frame(
                                         minWidth: 0,
                                         maxWidth: .infinity,
@@ -74,7 +75,7 @@ struct KeyboardView: View {
                     }
                 }
             }
-        }
+        }.background(Color("ColorBackgroundStrong"))
     }
 }
 

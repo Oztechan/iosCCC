@@ -15,20 +15,26 @@ struct CalculatorView: View {
     var body: some View {
         
         NavigationView {
-            VStack {
+            ZStack {
+                Color("ColorBackgroundStrong").edgesIgnoringSafeArea(.all)
                 
-                BarView()
-                
-                if viewModel.isLoading {
-                    ProgressView()
-                } else {
-                    List (viewModel.getFilteredList(), id: \.value) { currency in
-                        CalculatorItemView(item: currency)
+                VStack {
+                    
+                    BarView()
+                    
+                    if viewModel.isLoading {
+                        ProgressView()
+                    } else {
+                        Form {
+                            List (viewModel.getFilteredList(), id: \.value) { currency in
+                                CalculatorItemView(item: currency)
+                            }.listRowBackground(Color("ColorBackground"))
+                        }
                     }
+                    
+                    KeyboardView(input: $input)
+                    
                 }
-                
-                KeyboardView(input: $input)
-                
             }
             .navigationBarTitle(input)
             .navigationBarItems(
