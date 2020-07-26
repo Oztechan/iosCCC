@@ -61,6 +61,7 @@ struct BarViewPreviews: PreviewProvider {
 
     static var previews: some View {
         BarView().environmentObject(EnviromentViewModel(moc: BarViewPreviews().moc))
+        BarView().environmentObject(EnviromentViewModel(moc: BarViewPreviews().moc)).preferredColorScheme(.dark)
     }
 }
 #endif

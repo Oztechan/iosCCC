@@ -73,6 +73,7 @@ struct CalculatorViewCalculatorViewPreviews: PreviewProvider {
 
     static var previews: some View {
         CalculatorView().environmentObject(EnviromentViewModel(moc: CalculatorViewCalculatorViewPreviews().moc))
+        CalculatorView().environmentObject(EnviromentViewModel(moc: CalculatorViewCalculatorViewPreviews().moc)).preferredColorScheme(.dark)
     }
 }
 #endif
