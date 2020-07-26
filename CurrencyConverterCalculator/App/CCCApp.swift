@@ -27,7 +27,7 @@ struct CCCApp: App {
         WindowGroup {
             CalculatorView()
                 .environment(\.managedObjectContext, persistentContainer.viewContext)
-                .environmentObject(EnviromentViewModel())
+                .environmentObject(EnviromentViewModel(moc: persistentContainer.viewContext))
         }
     }
 }

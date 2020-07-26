@@ -8,11 +8,13 @@
 import Foundation
 import Combine
 import Expression
+import CoreData
 
 final class EnviromentViewModel: ObservableObject {
     
     private var cancelable: Cancellable?
     private var rates: Rates? = Rates()
+    private let database: CoreDataManager
     
     @Published var currencyList = [Currency]()
     var output = ""
@@ -25,7 +27,8 @@ final class EnviromentViewModel: ObservableObject {
         }
     }
     
-    init() {
+    init(moc: NSManagedObjectContext) {
+        database = CoreDataManager(moc: moc)
         let inititalBase = UserDefaults.standard.getBaseCurrency()
         if inititalBase == Currencies.NULL {
             baseCurrency = Currencies.EUR
@@ -107,16 +110,16 @@ final class EnviromentViewModel: ObservableObject {
     }
     
     func initList() {
-        let database = CoreDataManager.shared.getAllCurrencies()
+        let allCurrencies = database.getAllCurrencies()
         
-        if database.isEmpty {
+        if allCurrencies.isEmpty {
             InitializationHelper.loadJson(filename: "Currencies")?.forEach { initialCurrency in
-                if let temp = CoreDataManager.shared.insertInitialCurrency(initialCurrency: initialCurrency) {
+                if let temp = database.insertInitialCurrency(initialCurrency: initialCurrency) {
                     self.currencyList.append(temp)
                 }
             }
         } else {
-            database.forEach { currency in
+            allCurrencies.forEach { currency in
                 if Currencies.withLabel(currency.name) != Currencies.NULL {
                     self.currencyList.append(currency)
                     
@@ -153,7 +156,7 @@ final class EnviromentViewModel: ObservableObject {
         }
         currencyList.forEach {
             $0.isActive = state
-            CoreDataManager.shared.updateCurrencyStateByName(name: $0.name, state: state)
+            database.updateCurrencyStateByName(name: $0.name, state: state)
         }
         let temp = currencyList
         currencyList = temp
