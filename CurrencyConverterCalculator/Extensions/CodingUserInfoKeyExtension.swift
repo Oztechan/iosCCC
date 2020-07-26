@@ -2,8 +2,8 @@
 //  CodingUserInfoKeyExtension.swift
 //  CurrencyConverterCalculator
 //
-//  Created by Mustafa Ozhan on 25/08/2019.
-//  Copyright © 2019 Mustafa Ozhan. All rights reserved.
+//  Created by Mustafa Ozhan on 26/07/2020.
+//  Copyright © 2020 Mustafa Ozhan. All rights reserved.
 //
 
 import Foundation

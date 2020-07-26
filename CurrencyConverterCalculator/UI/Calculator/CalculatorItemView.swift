@@ -28,6 +28,8 @@ struct CalculatorItemViewPreviews: PreviewProvider {
     static var previews: some View {
         CalculatorItemView(item: Currency() )
             .previewLayout(.fixed(width: 300, height: 60))
+        CalculatorItemView(item: Currency() )
+            .previewLayout(.fixed(width: 300, height: 60)).preferredColorScheme(.dark)
     }
 }
 #endif
