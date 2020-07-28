@@ -139,10 +139,19 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		5C6823EB24D0D63A007CF2DF /* Bar */ = {
+			isa = PBXGroup;
+			children = (
+				5CEE59FD230DD3AB0007F300 /* BarView.swift */,
+				5C157A6C2306FACA0088E712 /* BarItemView.swift */,
+			);
+			path = Bar;
+			sourceTree = "<group>";
+		};
 		5C68240E23B5397B0087D5F0 /* Calculator */ = {
 			isa = PBXGroup;
 			children = (
-				5CCF64032309B18B001E4E32 /* SubView */,
+				5C3790D422FA184400C8DBE9 /* KeyboardView.swift */,
 				5C34765222F71C56007F9694 /* CalculatorView.swift */,
 				5C3790D622FA243500C8DBE9 /* CalculatorItemView.swift */,
 			);
@@ -171,6 +180,7 @@
 		5CCA74892312E47C00CFF721 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				5C6823EB24D0D63A007CF2DF /* Bar */,
 				5C68240E23B5397B0087D5F0 /* Calculator */,
 				5CCA748A2312E48200CFF721 /* Settings */,
 				5C3790D222FA098900C8DBE9 /* EnviromentViewModel.swift */,
@@ -185,16 +195,6 @@
 				5C2F6E9623089BCB00FD9D31 /* SettingsView.swift */,
 			);
 			path = Settings;
-			sourceTree = "<group>";
-		};
-		5CCF64032309B18B001E4E32 /* SubView */ = {
-			isa = PBXGroup;
-			children = (
-				5CEE59FD230DD3AB0007F300 /* BarView.swift */,
-				5C157A6C2306FACA0088E712 /* BarItemView.swift */,
-				5C3790D422FA184400C8DBE9 /* KeyboardView.swift */,
-			);
-			path = SubView;
 			sourceTree = "<group>";
 		};
 		5CF75F0E22FB5F6E0024EB77 /* Model */ = {
