@@ -24,12 +24,12 @@ struct SettingsView: View {
                 
                 leading: Button(
                     action: { self.viewModel.changeAllStates(state: true) },
-                    label: { Text("Select All") }
+                    label: { Text("Select All").foregroundColor(Color("ColorText")) }
                 ),
                 
                 trailing: Button(
                     action: { self.viewModel.changeAllStates(state: false) },
-                    label: { Text("Deselect All") }
+                    label: { Text("Deselect All").foregroundColor(Color("ColorText")) }
                 )
                 
             ).navigationBarTitle("Settings")

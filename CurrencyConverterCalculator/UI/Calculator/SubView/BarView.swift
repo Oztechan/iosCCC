@@ -32,33 +32,31 @@ struct BarView: View {
             isPresented: $isPresented,
             content: {
                 NavigationView {
-                    
-                    List(self.viewModel.currencyList.filter {
-                        $0.isActive &&
-                            $0.name != self.viewModel.baseCurrency.stringValue
-                    }, id: \.name) { currency in
-                        
-                        BarItemView(item: currency)
-                            .onTapGesture {
-                                self.viewModel.baseCurrency = Currencies.withLabel(currency.name)
-                                self.isPresented = false
-                        }
-                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-                        
-                    }
-                    .navigationBarTitle("Base Currency")
-                    
+                    Form {
+                        List(self.viewModel.currencyList.filter {
+                            $0.isActive &&
+                                $0.name != self.viewModel.baseCurrency.stringValue
+                        }, id: \.name) { currency in
+                            
+                            BarItemView(item: currency)
+                                .onTapGesture {
+                                    self.viewModel.baseCurrency = Currencies.withLabel(currency.name)
+                                    self.isPresented = false
+                                }
+                                .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+                            
+                        }.listRowBackground(Color("ColorBackground"))
+                    }.navigationBarTitle("Base Currency")
                 }
-        }
+            }
         )
-        
     }
 }
 
 #if DEBUG
 struct BarViewPreviews: PreviewProvider {
     @Environment(\.managedObjectContext) var moc
-
+    
     static var previews: some View {
         BarView().environmentObject(EnviromentViewModel(moc: BarViewPreviews().moc))
         BarView().environmentObject(EnviromentViewModel(moc: BarViewPreviews().moc)).preferredColorScheme(.dark)

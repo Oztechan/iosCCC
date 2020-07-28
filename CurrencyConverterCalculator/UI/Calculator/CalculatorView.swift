@@ -10,7 +10,7 @@ import SwiftUI
 struct CalculatorView: View {
     
     @Environment(\.managedObjectContext) var moc
-
+    
     @EnvironmentObject var viewModel: EnviromentViewModel
     @State var input = ""
     
@@ -61,7 +61,7 @@ struct CalculatorView: View {
                 }
             )
             
-        }
+        }.accentColor(Color("ColorText"))
         .onAppear { self.viewModel.fetchRates() }
         
     }
@@ -70,7 +70,7 @@ struct CalculatorView: View {
 #if DEBUG
 struct CalculatorViewCalculatorViewPreviews: PreviewProvider {
     @Environment(\.managedObjectContext) var moc
-
+    
     static var previews: some View {
         CalculatorView().environmentObject(EnviromentViewModel(moc: CalculatorViewCalculatorViewPreviews().moc))
         CalculatorView().environmentObject(EnviromentViewModel(moc: CalculatorViewCalculatorViewPreviews().moc)).preferredColorScheme(.dark)
