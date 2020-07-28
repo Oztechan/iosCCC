@@ -14,12 +14,13 @@ struct SettingsView: View {
     var body: some View {
         
         NavigationView {
-            List {
-                ForEach(0..<viewModel.currencyList.count) { index in
-                    SettingsItemView(item: self.$viewModel.currencyList[index])
-                }
-            }
-            .navigationBarItems(
+            Form {
+                List {
+                    ForEach(0..<viewModel.currencyList.count) { index in
+                        SettingsItemView(item: self.$viewModel.currencyList[index])
+                    }
+                }.listRowBackground(Color("ColorBackground"))
+            }.navigationBarItems(
                 
                 leading: Button(
                     action: { self.viewModel.changeAllStates(state: true) },
@@ -32,7 +33,6 @@ struct SettingsView: View {
                 )
                 
             ).navigationBarTitle("Settings")
-            
         }.onAppear {
             self.viewModel.initList()
         }
