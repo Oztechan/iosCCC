@@ -11,7 +11,7 @@ import CoreData
 
 class CoreDataRepository {
     static let shared = CoreDataRepository()
-
+    
     var moc: NSManagedObjectContext
     
     init() {
@@ -31,6 +31,15 @@ class CoreDataRepository {
             currencies = try self.moc.fetch(currencyRequest)
         } catch let error as NSError {
             print(error)
+        }
+        
+        // initial run
+        if currencies.isEmpty {
+            loadJson(filename: "Currencies")?.forEach { initialCurrency in
+                if let temp = insertInitialCurrency(initialCurrency: initialCurrency) {
+                    currencies.append(temp)
+                }
+            }
         }
         
         return currencies
@@ -72,5 +81,25 @@ class CoreDataRepository {
         } catch {
             print(error)
         }
+    }
+    
+    // swiftlint:disable nesting
+    private func loadJson(filename fileName: String) -> [InititalCurrency]? {
+        
+        struct ResponseData: Decodable {
+            var currencies: [InititalCurrency]
+        }
+        
+        if let url = Bundle.main.url(forResource: fileName, withExtension: "json") {
+            do {
+                
+                let data = try Data(contentsOf: url)
+                let jsonData = try JSONDecoder().decode(ResponseData.self, from: data)
+                return jsonData.currencies
+            } catch {
+                print("error:\(error)")
+            }
+        }
+        return nil
     }
 }

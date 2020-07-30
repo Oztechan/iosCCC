@@ -79,7 +79,7 @@ final class EnviromentViewModel: ObservableObject {
                 let rateOfCurrentRow = valueFor(
                     property: currencyList[index].name.lowercased(),
                     of: rates ?? 0.0
-                    )as? Double  ?? 0.0
+                )as? Double  ?? 0.0
                 let expression = Expression("\(rateOfCurrentRow)*\(output)")
                 do {
                     let result = try expression.evaluate()
@@ -112,18 +112,10 @@ final class EnviromentViewModel: ObservableObject {
     func initList() {
         let allCurrencies = coreDataRepository.getAllCurrencies()
         
-        if allCurrencies.isEmpty {
-            InitializationHelper.loadJson(filename: "Currencies")?.forEach { initialCurrency in
-                if let temp = coreDataRepository.insertInitialCurrency(initialCurrency: initialCurrency) {
-                    self.currencyList.append(temp)
-                }
-            }
-        } else {
-            allCurrencies.forEach { currency in
-                if Currencies.withLabel(currency.name) != Currencies.NULL {
-                    self.currencyList.append(currency)
-                    
-                }
+        allCurrencies.forEach { currency in
+            if Currencies.withLabel(currency.name) != Currencies.NULL {
+                self.currencyList.append(currency)
+                
             }
         }
     }
