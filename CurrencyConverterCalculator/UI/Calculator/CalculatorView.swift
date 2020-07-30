@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct CalculatorView: View {
-        
+    
     @EnvironmentObject var viewModel: EnviromentViewModel
     @State var input = ""
+    @State var isBarDialogShown = false
     
     init() {
         UITableView.appearance().tableHeaderView = UIView(
@@ -32,7 +33,24 @@ struct CalculatorView: View {
                 
                 VStack {
                     
-                    BarView()
+                    VStack(alignment: .leading) {
+                        
+                        HStack {
+                            Image(viewModel.baseCurrency.stringValue.lowercased())
+                                .shadow(radius: 3)
+                            Text(viewModel.getOutputText()).font(.headline)
+                        }
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .bottomLeading)
+                        .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
+                        
+                    }
+                    .lineLimit(1)
+                    .onTapGesture {
+                        self.isBarDialogShown.toggle()
+                    }.sheet(
+                        isPresented: $isBarDialogShown,
+                        content: { BarView(isBarDialogShown: $isBarDialogShown) }
+                    )
                     
                     if viewModel.isLoading {
                         ProgressView()
