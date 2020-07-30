@@ -54,12 +54,10 @@ struct BarView: View {
 }
 
 #if DEBUG
-struct BarViewPreviews: PreviewProvider {
-    @Environment(\.managedObjectContext) var moc
-    
+struct BarViewPreviews: PreviewProvider {    
     static var previews: some View {
-        BarView().environmentObject(EnviromentViewModel(moc: BarViewPreviews().moc))
-        BarView().environmentObject(EnviromentViewModel(moc: BarViewPreviews().moc)).preferredColorScheme(.dark)
+        BarView().environmentObject(EnviromentViewModel())
+        BarView().environmentObject(EnviromentViewModel()).preferredColorScheme(.dark)
     }
 }
 #endif

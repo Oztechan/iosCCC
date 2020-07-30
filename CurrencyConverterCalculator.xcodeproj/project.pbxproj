@@ -26,7 +26,7 @@
 		5C82CEA822FDCFA90030F72E /* Rates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C82CEA722FDCFA90030F72E /* Rates.swift */; };
 		5C82CEAA22FDD5020030F72E /* Currencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C82CEA922FDD5020030F72E /* Currencies.swift */; };
 		5C97B62222FCD00C005F62BA /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C97B62122FCD00C005F62BA /* Currency.swift */; };
-		5CCA74812311D0E900CFF721 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA74802311D0E900CFF721 /* CoreDataManager.swift */; };
+		5CCA74812311D0E900CFF721 /* CoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA74802311D0E900CFF721 /* CoreDataRepository.swift */; };
 		5CCA74862311FB1900CFF721 /* InitialCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA74852311FB1900CFF721 /* InitialCurrency.swift */; };
 		5CCA74922313100600CFF721 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA74912313100600CFF721 /* UserDefaultsExtension.swift */; };
 		5CCA74942313102B00CFF721 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA74932313102B00CFF721 /* UserDefaultsKeys.swift */; };
@@ -58,7 +58,7 @@
 		5C82CEA922FDD5020030F72E /* Currencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currencies.swift; sourceTree = "<group>"; };
 		5C97B62122FCD00C005F62BA /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		5C9DEA5B23A6B3560022F6CD /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
-		5CCA74802311D0E900CFF721 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		5CCA74802311D0E900CFF721 /* CoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRepository.swift; sourceTree = "<group>"; };
 		5CCA74852311FB1900CFF721 /* InitialCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialCurrency.swift; sourceTree = "<group>"; };
 		5CCA74912313100600CFF721 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
 		5CCA74932313102B00CFF721 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
@@ -161,7 +161,7 @@
 		5C82CEA222FDCC1F0030F72E /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				5CCA74802311D0E900CFF721 /* CoreDataManager.swift */,
+				5CCA74802311D0E900CFF721 /* CoreDataRepository.swift */,
 				5C82CEA322FDCC420030F72E /* BackendHelper.swift */,
 				5CDB1E7E230863E600CB9332 /* InitializationHelper.swift */,
 			);
@@ -330,7 +330,7 @@
 				5C82CEA422FDCC420030F72E /* BackendHelper.swift in Sources */,
 				5C3790D322FA098900C8DBE9 /* EnviromentViewModel.swift in Sources */,
 				5C97B62222FCD00C005F62BA /* Currency.swift in Sources */,
-				5CCA74812311D0E900CFF721 /* CoreDataManager.swift in Sources */,
+				5CCA74812311D0E900CFF721 /* CoreDataRepository.swift in Sources */,
 				5C157A6D2306FACA0088E712 /* BarItemView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

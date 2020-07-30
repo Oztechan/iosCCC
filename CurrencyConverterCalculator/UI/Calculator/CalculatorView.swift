@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct CalculatorView: View {
-    
-    @Environment(\.managedObjectContext) var moc
-    
+        
     @EnvironmentObject var viewModel: EnviromentViewModel
     @State var input = ""
     
@@ -53,7 +51,7 @@ struct CalculatorView: View {
             .navigationBarTitle(input)
             .navigationBarItems(
                 trailing: NavigationLink(
-                    destination: SettingsView(viewModel: EnviromentViewModel(moc: moc))
+                    destination: SettingsView(viewModel: EnviromentViewModel())
                 ) {
                     Image(systemName: "gear")
                         .imageScale(.large)
@@ -69,11 +67,9 @@ struct CalculatorView: View {
 
 #if DEBUG
 struct CalculatorViewCalculatorViewPreviews: PreviewProvider {
-    @Environment(\.managedObjectContext) var moc
-    
     static var previews: some View {
-        CalculatorView().environmentObject(EnviromentViewModel(moc: CalculatorViewCalculatorViewPreviews().moc))
-        CalculatorView().environmentObject(EnviromentViewModel(moc: CalculatorViewCalculatorViewPreviews().moc)).preferredColorScheme(.dark)
+        CalculatorView().environmentObject(EnviromentViewModel())
+        CalculatorView().environmentObject(EnviromentViewModel()).preferredColorScheme(.dark)
     }
 }
 #endif

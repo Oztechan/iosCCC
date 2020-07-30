@@ -1,5 +1,5 @@
 //
-//  CoreDataManager.swift
+//  CoreDataRepository.swift
 //  CurrencyConverterCalculator
 //
 //  Created by Mustafa Ozhan on 24/08/2019.
@@ -9,12 +9,13 @@
 import Foundation
 import CoreData
 
-class CoreDataManager {
-        
+class CoreDataRepository {
+    static let shared = CoreDataRepository()
+
     var moc: NSManagedObjectContext
     
-    init(moc: NSManagedObjectContext) {
-        self.moc = moc
+    init() {
+        self.moc = CCCApp.viewContext
     }
     
     // swiftlint:disable force_cast

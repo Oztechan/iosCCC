@@ -41,11 +41,9 @@ struct SettingsView: View {
 
 #if DEBUG
 struct SettingsViewPreviews: PreviewProvider {
-    @Environment(\.managedObjectContext) var moc
-    
     static var previews: some View {
-        SettingsView(viewModel: EnviromentViewModel(moc: SettingsViewPreviews().moc))
-        SettingsView(viewModel: EnviromentViewModel(moc: SettingsViewPreviews().moc)).preferredColorScheme(.dark)
+        SettingsView(viewModel: EnviromentViewModel())
+        SettingsView(viewModel: EnviromentViewModel()).preferredColorScheme(.dark)
     }
 }
 #endif

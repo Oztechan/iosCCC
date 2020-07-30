@@ -12,9 +12,10 @@ import CoreData
 
 final class EnviromentViewModel: ObservableObject {
     
+    private let coreDataRepository = CoreDataRepository.shared
+    
     private var cancelable: Cancellable?
     private var rates: Rates? = Rates()
-    private let database: CoreDataManager
     
     @Published var currencyList = [Currency]()
     var output = ""
@@ -27,8 +28,7 @@ final class EnviromentViewModel: ObservableObject {
         }
     }
     
-    init(moc: NSManagedObjectContext) {
-        database = CoreDataManager(moc: moc)
+    init() {
         let inititalBase = UserDefaults.standard.getBaseCurrency()
         if inititalBase == Currencies.NULL {
             baseCurrency = Currencies.EUR
@@ -110,11 +110,11 @@ final class EnviromentViewModel: ObservableObject {
     }
     
     func initList() {
-        let allCurrencies = database.getAllCurrencies()
+        let allCurrencies = coreDataRepository.getAllCurrencies()
         
         if allCurrencies.isEmpty {
             InitializationHelper.loadJson(filename: "Currencies")?.forEach { initialCurrency in
-                if let temp = database.insertInitialCurrency(initialCurrency: initialCurrency) {
+                if let temp = coreDataRepository.insertInitialCurrency(initialCurrency: initialCurrency) {
                     self.currencyList.append(temp)
                 }
             }
@@ -156,7 +156,7 @@ final class EnviromentViewModel: ObservableObject {
         }
         currencyList.forEach {
             $0.isActive = state
-            database.updateCurrencyStateByName(name: $0.name, state: state)
+            coreDataRepository.updateCurrencyStateByName(name: $0.name, state: state)
         }
         let temp = currencyList
         currencyList = temp

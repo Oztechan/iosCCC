@@ -80,15 +80,13 @@ struct KeyboardView: View {
 }
 
 #if DEBUG
-struct KeyboardViewPreviews: PreviewProvider {
-    @Environment(\.managedObjectContext) var moc
-    
+struct KeyboardViewPreviews: PreviewProvider {    
     static var previews: some View {
         KeyboardView(input: .constant("123"))
-            .environmentObject(EnviromentViewModel(moc: KeyboardViewPreviews().moc))
+            .environmentObject(EnviromentViewModel())
             .previewLayout(.fixed(width: 300, height: 500))
         KeyboardView(input: .constant("123"))
-            .environmentObject(EnviromentViewModel(moc: KeyboardViewPreviews().moc))
+            .environmentObject(EnviromentViewModel())
             .previewLayout(.fixed(width: 300, height: 500))
             .preferredColorScheme(.dark)
     }

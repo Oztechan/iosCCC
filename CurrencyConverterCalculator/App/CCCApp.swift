@@ -11,23 +11,19 @@ import CoreData
 
 @main
 struct CCCApp: App {
-    var persistentContainer: NSPersistentContainer
-    
-    init() {
+    static let viewContext: NSManagedObjectContext = {
         let container = NSPersistentContainer(name: "CurrencyConverterCalculator")
         container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
-        self.persistentContainer = container
-    }
+        return container.viewContext
+    }()
     
     var body: some Scene {
         WindowGroup {
-            CalculatorView()
-                .environment(\.managedObjectContext, persistentContainer.viewContext)
-                .environmentObject(EnviromentViewModel(moc: persistentContainer.viewContext))
+            CalculatorView().environmentObject(EnviromentViewModel())
         }
     }
 }
