@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct CalculatorView: View {
-    
-    @EnvironmentObject var viewModel: EnviromentViewModel
-    @State var input = ""
+    @ObservedObject var calculatorViewModel = CalculatorViewModel()
     @State var isBarDialogShown = false
     
     init() {
@@ -36,9 +34,9 @@ struct CalculatorView: View {
                     VStack(alignment: .leading) {
                         
                         HStack {
-                            Image(viewModel.baseCurrency.stringValue.lowercased())
+                            Image(calculatorViewModel.baseCurrency.stringValue.lowercased())
                                 .shadow(radius: 3)
-                            Text(viewModel.getOutputText()).font(.headline)
+                            Text(calculatorViewModel.getOutputText()).font(.headline)
                         }
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .bottomLeading)
                         .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
@@ -52,21 +50,21 @@ struct CalculatorView: View {
                         content: { BarView(isBarDialogShown: $isBarDialogShown) }
                     )
                     
-                    if viewModel.isLoading {
+                    if calculatorViewModel.isLoading {
                         ProgressView()
                     }
                     
                     Form {
-                        List (viewModel.getFilteredList(), id: \.value) { currency in
+                        List (calculatorViewModel.getFilteredList(), id: \.value) { currency in
                             CalculatorItemView(item: currency)
                         }.listRowBackground(Color("ColorBackground"))
                     }
                     
-                    KeyboardView(input: $input)
+                    KeyboardView(input: $calculatorViewModel.input)
                     
                 }
             }
-            .navigationBarTitle(input)
+            .navigationBarTitle(calculatorViewModel.input)
             .navigationBarItems(
                 trailing: NavigationLink(
                     destination: SettingsView()
@@ -78,7 +76,7 @@ struct CalculatorView: View {
             )
             
         }.accentColor(Color("ColorText"))
-        .onAppear { self.viewModel.fetchRates() }
+        .onAppear { self.calculatorViewModel.fetchRates() }
         
     }
 }
@@ -86,8 +84,8 @@ struct CalculatorView: View {
 #if DEBUG
 struct CalculatorViewCalculatorViewPreviews: PreviewProvider {
     static var previews: some View {
-        CalculatorView().environmentObject(EnviromentViewModel())
-        CalculatorView().environmentObject(EnviromentViewModel()).preferredColorScheme(.dark)
+        CalculatorView()
+        CalculatorView().preferredColorScheme(.dark)
     }
 }
 #endif

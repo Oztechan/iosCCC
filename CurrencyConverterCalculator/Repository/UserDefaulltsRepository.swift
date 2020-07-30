@@ -28,10 +28,6 @@ class UserDefaultsRepository {
 
 extension UserDefaults {
     
-    enum UserDefaultsKeys: String {
-        case baseCurrency
-    }
-    
     func setBaseCurrency(value: Currencies) {
         set(value.stringValue, forKey: UserDefaultsKeys.baseCurrency.rawValue)
     }
@@ -39,4 +35,8 @@ extension UserDefaults {
     func getBaseCurrency() -> Currencies {
         return Currencies.withLabel(string(forKey: UserDefaultsKeys.baseCurrency.rawValue))
     }
+}
+
+enum UserDefaultsKeys: String {
+    case baseCurrency
 }

@@ -7,9 +7,9 @@
 //
 import Combine
 import Expression
-import CoreData
+import Foundation
 
-final class EnviromentViewModel: ObservableObject {
+final class CalculatorViewModel: ObservableObject {
     
     private let coreDataRepository = CoreDataRepository.shared
     private let apiRepository = ApiRepository.shared
@@ -17,7 +17,10 @@ final class EnviromentViewModel: ObservableObject {
     
     private var cancelable: Cancellable?
     private var rates: Rates? = Rates()
-    
+ 
+    @Published var input = "" {
+        didSet { calculateOutput() }
+    }
     @Published var currencyList = [Currency]()
     @Published var isLoading = false
     @Published var baseCurrency: Currencies {
@@ -35,7 +38,7 @@ final class EnviromentViewModel: ObservableObject {
     
     deinit { cancelable?.cancel() }
     
-    func calculateOutput(input: String) {
+    private func calculateOutput() {
         isLoading = true
         let expression = Expression(input.replacingOccurrences(of: "%", with: "/100*"))
         do {
@@ -51,20 +54,7 @@ final class EnviromentViewModel: ObservableObject {
         updateList()
     }
     
-    func fetchRates() {
-        cancelable = apiRepository.getRatesByBase(base: baseCurrency.stringValue)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: {
-                if case let .failure(error) = $0 {
-                    print(error)
-                }
-            }, receiveValue: {
-                self.rates = $0.rates
-                self.updateList()
-            })
-    }
-    
-    func updateList() {
+    private func updateList() {
         if currencyList.isEmpty {
             initList()
         }
@@ -75,7 +65,9 @@ final class EnviromentViewModel: ObservableObject {
                     property: currencyList[index].name.lowercased(),
                     of: rates ?? 0.0
                 )as? Double  ?? 0.0
+                
                 let expression = Expression("\(rateOfCurrentRow)*\(output)")
+                
                 do {
                     let result = try expression.evaluate()
                     currencyList[index].value = String(format: "%.2f", result)
@@ -91,11 +83,11 @@ final class EnviromentViewModel: ObservableObject {
         isLoading  = false
     }
     
-    func isNilDescendant(_ any: Any?) -> Bool {
+    private func isNilDescendant(_ any: Any?) -> Bool {
         return String(describing: any) == "Optional(nil)"
     }
     
-    func valueFor(property: String, of object: Any) -> Any? {
+    private func valueFor(property: String, of object: Any) -> Any? {
         let mirror = Mirror(reflecting: object)
         if let child = mirror.descendant(property), !isNilDescendant(child) {
             return child
@@ -104,7 +96,7 @@ final class EnviromentViewModel: ObservableObject {
         }
     }
     
-    func initList() {
+    private func initList() {
         let allCurrencies = coreDataRepository.getAllCurrencies()
         
         allCurrencies.forEach { currency in
@@ -113,6 +105,19 @@ final class EnviromentViewModel: ObservableObject {
                 
             }
         }
+    }
+    
+    func fetchRates() {
+        cancelable = apiRepository.getRatesByBase(base: baseCurrency.stringValue)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: {
+                if case let .failure(error) = $0 {
+                    print(error)
+                }
+            }, receiveValue: {
+                self.rates = $0.rates
+                self.updateList()
+            })
     }
     
     func getOutputText() -> String {
@@ -126,30 +131,12 @@ final class EnviromentViewModel: ObservableObject {
     func getFilteredList() -> [Currency] {
         return currencyList.filter { currency in
             currency.value != "0.0" &&
+                currency.value != "0.00" &&
                 currency.value != "0" &&
                 currency.name != baseCurrency.stringValue &&
                 Currencies.withLabel(currency.name) != Currencies.NULL &&
                 currency.isActive
         }
     }
-    
-    func changeAllStates(state: Bool) {
-        if !state {
-            baseCurrency = Currencies.NULL
-        } else {
-            if baseCurrency == Currencies.NULL {
-                baseCurrency = Currencies.EUR
-            }
-        }
-        currencyList.forEach {
-            $0.isActive = state
-            coreDataRepository.updateCurrencyStateByName(name: $0.name, state: state)
-        }
-        let temp = currencyList
-        currencyList = temp
-    }
-    
-    func updateItem(item: Currency) {
-        currencyList.filter { $0.name == item.name }.first?.isActive = item.isActive
-    }
+
 }
