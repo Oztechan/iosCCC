@@ -54,12 +54,12 @@ struct CalculatorView: View {
                     
                     if viewModel.isLoading {
                         ProgressView()
-                    } else {
-                        Form {
-                            List (viewModel.getFilteredList(), id: \.value) { currency in
-                                CalculatorItemView(item: currency)
-                            }.listRowBackground(Color("ColorBackground"))
-                        }
+                    }
+                    
+                    Form {
+                        List (viewModel.getFilteredList(), id: \.value) { currency in
+                            CalculatorItemView(item: currency)
+                        }.listRowBackground(Color("ColorBackground"))
                     }
                     
                     KeyboardView(input: $input)
@@ -69,7 +69,7 @@ struct CalculatorView: View {
             .navigationBarTitle(input)
             .navigationBarItems(
                 trailing: NavigationLink(
-                    destination: SettingsView(viewModel: EnviromentViewModel())
+                    destination: SettingsView()
                 ) {
                     Image(systemName: "gear")
                         .imageScale(.large)

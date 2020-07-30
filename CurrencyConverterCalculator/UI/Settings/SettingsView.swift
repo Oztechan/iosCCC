@@ -9,32 +9,30 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @ObservedObject var viewModel: EnviromentViewModel
+    @ObservedObject var settingsViewModel = SettingsViewModel()
     
     var body: some View {
         
         NavigationView {
             Form {
                 List {
-                    ForEach(0..<viewModel.currencyList.count) { index in
-                        SettingsItemView(item: self.$viewModel.currencyList[index])
+                    ForEach(0..<settingsViewModel.currencyList.count) { index in
+                        SettingsItemView(item: self.$settingsViewModel.currencyList[index])
                     }
                 }.listRowBackground(Color("ColorBackground"))
             }.navigationBarItems(
                 
                 leading: Button(
-                    action: { self.viewModel.changeAllStates(state: true) },
+                    action: { self.settingsViewModel.changeAllStates(state: true) },
                     label: { Text("Select All").foregroundColor(Color("ColorText")) }
                 ),
                 
                 trailing: Button(
-                    action: { self.viewModel.changeAllStates(state: false) },
+                    action: { self.settingsViewModel.changeAllStates(state: false) },
                     label: { Text("Deselect All").foregroundColor(Color("ColorText")) }
                 )
                 
             ).navigationBarTitle("Settings")
-        }.onAppear {
-            self.viewModel.initList()
         }
     }
 }
@@ -42,8 +40,8 @@ struct SettingsView: View {
 #if DEBUG
 struct SettingsViewPreviews: PreviewProvider {
     static var previews: some View {
-        SettingsView(viewModel: EnviromentViewModel())
-        SettingsView(viewModel: EnviromentViewModel()).preferredColorScheme(.dark)
+        SettingsView()
+        SettingsView().preferredColorScheme(.dark)
     }
 }
 #endif

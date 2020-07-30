@@ -16,20 +16,19 @@ struct BarView: View {
         NavigationView {
             if barViewModel.isLoading {
                 ProgressView()
-            } else {
-                Form {
-                    List(self.barViewModel.currencyList, id: \.name) { currency in
-                        
-                        BarItemView(item: currency)
-                            .onTapGesture {
-                                self.barViewModel.baseCurrency = Currencies.withLabel(currency.name)
-                                self.isBarDialogShown = false
-                            }
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-                        
-                    }.listRowBackground(Color("ColorBackground"))
-                }.navigationBarTitle("Base Currency")
             }
+            Form {
+                List(self.barViewModel.currencyList, id: \.name) { currency in
+                    
+                    BarItemView(item: currency)
+                        .onTapGesture {
+                            self.barViewModel.baseCurrency = Currencies.withLabel(currency.name)
+                            self.isBarDialogShown = false
+                        }
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+                    
+                }.listRowBackground(Color("ColorBackground"))
+            }.navigationBarTitle("Base Currency")
         }
     }
 }

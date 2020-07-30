@@ -5,7 +5,6 @@
 //  Created by Mustafa Ozhan on 06/08/2019.
 //  Copyright © 2019 Mustafa Ozhan. All rights reserved.
 //
-import Foundation
 import Combine
 import Expression
 import CoreData
@@ -20,7 +19,7 @@ final class EnviromentViewModel: ObservableObject {
     private var rates: Rates? = Rates()
     
     @Published var currencyList = [Currency]()
-    @Published var isLoading = true
+    @Published var isLoading = false
     @Published var baseCurrency: Currencies {
         didSet {
             userDefaultRepository.setBaseCurrency(value: baseCurrency)
@@ -53,7 +52,6 @@ final class EnviromentViewModel: ObservableObject {
     }
     
     func fetchRates() {
-        isLoading  = true
         cancelable = apiRepository.getRatesByBase(base: baseCurrency.stringValue)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {

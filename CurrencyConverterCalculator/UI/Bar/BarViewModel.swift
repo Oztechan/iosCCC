@@ -6,9 +6,7 @@
 //  Copyright © 2020 Mustafa Ozhan. All rights reserved.
 //
 
-import Foundation
 import Combine
-import CoreData
 
 final class BarViewModel: ObservableObject {
     
