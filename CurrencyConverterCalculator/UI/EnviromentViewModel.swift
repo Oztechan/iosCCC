@@ -13,7 +13,8 @@ import CoreData
 final class EnviromentViewModel: ObservableObject {
     
     private let coreDataRepository = CoreDataRepository.shared
-    private let backendRepository = BackendRepository.shared
+    private let apiRepository = ApiRepository.shared
+    private let userDefaultRepository = UserDefaultsRepository.shared
     
     private var cancelable: Cancellable?
     private var rates: Rates? = Rates()
@@ -22,7 +23,7 @@ final class EnviromentViewModel: ObservableObject {
     @Published var isLoading = true
     @Published var baseCurrency: Currencies {
         didSet {
-            UserDefaults.standard.setBaseCurrency(value: baseCurrency)
+            userDefaultRepository.setBaseCurrency(value: baseCurrency)
             fetchRates()
         }
     }
@@ -30,12 +31,7 @@ final class EnviromentViewModel: ObservableObject {
     var output = ""
     
     init() {
-        let inititalBase = UserDefaults.standard.getBaseCurrency()
-        if inititalBase == Currencies.NULL {
-            baseCurrency = Currencies.EUR
-        } else {
-            baseCurrency = inititalBase
-        }
+        baseCurrency = userDefaultRepository.getBaseCurrency()
     }
     
     deinit { cancelable?.cancel() }
@@ -58,7 +54,7 @@ final class EnviromentViewModel: ObservableObject {
     
     func fetchRates() {
         isLoading  = true
-        cancelable = backendRepository.getRatesByBase(base: baseCurrency.stringValue)
+        cancelable = apiRepository.getRatesByBase(base: baseCurrency.stringValue)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {
                 if case let .failure(error) = $0 {
