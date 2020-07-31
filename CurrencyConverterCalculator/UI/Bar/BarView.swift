@@ -8,33 +8,38 @@
 import SwiftUI
 
 struct BarView: View {
+    @FetchRequest(
+        entity: Currency.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \Currency.name, ascending: true)]
+    ) var currencyList: FetchedResults<Currency>
     
-    @ObservedObject var barViewModel = BarViewModel()
+    @AppStorage(UserDefaultsKeys.baseCurrency.rawValue) var baseCurrency = Currencies.NULL.stringValue
+    
     @Binding var isBarDialogShown: Bool
+    
     var body: some View {
         
         NavigationView {
-            if barViewModel.isLoading {
-                ProgressView()
-            }
+            
             Form {
-                List(self.barViewModel.currencyList, id: \.name) { currency in
+                
+                List(currencyList, id: \.name) { currency in
                     
                     BarItemView(item: currency)
                         .onTapGesture {
-                            self.barViewModel.baseCurrency = Currencies.withLabel(currency.name)
-                            self.isBarDialogShown = false
-                        }
-                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+                            baseCurrency = currency.name
+                            isBarDialogShown = false
+                        }.frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                     
                 }.listRowBackground(Color("ColorBackground"))
+                
             }.navigationBarTitle("Base Currency")
         }
     }
 }
 
 #if DEBUG
-struct BarViewPreviews: PreviewProvider {    
+struct BarViewPreviews: PreviewProvider {
     static var previews: some View {
         BarView(isBarDialogShown: .constant(true))
         BarView(isBarDialogShown: .constant(true)).preferredColorScheme(.dark)

@@ -23,7 +23,7 @@ struct CCCApp: App {
     
     var body: some Scene {
         WindowGroup {
-            CalculatorView()
+            CalculatorView().environment(\.managedObjectContext, CCCApp.viewContext)
         }
     }
 }
