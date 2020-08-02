@@ -7,29 +7,28 @@
 //
 
 import Combine
+import SwiftUI
 
 final class BarViewModel: ObservableObject {
     
     private let coreDataRepository = CoreDataRepository.shared
+    
     private let userDefaultRepository = UserDefaultsRepository()
     
     @Published var currencyList = [Currency]()
     @Published var isLoading = true
-    @Published var baseCurrency: Currencies {
-        didSet {
-            userDefaultRepository.setBaseCurrency(value: baseCurrency)
-        }
-    }
+
+    @AppStorage(UserDefaultsKeys.baseCurrency.rawValue)
+    var baseCurrency: String = Currencies.NULL.stringValue
     
     init() {
-        baseCurrency = userDefaultRepository.getBaseCurrency()
         initList()
     }
     
     private func initList() {
         self.currencyList = coreDataRepository.getAllCurrencies()
             .filter { currency in
-                    currency.name != baseCurrency.stringValue &&
+                    currency.name != baseCurrency &&
                     Currencies.withLabel(currency.name) != Currencies.NULL &&
                     currency.isActive
             }
