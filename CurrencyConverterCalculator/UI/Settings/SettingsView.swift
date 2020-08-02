@@ -8,57 +8,33 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
     
-    @FetchRequest(
-        entity: Currency.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \Currency.name, ascending: true)]
-    ) var currencyList: FetchedResults<Currency>
-    
-    @AppStorage(UserDefaultsKeys.baseCurrency.rawValue) var baseCurrency = Currencies.NULL.stringValue
+    @StateObject var settingsViewModel = SettingsViewModel()
     
     var body: some View {
         
         NavigationView {
             Form {
-                List(currencyList, id: \.name) { currency in
-                    SettingsItemView(item: currency)
+                List {
+                    ForEach(0..<settingsViewModel.currencyList.count) { index in
+                        SettingsItemView(item: self.$settingsViewModel.currencyList[index])
+                    }
                 }.listRowBackground(Color("ColorBackground"))
             }.navigationBarItems(
                 
                 leading: Button(
-                    action: { changeAllStates(state: true) },
+                    action: { self.settingsViewModel.changeAllStates(state: true) },
                     label: { Text("Select All").foregroundColor(Color("ColorText")) }
                 ),
                 
                 trailing: Button(
-                    action: { changeAllStates(state: false) },
+                    action: { self.settingsViewModel.changeAllStates(state: false) },
                     label: { Text("Deselect All").foregroundColor(Color("ColorText")) }
                 )
                 
             ).navigationBarTitle("Settings")
         }
     }
-    
-    func changeAllStates(state: Bool) {
-        if !state {
-            baseCurrency = Currencies.NULL.stringValue
-        } else {
-            if baseCurrency == Currencies.NULL.stringValue {
-                baseCurrency = Currencies.EUR.stringValue
-            }
-        }
-        
-        currencyList.forEach { item in
-            item.isActive = state
-        }
-        do {
-            try managedObjectContext.save()
-        } catch {
-            print(error)
-        }
-    }
-    
 }
 
 #if DEBUG

@@ -51,6 +51,7 @@ struct CalculatorView: View {
                         content: {
                             BarView(isBarDialogShown: $isBarDialogShown)
                                 .environment(\.managedObjectContext, managedObjectContext)
+                            
                         }
                     )
                     
@@ -71,7 +72,7 @@ struct CalculatorView: View {
             .navigationBarTitle(calculatorViewModel.input)
             .navigationBarItems(
                 trailing: NavigationLink(
-                    destination: SettingsView().environment(\.managedObjectContext, managedObjectContext)
+                    destination: SettingsView()
                 ) {
                     Image(systemName: "gear")
                         .imageScale(.large)

@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct SettingsItemView: View {
-    @ObservedObject var item: Currency
+    @Binding var item: Currency
     
-    @Environment(\.managedObjectContext) var managedObjectContext
-        
     var body: some View {
         HStack {
             Image(item.name.lowercased())
@@ -20,26 +18,17 @@ struct SettingsItemView: View {
             Text(item.longName).font(.footnote)
             Text(item.symbol).font(.footnote)
             Spacer()
-            Image(systemName: item.isActive ? "checkmark.circle.fill" : "circle")
+            Image(systemName: $item.isActive.wrappedValue ? "checkmark.circle.fill" : "circle")
         }
-        .onTapGesture { updateItem() }
+        .onTapGesture { self.$item.isActive.wrappedValue.toggle() }
         .lineLimit(1)
-    }
-    
-    func updateItem() {
-        item.isActive.toggle()
-        do {
-            try managedObjectContext.save()
-        } catch {
-            print(error)
-        }
     }
 }
 
 #if DEBUG
 struct SettingsItemViewPreviews: PreviewProvider {
     static var previews: some View {
-        SettingsItemView(item: Currency())
+        SettingsItemView(item: .constant(Currency()))
             .previewLayout(.fixed(width: 300, height: 36))
     }
 }
