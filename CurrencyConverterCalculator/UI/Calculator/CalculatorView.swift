@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct CalculatorView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
-    @StateObject var calculatorViewModel = CalculatorViewModel()
+    @ObservedObject var calculatorViewModel = CalculatorViewModel()
     @State var isBarDialogShown = false
     
     init() {
@@ -48,11 +47,7 @@ struct CalculatorView: View {
                         self.isBarDialogShown.toggle()
                     }.sheet(
                         isPresented: $isBarDialogShown,
-                        content: {
-                            BarView(isBarDialogShown: $isBarDialogShown)
-                                .environment(\.managedObjectContext, managedObjectContext)
-                            
-                        }
+                        content: { BarView(isBarDialogShown: $isBarDialogShown) }
                     )
                     
                     if calculatorViewModel.isLoading {

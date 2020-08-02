@@ -7,28 +7,35 @@
 //
 
 import Combine
-import SwiftUI
 
-extension BarView {
+final class BarViewModel: ObservableObject {
     
-    final class BarViewModel: ObservableObject {
-        
-        @Environment(\.managedObjectContext) var managedObjectContext
-        
-        @FetchRequest(
-            entity: Currency.entity(),
-            sortDescriptors: [NSSortDescriptor(keyPath: \Currency.name, ascending: true)],
-            predicate: NSPredicate(format: "currency.isActive == %@", true),
-            animation: .default
-        ) var currencyList: FetchedResults<Currency>
-        
-        @AppStorage(UserDefaultsKeys.baseCurrency.rawValue) var baseCurrency = Currencies.NULL.stringValue
-        
-        @Binding var isBarDialogShown: Bool?
+    private let coreDataRepository = CoreDataRepository.shared
+    private let userDefaultRepository = UserDefaultsRepository.shared
     
-        init() {
-            
+    @Published var currencyList = [Currency]()
+    @Published var isLoading = true
+    @Published var baseCurrency: Currencies {
+        didSet {
+            userDefaultRepository.setBaseCurrency(value: baseCurrency)
         }
+    }
+    
+    init() {
+        baseCurrency = userDefaultRepository.getBaseCurrency()
+        initList()
+    }
+    
+    private func initList() {
+        self.currencyList = coreDataRepository.getAllCurrencies()
+            .filter { currency in
+                currency.value != "0.0" &&
+                    currency.value != "0" &&
+                    currency.name != baseCurrency.stringValue &&
+                    Currencies.withLabel(currency.name) != Currencies.NULL &&
+                    currency.isActive
+            }
         
+        self.isLoading = false
     }
 }

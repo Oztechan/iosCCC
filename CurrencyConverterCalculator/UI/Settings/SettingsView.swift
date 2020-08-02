@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @StateObject var settingsViewModel = SettingsViewModel()
+    @ObservedObject var settingsViewModel = SettingsViewModel()
     
     var body: some View {
         
