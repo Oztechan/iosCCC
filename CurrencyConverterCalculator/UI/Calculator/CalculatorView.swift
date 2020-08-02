@@ -55,7 +55,12 @@ struct CalculatorView: View {
                     }
                     
                     Form {
-                        List (calculatorViewModel.getFilteredList(), id: \.value) { currency in
+                        List(
+                            calculatorViewModel.currencyList.filterResults(
+                                baseCurrency: calculatorViewModel.baseCurrency
+                            ),
+                            id: \.value
+                        ) { currency in
                             CalculatorItemView(item: currency)
                         }.listRowBackground(Color("ColorBackground"))
                     }
@@ -76,7 +81,9 @@ struct CalculatorView: View {
             )
             
         }.accentColor(Color("ColorText"))
-        .onAppear { self.calculatorViewModel.fetchRates() }
+        .onAppear {
+            self.calculatorViewModel.fetchRates()
+        }
         
     }
 }

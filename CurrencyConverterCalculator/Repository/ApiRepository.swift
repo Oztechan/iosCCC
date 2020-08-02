@@ -9,9 +9,7 @@
 import Foundation
 import Combine
 
-class ApiRepository {
-    static let shared = ApiRepository()
-    
+class ApiRepository {    
     func getRatesByBase(base: String) -> AnyPublisher<CurrencyResponse, Error> {
         let url = URL(string: "\(getBackendUrl())?base=\(base)")!
         return URLSession.shared.dataTaskPublisher(for: url)

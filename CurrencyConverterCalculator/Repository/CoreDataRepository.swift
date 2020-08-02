@@ -64,7 +64,6 @@ class CoreDataRepository {
     }
     
     func updateCurrencyStateByName(name: String, state: Bool) {
-        
         let currencyRequest: NSFetchRequest<Currency> = Currency.fetchRequest() as! NSFetchRequest<Currency>
         let predicate = NSPredicate(format: "name = '\(name)'")
         currencyRequest.predicate = predicate
@@ -72,18 +71,8 @@ class CoreDataRepository {
             let object = try self.moc.fetch(currencyRequest)
             if object.count == 1 {
                 object.first?.setValue(state, forKey: "isActive")
-                do {
-                    try self.moc.save()
-                } catch {
-                    print(error)
-                }
+                update()
             }
-        } catch {
-            print(error)
-        }
-        
-        do {
-            try moc.save()
         } catch {
             print(error)
         }
@@ -98,7 +87,6 @@ class CoreDataRepository {
         
         if let url = Bundle.main.url(forResource: fileName, withExtension: "json") {
             do {
-                
                 let data = try Data(contentsOf: url)
                 let jsonData = try JSONDecoder().decode(ResponseData.self, from: data)
                 return jsonData.currencies
@@ -107,5 +95,13 @@ class CoreDataRepository {
             }
         }
         return nil
+    }
+    
+    func update() {
+        do {
+            try self.moc.save()
+        } catch {
+            print(error)
+        }
     }
 }

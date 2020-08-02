@@ -12,12 +12,12 @@ import Foundation
 final class CalculatorViewModel: ObservableObject {
     
     private let coreDataRepository = CoreDataRepository.shared
-    private let apiRepository = ApiRepository.shared
-    private let userDefaultRepository = UserDefaultsRepository.shared
+    private let apiRepository = ApiRepository()
+    private let userDefaultRepository = UserDefaultsRepository()
     
     private var cancelable: Cancellable?
     private var rates: Rates? = Rates()
- 
+    
     @Published var input = "" {
         didSet { calculateOutput() }
     }
@@ -33,6 +33,11 @@ final class CalculatorViewModel: ObservableObject {
     var output = ""
     
     init() {
+        baseCurrency = userDefaultRepository.getBaseCurrency()
+        initList()
+    }
+    
+    func asd() {
         baseCurrency = userDefaultRepository.getBaseCurrency()
     }
     
@@ -58,7 +63,7 @@ final class CalculatorViewModel: ObservableObject {
         if currencyList.isEmpty {
             initList()
         }
-        
+                
         if rates != nil {
             for index in 0..<(currencyList.count) {
                 let rateOfCurrentRow = valueFor(
@@ -79,7 +84,7 @@ final class CalculatorViewModel: ObservableObject {
         } else {
             fetchRates()
         }
-        
+                
         isLoading  = false
     }
     
@@ -128,15 +133,16 @@ final class CalculatorViewModel: ObservableObject {
         }
     }
     
-    func getFilteredList() -> [Currency] {
-        return currencyList.filter { currency in
-            currency.value != "0.0" &&
-                currency.value != "0.00" &&
-                currency.value != "0" &&
-                currency.name != baseCurrency.stringValue &&
-                Currencies.withLabel(currency.name) != Currencies.NULL &&
-                currency.isActive
-        }
+}
+extension Array where Element == Currency {
+    func filterResults(baseCurrency: Currencies) -> [Currency] {
+      return self.filter { currency in
+        currency.value != "0.0" &&
+            currency.value != "0.00" &&
+            currency.value != "0" &&
+            currency.name != baseCurrency.stringValue &&
+            Currencies.withLabel(currency.name) != Currencies.NULL &&
+            currency.isActive
     }
-
+    }
 }

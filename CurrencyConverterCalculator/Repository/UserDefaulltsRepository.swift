@@ -9,8 +9,6 @@
 import Foundation
 
 class UserDefaultsRepository {
-    static let shared = UserDefaultsRepository()
-    
     func setBaseCurrency(value: Currencies) {
         UserDefaults.standard.setBaseCurrency(value: value)
     }

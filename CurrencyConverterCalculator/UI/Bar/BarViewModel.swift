@@ -11,7 +11,7 @@ import Combine
 final class BarViewModel: ObservableObject {
     
     private let coreDataRepository = CoreDataRepository.shared
-    private let userDefaultRepository = UserDefaultsRepository.shared
+    private let userDefaultRepository = UserDefaultsRepository()
     
     @Published var currencyList = [Currency]()
     @Published var isLoading = true
@@ -29,8 +29,6 @@ final class BarViewModel: ObservableObject {
     private func initList() {
         self.currencyList = coreDataRepository.getAllCurrencies()
             .filter { currency in
-                currency.value != "0.0" &&
-                    currency.value != "0" &&
                     currency.name != baseCurrency.stringValue &&
                     Currencies.withLabel(currency.name) != Currencies.NULL &&
                     currency.isActive

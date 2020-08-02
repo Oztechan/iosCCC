@@ -11,7 +11,7 @@ import Combine
 final class SettingsViewModel: ObservableObject {
     
     private let coreDataRepository = CoreDataRepository.shared
-    private let userDefaultRepository = UserDefaultsRepository.shared
+    private let userDefaultRepository = UserDefaultsRepository()
     
     @Published var currencyList = [Currency]()
     @Published var isLoading = false
