@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct SettingsItemView: View {
-    @Binding var item: Currency
+    @ObservedObject var item: Currency
+    var function: () -> Void
     
     var body: some View {
         HStack {
@@ -20,7 +21,10 @@ struct SettingsItemView: View {
             Spacer()
             Image(systemName: $item.isActive.wrappedValue ? "checkmark.circle.fill" : "circle")
         }
-        .onTapGesture { self.$item.isActive.wrappedValue.toggle() }
+        .onTapGesture {
+            self.$item.isActive.wrappedValue.toggle()
+            function()
+        }
         .lineLimit(1)
     }
 }
@@ -28,7 +32,7 @@ struct SettingsItemView: View {
 #if DEBUG
 struct SettingsItemViewPreviews: PreviewProvider {
     static var previews: some View {
-        SettingsItemView(item: .constant(Currency()))
+        SettingsItemView(item: Currency(), function: {})
             .previewLayout(.fixed(width: 300, height: 36))
     }
 }

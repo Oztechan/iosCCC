@@ -15,11 +15,12 @@ struct SettingsView: View {
         
         NavigationView {
             Form {
-                List {
-                    ForEach(0..<settingsViewModel.currencyList.count) { index in
-                        SettingsItemView(item: self.$settingsViewModel.currencyList[index])
-                    }
-                }.listRowBackground(Color("ColorBackground"))
+                List(settingsViewModel.currencyList, id: \.name) { currency in
+                    SettingsItemView(item: currency, function: {
+                        settingsViewModel.updateItem(item: currency)
+                    })
+                }
+                .listRowBackground(Color("ColorBackground"))
             }.navigationBarItems(
                 
                 leading: Button(

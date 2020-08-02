@@ -50,7 +50,7 @@ final class SettingsViewModel: ObservableObject {
     }
     
     func updateItem(item: Currency) {
-        currencyList.filter { $0.name == item.name }.first?.isActive = item.isActive
-        coreDataRepository.updateCurrencyStateByName(name: item.name, state: item.isActive)
+        currencyList.filter { $0.name == item.name }.first?.isActive = !item.isActive
+        coreDataRepository.updateCurrencyStateByName(name: item.name, state: !item.isActive)
     }
 }
