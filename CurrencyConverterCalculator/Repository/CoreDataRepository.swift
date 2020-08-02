@@ -81,6 +81,12 @@ class CoreDataRepository {
         } catch {
             print(error)
         }
+        
+        do {
+            try moc.save()
+        } catch {
+            print(error)
+        }
     }
     
     // swiftlint:disable nesting
