@@ -7,7 +7,7 @@
 //
 import Combine
 import Expression
-import SwiftUI
+import Foundation
 
 final class CalculatorViewModel: ObservableObject {
     
@@ -23,14 +23,22 @@ final class CalculatorViewModel: ObservableObject {
     }
     @Published var currencyList = [Currency]()
     @Published var isLoading = false
-
-    @AppStorage(UserDefaultsKeys.baseCurrency.rawValue)
-    var baseCurrency: String = Currencies.NULL.stringValue
+    @Published var baseCurrency: Currencies {
+        didSet {
+            userDefaultRepository.setBaseCurrency(value: baseCurrency)
+            fetchRates()
+        }
+    }
     
     var output = ""
     
     init() {
+        baseCurrency = userDefaultRepository.getBaseCurrency()
         initList()
+    }
+    
+    func asd() {
+        baseCurrency = userDefaultRepository.getBaseCurrency()
     }
     
     deinit { cancelable?.cancel() }
@@ -105,7 +113,7 @@ final class CalculatorViewModel: ObservableObject {
     }
     
     func fetchRates() {
-        cancelable = apiRepository.getRatesByBase(base: baseCurrency)
+        cancelable = apiRepository.getRatesByBase(base: baseCurrency.stringValue)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {
                 if case let .failure(error) = $0 {
@@ -119,20 +127,20 @@ final class CalculatorViewModel: ObservableObject {
     
     func getOutputText() -> String {
         if output.isEmpty {
-            return baseCurrency
+            return baseCurrency.stringValue
         } else {
-            return "\(baseCurrency.replacingOccurrences(of: "NULL", with: "")) = \(output)"
+            return "\(baseCurrency.stringValue.replacingOccurrences(of: "NULL", with: "")) = \(output)"
         }
     }
     
 }
 extension Array where Element == Currency {
-    func filterResults(baseCurrency: String) -> [Currency] {
+    func filterResults(baseCurrency: Currencies) -> [Currency] {
       return self.filter { currency in
         currency.value != "0.0" &&
             currency.value != "0.00" &&
             currency.value != "0" &&
-            currency.name != baseCurrency &&
+            currency.name != baseCurrency.stringValue &&
             Currencies.withLabel(currency.name) != Currencies.NULL &&
             currency.isActive
     }

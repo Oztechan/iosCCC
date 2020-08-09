@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CalculatorView: View {
-    @StateObject var calculatorViewModel = CalculatorViewModel()
+    @ObservedObject var calculatorViewModel = CalculatorViewModel()
     @State var isBarDialogShown = false
     
     init() {
@@ -34,7 +34,7 @@ struct CalculatorView: View {
                     VStack(alignment: .leading) {
                         
                         HStack {
-                            Image(calculatorViewModel.baseCurrency.lowercased())
+                            Image(calculatorViewModel.baseCurrency.stringValue.lowercased())
                                 .shadow(radius: 3)
                             Text(calculatorViewModel.getOutputText()).font(.headline)
                         }

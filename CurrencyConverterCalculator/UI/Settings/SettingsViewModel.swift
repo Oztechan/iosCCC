@@ -7,22 +7,24 @@
 //
 
 import Combine
-import SwiftUI
 
 final class SettingsViewModel: ObservableObject {
     
     private let coreDataRepository = CoreDataRepository.shared
-//    private let userDefaultRepository = UserDefaultsRepository()
+    private let userDefaultRepository = UserDefaultsRepository()
     
     @Published var currencyList = [Currency]()
     @Published var isLoading = false
-
-    @AppStorage(UserDefaultsKeys.baseCurrency.rawValue)
-    var baseCurrency: String = Currencies.NULL.stringValue
+    @Published var baseCurrency: Currencies {
+        didSet {
+            userDefaultRepository.setBaseCurrency(value: baseCurrency)
+        }
+    }
     
     var output = ""
     
     init() {
+        baseCurrency = userDefaultRepository.getBaseCurrency()
         self.initList()
     }
     
@@ -33,10 +35,10 @@ final class SettingsViewModel: ObservableObject {
     
     func changeAllStates(state: Bool) {
         if !state {
-            baseCurrency = Currencies.NULL.stringValue
+            baseCurrency = Currencies.NULL
         } else {
-            if baseCurrency == Currencies.NULL.stringValue {
-                baseCurrency = Currencies.EUR.stringValue
+            if baseCurrency == Currencies.NULL {
+                baseCurrency = Currencies.EUR
             }
         }
         currencyList.forEach {

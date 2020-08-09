@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BarView: View {
     
-    @StateObject var barViewModel = BarViewModel()
+    @ObservedObject var barViewModel = BarViewModel()
     @Binding var isBarDialogShown: Bool
     var body: some View {
         
@@ -22,7 +22,7 @@ struct BarView: View {
                     
                     BarItemView(item: currency)
                         .onTapGesture {
-                            self.barViewModel.baseCurrency = currency.name
+                            self.barViewModel.baseCurrency = Currencies.withLabel(currency.name)
                             self.isBarDialogShown = false
                         }
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
