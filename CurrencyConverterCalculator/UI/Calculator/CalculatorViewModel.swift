@@ -37,10 +37,6 @@ final class CalculatorViewModel: ObservableObject {
         initList()
     }
     
-    func asd() {
-        baseCurrency = userDefaultRepository.getBaseCurrency()
-    }
-    
     deinit { cancelable?.cancel() }
     
     private func calculateOutput() {

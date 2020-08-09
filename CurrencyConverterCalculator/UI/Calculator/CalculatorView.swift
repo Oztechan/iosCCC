@@ -47,7 +47,12 @@ struct CalculatorView: View {
                         self.isBarDialogShown.toggle()
                     }.sheet(
                         isPresented: $isBarDialogShown,
-                        content: { BarView(isBarDialogShown: $isBarDialogShown) }
+                        content: {
+                            BarView(
+                                isBarDialogShown: $isBarDialogShown,
+                                baseCurrency: $calculatorViewModel.baseCurrency
+                            )
+                        }
                     )
                     
                     if calculatorViewModel.isLoading {
