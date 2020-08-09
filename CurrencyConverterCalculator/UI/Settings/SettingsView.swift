@@ -7,7 +7,13 @@
 //
 import SwiftUI
 
-struct SettingsView: View {
+struct SettingsView: View, Effect {
+    
+    func asd(newBase: Currencies) {
+        baseCurrency = newBase
+    }
+    
+    @Binding var baseCurrency: Currencies
     
     @ObservedObject var settingsViewModel = SettingsViewModel()
     
@@ -24,12 +30,22 @@ struct SettingsView: View {
             }.navigationBarItems(
                 
                 leading: Button(
-                    action: { self.settingsViewModel.changeAllStates(state: true) },
+                    action: {
+                        self.baseCurrency = self.settingsViewModel.changeAllStates(
+                            state: true,
+                            baseCurrency: baseCurrency
+                        )
+                    },
                     label: { Text("Select All").foregroundColor(Color("ColorText")) }
                 ),
                 
                 trailing: Button(
-                    action: { self.settingsViewModel.changeAllStates(state: false) },
+                    action: {
+                        self.baseCurrency = self.settingsViewModel.changeAllStates(
+                            state: false,
+                            baseCurrency: baseCurrency
+                        )
+                    },
                     label: { Text("Deselect All").foregroundColor(Color("ColorText")) }
                 )
                 
@@ -38,11 +54,16 @@ struct SettingsView: View {
     }
 }
 
+protocol Effect {
+
+    func asd(newBase: Currencies)
+}
+
 #if DEBUG
 struct SettingsViewPreviews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
-        SettingsView().preferredColorScheme(.dark)
+        SettingsView(baseCurrency: .constant(Currencies.EUR))
+        SettingsView(baseCurrency: .constant(Currencies.EUR)).preferredColorScheme(.dark)
     }
 }
 #endif

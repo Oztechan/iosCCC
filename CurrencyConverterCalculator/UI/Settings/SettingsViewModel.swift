@@ -11,20 +11,13 @@ import Combine
 final class SettingsViewModel: ObservableObject {
     
     private let coreDataRepository = CoreDataRepository.shared
-    private let userDefaultRepository = UserDefaultsRepository()
     
     @Published var currencyList = [Currency]()
     @Published var isLoading = false
-    @Published var baseCurrency: Currencies {
-        didSet {
-            userDefaultRepository.setBaseCurrency(value: baseCurrency)
-        }
-    }
     
     var output = ""
     
     init() {
-        baseCurrency = userDefaultRepository.getBaseCurrency()
         self.initList()
     }
     
@@ -33,20 +26,20 @@ final class SettingsViewModel: ObservableObject {
         self.isLoading = false
     }
     
-    func changeAllStates(state: Bool) {
-        if !state {
-            baseCurrency = Currencies.NULL
-        } else {
-            if baseCurrency == Currencies.NULL {
-                baseCurrency = Currencies.EUR
-            }
-        }
+    func changeAllStates(state: Bool, baseCurrency: Currencies) -> Currencies {
+
         currencyList.forEach {
             $0.isActive = state
             coreDataRepository.updateCurrencyStateByName(name: $0.name, state: state)
         }
         let temp = currencyList
         currencyList = temp
+        
+        if !state {
+            return Currencies.NULL
+        } else {
+            return baseCurrency
+        }
     }
     
     func updateItem(item: Currency) {

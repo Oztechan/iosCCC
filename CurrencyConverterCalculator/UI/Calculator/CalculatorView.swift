@@ -77,7 +77,7 @@ struct CalculatorView: View {
             .navigationBarTitle(calculatorViewModel.input)
             .navigationBarItems(
                 trailing: NavigationLink(
-                    destination: SettingsView()
+                    destination: SettingsView(baseCurrency: $calculatorViewModel.baseCurrency)
                 ) {
                     Image(systemName: "gear")
                         .imageScale(.large)
