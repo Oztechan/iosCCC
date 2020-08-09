@@ -55,3 +55,7 @@ public class Currency: NSManagedObject, Identifiable, Codable {
     }
     
 }
+
+public extension CodingUserInfoKey {
+    static let managedObjectContext = CodingUserInfoKey(rawValue: "managedObjectContext")
+}

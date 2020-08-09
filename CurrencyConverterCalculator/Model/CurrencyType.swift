@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Currencies: CaseIterable {
+enum CurrencyType: CaseIterable {
     case AED
     case AFN
     case ALL
@@ -183,7 +183,7 @@ enum Currencies: CaseIterable {
         return String(describing: self)
     }
     
-    static func withLabel(_ label: String?) -> Currencies {
+    static func withLabel(_ label: String?) -> CurrencyType {
         return self.allCases.first {
             "\($0)" == label
             } ?? NULL

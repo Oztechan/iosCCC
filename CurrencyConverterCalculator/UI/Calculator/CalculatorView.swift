@@ -8,11 +8,8 @@
 import SwiftUI
 
 struct CalculatorView: View {
-    
-    @Environment(\.managedObjectContext) var moc
-    
-    @EnvironmentObject var viewModel: EnviromentViewModel
-    @State var input = ""
+    @ObservedObject var calculatorViewModel = CalculatorViewModel()
+    @State var isBarDialogShown = false
     
     init() {
         UITableView.appearance().tableHeaderView = UIView(
@@ -34,26 +31,53 @@ struct CalculatorView: View {
                 
                 VStack {
                     
-                    BarView()
-                    
-                    if viewModel.isLoading {
-                        ProgressView()
-                    } else {
-                        Form {
-                            List (viewModel.getFilteredList(), id: \.value) { currency in
-                                CalculatorItemView(item: currency)
-                            }.listRowBackground(Color("ColorBackground"))
+                    VStack(alignment: .leading) {
+                        
+                        HStack {
+                            Image(calculatorViewModel.baseCurrency.stringValue.lowercased())
+                                .shadow(radius: 3)
+                            Text(calculatorViewModel.getOutputText()).font(.headline)
                         }
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .bottomLeading)
+                        .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
+                        
+                    }
+                    .lineLimit(1)
+                    .onTapGesture {
+                        self.isBarDialogShown.toggle()
+                    }.sheet(
+                        isPresented: $isBarDialogShown,
+                        content: {
+                            BarView(
+                                isBarDialogShown: $isBarDialogShown,
+                                baseCurrency: $calculatorViewModel.baseCurrency
+                            )
+                        }
+                    )
+                    
+                    if calculatorViewModel.isLoading {
+                        ProgressView()
                     }
                     
-                    KeyboardView(input: $input)
+                    Form {
+                        List(
+                            calculatorViewModel.currencyList.filterResults(
+                                baseCurrency: calculatorViewModel.baseCurrency
+                            ),
+                            id: \.value
+                        ) { currency in
+                            CalculatorItemView(item: currency)
+                        }.listRowBackground(Color("ColorBackground"))
+                    }
+                    
+                    KeyboardView(input: $calculatorViewModel.input)
                     
                 }
             }
-            .navigationBarTitle(input)
+            .navigationBarTitle(calculatorViewModel.input)
             .navigationBarItems(
                 trailing: NavigationLink(
-                    destination: SettingsView(viewModel: EnviromentViewModel(moc: moc))
+                    destination: CurrenciesView(baseCurrency: $calculatorViewModel.baseCurrency)
                 ) {
                     Image(systemName: "gear")
                         .imageScale(.large)
@@ -62,18 +86,18 @@ struct CalculatorView: View {
             )
             
         }.accentColor(Color("ColorText"))
-        .onAppear { self.viewModel.fetchRates() }
+        .onAppear {
+            self.calculatorViewModel.fetchRates()
+        }
         
     }
 }
 
 #if DEBUG
 struct CalculatorViewCalculatorViewPreviews: PreviewProvider {
-    @Environment(\.managedObjectContext) var moc
-    
     static var previews: some View {
-        CalculatorView().environmentObject(EnviromentViewModel(moc: CalculatorViewCalculatorViewPreviews().moc))
-        CalculatorView().environmentObject(EnviromentViewModel(moc: CalculatorViewCalculatorViewPreviews().moc)).preferredColorScheme(.dark)
+        CalculatorView()
+        CalculatorView().preferredColorScheme(.dark)
     }
 }
 #endif

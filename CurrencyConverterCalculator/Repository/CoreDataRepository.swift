@@ -1,5 +1,5 @@
 //
-//  CoreDataManager.swift
+//  CoreDataRepository.swift
 //  CurrencyConverterCalculator
 //
 //  Created by Mustafa Ozhan on 24/08/2019.
@@ -9,12 +9,13 @@
 import Foundation
 import CoreData
 
-class CoreDataManager {
-        
+class CoreDataRepository {
+    static let shared = CoreDataRepository()
+    
     var moc: NSManagedObjectContext
     
-    init(moc: NSManagedObjectContext) {
-        self.moc = moc
+    init() {
+        self.moc = CCCApp.viewContext
     }
     
     // swiftlint:disable force_cast
@@ -30,6 +31,15 @@ class CoreDataManager {
             currencies = try self.moc.fetch(currencyRequest)
         } catch let error as NSError {
             print(error)
+        }
+        
+        // initial run
+        if currencies.isEmpty {
+            loadJson(filename: "Currencies")?.forEach { initialCurrency in
+                if let temp = insertInitialCurrency(initialCurrency: initialCurrency) {
+                    currencies.append(temp)
+                }
+            }
         }
         
         return currencies
@@ -54,7 +64,6 @@ class CoreDataManager {
     }
     
     func updateCurrencyStateByName(name: String, state: Bool) {
-        
         let currencyRequest: NSFetchRequest<Currency> = Currency.fetchRequest() as! NSFetchRequest<Currency>
         let predicate = NSPredicate(format: "name = '\(name)'")
         currencyRequest.predicate = predicate
@@ -62,12 +71,35 @@ class CoreDataManager {
             let object = try self.moc.fetch(currencyRequest)
             if object.count == 1 {
                 object.first?.setValue(state, forKey: "isActive")
-                do {
-                    try self.moc.save()
-                } catch {
-                    print(error)
-                }
+                update()
             }
+        } catch {
+            print(error)
+        }
+    }
+    
+    // swiftlint:disable nesting
+    private func loadJson(filename fileName: String) -> [InititalCurrency]? {
+        
+        struct ResponseData: Decodable {
+            var currencies: [InititalCurrency]
+        }
+        
+        if let url = Bundle.main.url(forResource: fileName, withExtension: "json") {
+            do {
+                let data = try Data(contentsOf: url)
+                let jsonData = try JSONDecoder().decode(ResponseData.self, from: data)
+                return jsonData.currencies
+            } catch {
+                print("error:\(error)")
+            }
+        }
+        return nil
+    }
+    
+    func update() {
+        do {
+            try self.moc.save()
         } catch {
             print(error)
         }

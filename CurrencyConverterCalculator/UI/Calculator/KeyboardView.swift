@@ -9,12 +9,10 @@
 import SwiftUI
 
 struct KeyboardView: View {
+    
     @Binding
     var input: String
-    
-    @EnvironmentObject
-    var viewModel: EnviromentViewModel
-    
+
     let data = [
         [
             KeyboardItem.seven,
@@ -50,15 +48,13 @@ struct KeyboardView: View {
     ]
     
     var body: some View {
+        
         VStack(alignment: .center) {
             ForEach(data, id: \.self) { items in
                 HStack(alignment: .center) {
                     ForEach(items, id: \.self) { item in
                         Button(
-                            action: {
-                                self.input = item.operateAction(input: self.$input.wrappedValue)
-                                self.viewModel.calculateOutput(input: self.input)
-                        },
+                            action: { self.input = item.operateAction(input: self.$input.wrappedValue) },
                             label: {
                                 Text(item.rawValue)
                                     .font(.title2)
@@ -69,8 +65,8 @@ struct KeyboardView: View {
                                         maxWidth: .infinity,
                                         minHeight: 0,
                                         maxHeight: .infinity
-                                )
-                        }
+                                    )
+                            }
                         )
                     }
                 }
@@ -80,15 +76,11 @@ struct KeyboardView: View {
 }
 
 #if DEBUG
-struct KeyboardViewPreviews: PreviewProvider {
-    @Environment(\.managedObjectContext) var moc
-    
+struct KeyboardViewPreviews: PreviewProvider {    
     static var previews: some View {
         KeyboardView(input: .constant("123"))
-            .environmentObject(EnviromentViewModel(moc: KeyboardViewPreviews().moc))
             .previewLayout(.fixed(width: 300, height: 500))
         KeyboardView(input: .constant("123"))
-            .environmentObject(EnviromentViewModel(moc: KeyboardViewPreviews().moc))
             .previewLayout(.fixed(width: 300, height: 500))
             .preferredColorScheme(.dark)
     }
