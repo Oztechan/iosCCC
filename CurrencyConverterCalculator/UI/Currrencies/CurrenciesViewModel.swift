@@ -8,7 +8,7 @@
 
 import Combine
 
-final class SettingsViewModel: ObservableObject {
+final class CurrenciesViewModel: ObservableObject {
     
     private let coreDataRepository = CoreDataRepository.shared
     

@@ -7,7 +7,7 @@
 //
 import SwiftUI
 
-struct SettingsView: View, Effect {
+struct CurrenciesView: View, Effect {
     
     func asd(newBase: CurrencyType) {
         baseCurrency = newBase
@@ -15,14 +15,14 @@ struct SettingsView: View, Effect {
     
     @Binding var baseCurrency: CurrencyType
     
-    @ObservedObject var settingsViewModel = SettingsViewModel()
+    @ObservedObject var settingsViewModel = CurrenciesViewModel()
     
     var body: some View {
         
         NavigationView {
             Form {
                 List(settingsViewModel.currencyList, id: \.name) { currency in
-                    SettingsItemView(item: currency, function: {
+                    CurrencyItemView(item: currency, function: {
                         settingsViewModel.updateItem(item: currency)
                     })
                 }
@@ -62,8 +62,8 @@ protocol Effect {
 #if DEBUG
 struct SettingsViewPreviews: PreviewProvider {
     static var previews: some View {
-        SettingsView(baseCurrency: .constant(CurrencyType.EUR))
-        SettingsView(baseCurrency: .constant(CurrencyType.EUR)).preferredColorScheme(.dark)
+        CurrenciesView(baseCurrency: .constant(CurrencyType.EUR))
+        CurrenciesView(baseCurrency: .constant(CurrencyType.EUR)).preferredColorScheme(.dark)
     }
 }
 #endif

@@ -7,7 +7,7 @@
 //
 import SwiftUI
 
-struct SettingsItemView: View {
+struct CurrencyItemView: View {
     @ObservedObject var item: Currency
     var function: () -> Void
     
@@ -32,7 +32,7 @@ struct SettingsItemView: View {
 #if DEBUG
 struct SettingsItemViewPreviews: PreviewProvider {
     static var previews: some View {
-        SettingsItemView(item: Currency(), function: {})
+        CurrencyItemView(item: Currency(), function: {})
             .previewLayout(.fixed(width: 300, height: 36))
     }
 }

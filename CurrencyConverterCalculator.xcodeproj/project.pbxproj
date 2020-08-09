@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		5C09A4D024D30BA10043038E /* UserDefaulltsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C09A4CF24D30BA10043038E /* UserDefaulltsRepository.swift */; };
 		5C157A6D2306FACA0088E712 /* BarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C157A6C2306FACA0088E712 /* BarItemView.swift */; };
-		5C1B716C24D3433C00DDA8A3 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B716B24D3433C00DDA8A3 /* SettingsViewModel.swift */; };
+		5C1B716C24D3433C00DDA8A3 /* CurrenciesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B716B24D3433C00DDA8A3 /* CurrenciesViewModel.swift */; };
 		5C1EC71F24CDA30B0084251A /* CCCApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1EC71E24CDA30B0084251A /* CCCApp.swift */; };
-		5C2F6E9723089BCB00FD9D31 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2F6E9623089BCB00FD9D31 /* SettingsView.swift */; };
-		5C2F6E9A23089C1300FD9D31 /* SettingsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2F6E9923089C1300FD9D31 /* SettingsItemView.swift */; };
+		5C2F6E9723089BCB00FD9D31 /* CurrenciesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2F6E9623089BCB00FD9D31 /* CurrenciesView.swift */; };
+		5C2F6E9A23089C1300FD9D31 /* CurrencyItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2F6E9923089C1300FD9D31 /* CurrencyItemView.swift */; };
 		5C34765122F71C56007F9694 /* CurrencyConverterCalculator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C34764F22F71C56007F9694 /* CurrencyConverterCalculator.xcdatamodeld */; };
 		5C34765322F71C56007F9694 /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C34765222F71C56007F9694 /* CalculatorView.swift */; };
 		5C34765522F71C56007F9694 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C34765422F71C56007F9694 /* Assets.xcassets */; };
@@ -38,10 +38,10 @@
 /* Begin PBXFileReference section */
 		5C09A4CF24D30BA10043038E /* UserDefaulltsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaulltsRepository.swift; sourceTree = "<group>"; };
 		5C157A6C2306FACA0088E712 /* BarItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarItemView.swift; sourceTree = "<group>"; };
-		5C1B716B24D3433C00DDA8A3 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		5C1B716B24D3433C00DDA8A3 /* CurrenciesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesViewModel.swift; sourceTree = "<group>"; };
 		5C1EC71E24CDA30B0084251A /* CCCApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCCApp.swift; sourceTree = "<group>"; };
-		5C2F6E9623089BCB00FD9D31 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		5C2F6E9923089C1300FD9D31 /* SettingsItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItemView.swift; sourceTree = "<group>"; };
+		5C2F6E9623089BCB00FD9D31 /* CurrenciesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesView.swift; sourceTree = "<group>"; };
+		5C2F6E9923089C1300FD9D31 /* CurrencyItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyItemView.swift; sourceTree = "<group>"; };
 		5C34764822F71C56007F9694 /* CurrencyConverterCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyConverterCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C34765022F71C56007F9694 /* CurrencyConverterCalculator.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CurrencyConverterCalculator.xcdatamodel; sourceTree = "<group>"; };
 		5C34765222F71C56007F9694 /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
@@ -172,19 +172,19 @@
 			children = (
 				5C6823EB24D0D63A007CF2DF /* Bar */,
 				5C68240E23B5397B0087D5F0 /* Calculator */,
-				5CCA748A2312E48200CFF721 /* Settings */,
+				5CCA748A2312E48200CFF721 /* Currrencies */,
 			);
 			path = UI;
 			sourceTree = "<group>";
 		};
-		5CCA748A2312E48200CFF721 /* Settings */ = {
+		5CCA748A2312E48200CFF721 /* Currrencies */ = {
 			isa = PBXGroup;
 			children = (
-				5C2F6E9923089C1300FD9D31 /* SettingsItemView.swift */,
-				5C2F6E9623089BCB00FD9D31 /* SettingsView.swift */,
-				5C1B716B24D3433C00DDA8A3 /* SettingsViewModel.swift */,
+				5C2F6E9923089C1300FD9D31 /* CurrencyItemView.swift */,
+				5C2F6E9623089BCB00FD9D31 /* CurrenciesView.swift */,
+				5C1B716B24D3433C00DDA8A3 /* CurrenciesViewModel.swift */,
 			);
-			path = Settings;
+			path = Currrencies;
 			sourceTree = "<group>";
 		};
 		5CF75F0E22FB5F6E0024EB77 /* Model */ = {
@@ -305,9 +305,9 @@
 				5CEE59FE230DD3AB0007F300 /* BarView.swift in Sources */,
 				5CF75F1022FB5F910024EB77 /* KeyboardItem.swift in Sources */,
 				5CCA74862311FB1900CFF721 /* InitialCurrency.swift in Sources */,
-				5C2F6E9723089BCB00FD9D31 /* SettingsView.swift in Sources */,
+				5C2F6E9723089BCB00FD9D31 /* CurrenciesView.swift in Sources */,
 				5C82CEA622FDCE510030F72E /* CurrencyResponse.swift in Sources */,
-				5C2F6E9A23089C1300FD9D31 /* SettingsItemView.swift in Sources */,
+				5C2F6E9A23089C1300FD9D31 /* CurrencyItemView.swift in Sources */,
 				5C3790D522FA184400C8DBE9 /* KeyboardView.swift in Sources */,
 				5C3790D722FA243500C8DBE9 /* CalculatorItemView.swift in Sources */,
 				5C82CEA822FDCFA90030F72E /* Rates.swift in Sources */,
@@ -319,7 +319,7 @@
 				5C97B62222FCD00C005F62BA /* Currency.swift in Sources */,
 				5CCA74812311D0E900CFF721 /* CoreDataRepository.swift in Sources */,
 				5C157A6D2306FACA0088E712 /* BarItemView.swift in Sources */,
-				5C1B716C24D3433C00DDA8A3 /* SettingsViewModel.swift in Sources */,
+				5C1B716C24D3433C00DDA8A3 /* CurrenciesViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
