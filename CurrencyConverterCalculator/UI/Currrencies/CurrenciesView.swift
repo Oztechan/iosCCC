@@ -23,7 +23,10 @@ struct CurrenciesView: View, Effect {
             Form {
                 List(settingsViewModel.currencyList, id: \.name) { currency in
                     CurrencyItemView(item: currency, function: {
-                        settingsViewModel.updateItem(item: currency)
+                        baseCurrency = settingsViewModel.updateItem(
+                            item: currency,
+                            baseCurrency: baseCurrency
+                        )
                     })
                 }
                 .listRowBackground(Color("ColorBackground"))

@@ -27,7 +27,7 @@ final class CurrenciesViewModel: ObservableObject {
     }
     
     func changeAllStates(state: Bool, baseCurrency: CurrencyType) -> CurrencyType {
-
+        
         currencyList.forEach {
             $0.isActive = state
             coreDataRepository.updateCurrencyStateByName(name: $0.name, state: state)
@@ -38,12 +38,28 @@ final class CurrenciesViewModel: ObservableObject {
         if !state {
             return CurrencyType.NULL
         } else {
+            if baseCurrency == CurrencyType.NULL {
+                return getFirstAvaiableBaseCurrencyOrNull()
+            } else {
+                return baseCurrency
+            }
+        }
+    }
+    
+    func updateItem(item: Currency, baseCurrency: CurrencyType) -> CurrencyType {
+        currencyList.filter { $0.name == item.name }.first?.isActive = !item.isActive
+        coreDataRepository.updateCurrencyStateByName(name: item.name, state: !item.isActive)
+        
+        if CurrencyType.withLabel(item.name) == baseCurrency || baseCurrency == CurrencyType.NULL {
+            return getFirstAvaiableBaseCurrencyOrNull()
+        } else {
             return baseCurrency
         }
     }
     
-    func updateItem(item: Currency) {
-        currencyList.filter { $0.name == item.name }.first?.isActive = !item.isActive
-        coreDataRepository.updateCurrencyStateByName(name: item.name, state: !item.isActive)
+    func getFirstAvaiableBaseCurrencyOrNull() -> CurrencyType {
+        return CurrencyType.withLabel(
+            currencyList.filter { $0.isActive == true }.first?.name
+        )
     }
 }
