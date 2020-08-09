@@ -26,7 +26,7 @@ final class SettingsViewModel: ObservableObject {
         self.isLoading = false
     }
     
-    func changeAllStates(state: Bool, baseCurrency: Currencies) -> Currencies {
+    func changeAllStates(state: Bool, baseCurrency: CurrencyType) -> CurrencyType {
 
         currencyList.forEach {
             $0.isActive = state
@@ -36,7 +36,7 @@ final class SettingsViewModel: ObservableObject {
         currencyList = temp
         
         if !state {
-            return Currencies.NULL
+            return CurrencyType.NULL
         } else {
             return baseCurrency
         }

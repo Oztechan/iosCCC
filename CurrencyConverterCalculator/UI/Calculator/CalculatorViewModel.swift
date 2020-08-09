@@ -23,7 +23,7 @@ final class CalculatorViewModel: ObservableObject {
     }
     @Published var currencyList = [Currency]()
     @Published var isLoading = false
-    @Published var baseCurrency: Currencies {
+    @Published var baseCurrency: CurrencyType {
         didSet {
             userDefaultRepository.setBaseCurrency(value: baseCurrency)
             fetchRates()
@@ -101,7 +101,7 @@ final class CalculatorViewModel: ObservableObject {
         let allCurrencies = coreDataRepository.getAllCurrencies()
         
         allCurrencies.forEach { currency in
-            if Currencies.withLabel(currency.name) != Currencies.NULL {
+            if CurrencyType.withLabel(currency.name) != CurrencyType.NULL {
                 self.currencyList.append(currency)
                 
             }
@@ -131,13 +131,13 @@ final class CalculatorViewModel: ObservableObject {
     
 }
 extension Array where Element == Currency {
-    func filterResults(baseCurrency: Currencies) -> [Currency] {
+    func filterResults(baseCurrency: CurrencyType) -> [Currency] {
       return self.filter { currency in
         currency.value != "0.0" &&
             currency.value != "0.00" &&
             currency.value != "0" &&
             currency.name != baseCurrency.stringValue &&
-            Currencies.withLabel(currency.name) != Currencies.NULL &&
+            CurrencyType.withLabel(currency.name) != CurrencyType.NULL &&
             currency.isActive
     }
     }

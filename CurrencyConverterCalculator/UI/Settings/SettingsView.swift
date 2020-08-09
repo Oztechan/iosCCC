@@ -9,11 +9,11 @@ import SwiftUI
 
 struct SettingsView: View, Effect {
     
-    func asd(newBase: Currencies) {
+    func asd(newBase: CurrencyType) {
         baseCurrency = newBase
     }
     
-    @Binding var baseCurrency: Currencies
+    @Binding var baseCurrency: CurrencyType
     
     @ObservedObject var settingsViewModel = SettingsViewModel()
     
@@ -56,14 +56,14 @@ struct SettingsView: View, Effect {
 
 protocol Effect {
 
-    func asd(newBase: Currencies)
+    func asd(newBase: CurrencyType)
 }
 
 #if DEBUG
 struct SettingsViewPreviews: PreviewProvider {
     static var previews: some View {
-        SettingsView(baseCurrency: .constant(Currencies.EUR))
-        SettingsView(baseCurrency: .constant(Currencies.EUR)).preferredColorScheme(.dark)
+        SettingsView(baseCurrency: .constant(CurrencyType.EUR))
+        SettingsView(baseCurrency: .constant(CurrencyType.EUR)).preferredColorScheme(.dark)
     }
 }
 #endif

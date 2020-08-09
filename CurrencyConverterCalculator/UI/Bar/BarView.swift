@@ -11,7 +11,7 @@ struct BarView: View {
     
     @ObservedObject var barViewModel = BarViewModel()
     @Binding var isBarDialogShown: Bool
-    @Binding var baseCurrency: Currencies
+    @Binding var baseCurrency: CurrencyType
     var body: some View {
         
         NavigationView {
@@ -23,7 +23,7 @@ struct BarView: View {
                     
                     BarItemView(item: currency)
                         .onTapGesture {
-                            self.baseCurrency = Currencies.withLabel(currency.name)
+                            self.baseCurrency = CurrencyType.withLabel(currency.name)
                             self.isBarDialogShown = false
                         }
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
@@ -39,11 +39,11 @@ struct BarViewPreviews: PreviewProvider {
     static var previews: some View {
         BarView(
             isBarDialogShown: .constant(true),
-            baseCurrency: .constant(Currencies.EUR)
+            baseCurrency: .constant(CurrencyType.EUR)
         )
         BarView(
             isBarDialogShown: .constant(true),
-            baseCurrency: .constant(Currencies.EUR)
+            baseCurrency: .constant(CurrencyType.EUR)
         ).preferredColorScheme(.dark)
     }
 }

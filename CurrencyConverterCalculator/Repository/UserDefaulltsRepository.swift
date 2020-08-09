@@ -9,14 +9,14 @@
 import Foundation
 
 class UserDefaultsRepository {
-    func setBaseCurrency(value: Currencies) {
+    func setBaseCurrency(value: CurrencyType) {
         UserDefaults.standard.setBaseCurrency(value: value)
     }
-    func getBaseCurrency() -> Currencies {
+    func getBaseCurrency() -> CurrencyType {
         let baseCurrency = UserDefaults.standard.getBaseCurrency()
         
-        if baseCurrency == Currencies.NULL {
-            return Currencies.EUR
+        if baseCurrency == CurrencyType.NULL {
+            return CurrencyType.EUR
         } else {
             return baseCurrency
         }
@@ -26,12 +26,12 @@ class UserDefaultsRepository {
 
 extension UserDefaults {
     
-    func setBaseCurrency(value: Currencies) {
+    func setBaseCurrency(value: CurrencyType) {
         set(value.stringValue, forKey: UserDefaultsKeys.baseCurrency.rawValue)
     }
     
-    func getBaseCurrency() -> Currencies {
-        return Currencies.withLabel(string(forKey: UserDefaultsKeys.baseCurrency.rawValue))
+    func getBaseCurrency() -> CurrencyType {
+        return CurrencyType.withLabel(string(forKey: UserDefaultsKeys.baseCurrency.rawValue))
     }
 }
 
