@@ -10,17 +10,7 @@ import SwiftUI
 import CoreData
 
 @main
-struct CCCApp: App {
-    static let viewContext: NSManagedObjectContext = {
-        let container = NSPersistentContainer(name: "CurrencyConverterCalculator")
-        container.loadPersistentStores(completionHandler: { (_, error) in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        return container.viewContext
-    }()
-    
+struct CCCApp: App {    
     var body: some Scene {
         WindowGroup {
             CalculatorView()

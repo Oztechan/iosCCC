@@ -10,13 +10,20 @@ import Foundation
 import CoreData
 
 class CoreDataRepository {
+    
     static let shared = CoreDataRepository()
     
-    var moc: NSManagedObjectContext
-    
-    init() {
-        self.moc = CCCApp.viewContext
-    }
+    var persistentContainer: NSPersistentContainer = {
+            let container = NSPersistentContainer(name: "CurrencyConverterCalculator")
+            container.loadPersistentStores(completionHandler: { (_, error) in
+                    if let error = error as NSError? {
+                            fatalError("Unresolved error \(error), \(error.userInfo)")
+                    }
+            })
+            container.viewContext.automaticallyMergesChangesFromParent = true
+            container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+            return container
+    }()
     
     // swiftlint:disable force_cast
     func getAllCurrencies() -> [Currency] {
@@ -28,7 +35,7 @@ class CoreDataRepository {
         currencyRequest.sortDescriptors = [sortDescriptor]
         
         do {
-            currencies = try self.moc.fetch(currencyRequest)
+            currencies = try self.persistentContainer.viewContext.fetch(currencyRequest)
         } catch let error as NSError {
             print(error)
         }
@@ -47,7 +54,7 @@ class CoreDataRepository {
     
     func insertInitialCurrency(initialCurrency: InititalCurrency) -> Currency? {
         
-        let temCurrency = Currency(context: self.moc)
+        let temCurrency = Currency(context: self.persistentContainer.viewContext)
         temCurrency.name = initialCurrency.name
         temCurrency.longName = initialCurrency.longName
         temCurrency.symbol = initialCurrency.symbol
@@ -55,7 +62,7 @@ class CoreDataRepository {
         temCurrency.isActive = true
         
         do {
-            try self.moc.save()
+            try self.persistentContainer.viewContext.save()
             return temCurrency
         } catch {
             print(error)
@@ -68,7 +75,7 @@ class CoreDataRepository {
         let predicate = NSPredicate(format: "name = '\(name)'")
         currencyRequest.predicate = predicate
         do {
-            let object = try self.moc.fetch(currencyRequest)
+            let object = try self.persistentContainer.viewContext.fetch(currencyRequest)
             if object.count == 1 {
                 object.first?.setValue(state, forKey: "isActive")
                 update()
@@ -99,7 +106,7 @@ class CoreDataRepository {
     
     func update() {
         do {
-            try self.moc.save()
+            try self.persistentContainer.viewContext.save()
         } catch {
             print(error)
         }
