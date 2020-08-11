@@ -12,39 +12,35 @@ struct CurrenciesView: View {
     
     @Binding var baseCurrency: CurrencyType
     
-    @ObservedObject var settingsViewModel = CurrenciesViewModel()
+    @ObservedObject var vm = CurrenciesViewModel()
     
     var body: some View {
         
         NavigationView {
-            if settingsViewModel.state.isLoading {
+            if vm.state.isLoading {
                 ProgressView()
             }
             Form {
-                List(settingsViewModel.state.currencyList, id: \.name) { currency in
+                List(vm.state.currencyList, id: \.name) { currency in
                     CurrencyItemView(item: currency, function: {
-                        settingsViewModel.updateState(currency: currency)
+                        vm.event.updateState(currency: currency)
                     })
                 }
                 .listRowBackground(Color("ColorBackground"))
             }.navigationBarItems(
                 
                 leading: Button(
-                    action: {
-                        self.settingsViewModel.updateAllStates(state: true)
-                    },
+                    action: { vm.event.updateAllStates(state: true) },
                     label: { Text("Select All").foregroundColor(Color("ColorText")) }
                 ),
                 
                 trailing: Button(
-                    action: {
-                        self.settingsViewModel.updateAllStates(state: false)
-                    },
+                    action: { vm.event.updateAllStates(state: false) },
                     label: { Text("Deselect All").foregroundColor(Color("ColorText")) }
                 )
                 
             ).navigationBarTitle("Settings")
-        }.onReceive(self.settingsViewModel.effect) { observeEffects(effect: $0)}
+        }.onReceive(self.vm.effect) { observeEffects(effect: $0) }
     }
     
     private func observeEffects(effect: CurrenciesEffect) {
