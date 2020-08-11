@@ -31,6 +31,7 @@
 		5CCA74812311D0E900CFF721 /* CoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA74802311D0E900CFF721 /* CoreDataRepository.swift */; };
 		5CCA74862311FB1900CFF721 /* InitialCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA74852311FB1900CFF721 /* InitialCurrency.swift */; };
 		5CE4C8FC24E2D28500A80B57 /* BarSEED.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4C8FB24E2D28500A80B57 /* BarSEED.swift */; };
+		5CE4C8FE24E2D4F800A80B57 /* CalculatorSEED.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4C8FD24E2D4F800A80B57 /* CalculatorSEED.swift */; };
 		5CEE59FE230DD3AB0007F300 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEE59FD230DD3AB0007F300 /* BarView.swift */; };
 		5CF436832308126000164126 /* Currencies.json in Resources */ = {isa = PBXBuildFile; fileRef = 5CF436822308126000164126 /* Currencies.json */; };
 		5CF75F1022FB5F910024EB77 /* KeyboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF75F0F22FB5F910024EB77 /* KeyboardItem.swift */; };
@@ -64,6 +65,7 @@
 		5CCA74802311D0E900CFF721 /* CoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRepository.swift; sourceTree = "<group>"; };
 		5CCA74852311FB1900CFF721 /* InitialCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialCurrency.swift; sourceTree = "<group>"; };
 		5CE4C8FB24E2D28500A80B57 /* BarSEED.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarSEED.swift; sourceTree = "<group>"; };
+		5CE4C8FD24E2D4F800A80B57 /* CalculatorSEED.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorSEED.swift; sourceTree = "<group>"; };
 		5CEE59FD230DD3AB0007F300 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		5CF436822308126000164126 /* Currencies.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Currencies.json; sourceTree = "<group>"; };
 		5CF75F0F22FB5F910024EB77 /* KeyboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardItem.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				5C3790D622FA243500C8DBE9 /* CalculatorItemView.swift */,
 				5C34765222F71C56007F9694 /* CalculatorView.swift */,
 				5C3790D222FA098900C8DBE9 /* CalculatorViewModel.swift */,
+				5CE4C8FD24E2D4F800A80B57 /* CalculatorSEED.swift */,
 			);
 			path = Calculator;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				5C82CEAA22FDD5020030F72E /* CurrencyType.swift in Sources */,
 				5C60C87824D32F9B005F6479 /* BarViewModel.swift in Sources */,
 				5C82CEA422FDCC420030F72E /* ApiRepository.swift in Sources */,
+				5CE4C8FE24E2D4F800A80B57 /* CalculatorSEED.swift in Sources */,
 				5C3790D322FA098900C8DBE9 /* CalculatorViewModel.swift in Sources */,
 				5C97B62222FCD00C005F62BA /* Currency.swift in Sources */,
 				5CCA74812311D0E900CFF721 /* CoreDataRepository.swift in Sources */,

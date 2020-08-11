@@ -1,5 +1,5 @@
 //
-//  CurrenciesSEED.swift
+//  CalculatorSEED.swift
 //  CurrencyConverterCalculator
 //
 //  Created by Mustafa Ozhan on 11/08/2020.
@@ -9,24 +9,29 @@
 import Foundation
 
 // MARK: State
-struct CurrenciesState {
+struct CalculatorState {
+    var input = ""
     var currencyList = [Currency]()
     var isLoading = false
+    var baseCurrency = CurrencyType.NULL
+    var isBarDialogShown = false
 }
 
 // MARK: Event
-protocol CurrenciesEvent {
-    func updateAllStates(state: Bool)
-    func updateState(currency: Currency)
+protocol CalculatorEvent {
 }
 
 // MARK: Effect
-enum CurrenciesEffect {
+enum CalculatorEffect {
     case changeBaseCurrency(CurrencyType)
+    case closeDiaog
 }
 
 // MARK: Data
-struct CurrenciesData {
+struct CalculatorData {
     let coreDataRepository = CoreDataRepository.shared
-    let userDefautRepository = UserDefaultsRepository()
+    let apiRepository = ApiRepository()
+    let userDefaultRepository = UserDefaultsRepository()
+    var rates: Rates?
+    var output = ""
 }

@@ -15,7 +15,6 @@ struct BarState {
 }
 
 // MARK: Event
-
 protocol BarEvent {
     func selectCurrency(currency: Currency)
 }

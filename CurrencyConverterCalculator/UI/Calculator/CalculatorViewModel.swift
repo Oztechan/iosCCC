@@ -9,79 +9,75 @@ import Combine
 import Expression
 import Foundation
 
-final class CalculatorViewModel: ObservableObject {
+final class CalculatorViewModel: ObservableObject, CalculatorEvent {
     
-    private let coreDataRepository = CoreDataRepository.shared
-    private let apiRepository = ApiRepository()
-    private let userDefaultRepository = UserDefaultsRepository()
+    // MARK: SEED
+    let effect = PassthroughSubject<CalculatorEffect, Never>()
+    lazy var event = self as CalculatorEvent
+    @Published var state = CalculatorState()
+    var data = CalculatorData()
     
     private var cancelable: Cancellable?
-    private var rates: Rates? = Rates()
     
-    @Published var input = "" {
-        didSet { calculateOutput() }
-    }
-    @Published var currencyList = [Currency]()
-    @Published var isLoading = false
-    @Published var baseCurrency: CurrencyType {
-        didSet {
-            userDefaultRepository.setBaseCurrency(value: baseCurrency)
-            fetchRates()
-        }
-    }
-    
-    var output = ""
+    //    @Published var input = "" {
+    //        didSet { calculateOutput() }
+    //    }
+    //    @Published var baseCurrency: CurrencyType {
+    //        didSet {
+    //            userDefaultRepository.setBaseCurrency(value: baseCurrency)
+    //            fetchRates()
+    //        }
     
     init() {
-        baseCurrency = userDefaultRepository.getBaseCurrency()
+        state.baseCurrency = data.userDefaultRepository.getBaseCurrency()
         initList()
     }
     
     deinit { cancelable?.cancel() }
     
     private func calculateOutput() {
-        isLoading = true
-        let expression = Expression(input.replacingOccurrences(of: "%", with: "/100*"))
+        state.isLoading = true
+        let expression = Expression(state.input.replacingOccurrences(of: "%", with: "/100*"))
         do {
             let result = try expression.evaluate()
             
-            output = String(format: "%.2f", result)
+            data.output = String(format: "%.2f", result)
                 .replacingOccurrences(of: "inf", with: "")
                 .replacingOccurrences(of: "NULL", with: "")
             
         } catch {
-            output = ""
+            data.output = ""
         }
         updateList()
     }
     
     private func updateList() {
-        if currencyList.isEmpty {
+        if state.currencyList.isEmpty {
             initList()
         }
-                
-        if rates != nil {
-            for index in 0..<(currencyList.count) {
+        
+        if data.rates != nil {
+            for index in 0..<(state.currencyList.count) {
                 let rateOfCurrentRow = valueFor(
-                    property: currencyList[index].name.lowercased(),
-                    of: rates ?? 0.0
+                    property: state.currencyList[index].name.lowercased(),
+                    of: data.rates ?? 0.0
                 )as? Double  ?? 0.0
                 
-                let expression = Expression("\(rateOfCurrentRow)*\(output)")
+                let expression = Expression("\(rateOfCurrentRow)*\(data.output)")
                 
                 do {
                     let result = try expression.evaluate()
-                    currencyList[index].value = String(format: "%.2f", result)
+                    state.currencyList[index].value = String(format: "%.2f", result)
                 } catch {
-                    currencyList[index].value = "0"
+                    state.currencyList[index].value = "0"
                 }
             }
             
         } else {
             fetchRates()
         }
-                
-        isLoading  = false
+        
+        state.isLoading  = false
     }
     
     private func isNilDescendant(_ any: Any?) -> Bool {
@@ -98,47 +94,47 @@ final class CalculatorViewModel: ObservableObject {
     }
     
     private func initList() {
-        let allCurrencies = coreDataRepository.getAllCurrencies()
+        let allCurrencies = data.coreDataRepository.getAllCurrencies()
         
         allCurrencies.forEach { currency in
             if CurrencyType.withLabel(currency.name) != CurrencyType.NULL {
-                self.currencyList.append(currency)
+                state.currencyList.append(currency)
                 
             }
         }
     }
     
     func fetchRates() {
-        cancelable = apiRepository.getRatesByBase(base: baseCurrency.stringValue)
+        cancelable = data.apiRepository.getRatesByBase(base: state.baseCurrency.stringValue)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {
                 if case let .failure(error) = $0 {
                     print(error)
                 }
             }, receiveValue: {
-                self.rates = $0.rates
+                self.data.rates = $0.rates
                 self.updateList()
             })
     }
     
     func getOutputText() -> String {
-        if output.isEmpty {
-            return baseCurrency.stringValue
+        if data.output.isEmpty {
+            return state.baseCurrency.stringValue
         } else {
-            return "\(baseCurrency.stringValue.replacingOccurrences(of: "NULL", with: "")) = \(output)"
+            return "\(state.baseCurrency.stringValue.replacingOccurrences(of: "NULL", with: "")) = \(data.output)"
         }
     }
     
 }
 extension Array where Element == Currency {
     func filterResults(baseCurrency: CurrencyType) -> [Currency] {
-      return self.filter { currency in
-        currency.value != "0.0" &&
-            currency.value != "0.00" &&
-            currency.value != "0" &&
-            currency.name != baseCurrency.stringValue &&
-            CurrencyType.withLabel(currency.name) != CurrencyType.NULL &&
-            currency.isActive
-    }
+        return self.filter { currency in
+            currency.value != "0.0" &&
+                currency.value != "0.00" &&
+                currency.value != "0" &&
+                currency.name != baseCurrency.stringValue &&
+                CurrencyType.withLabel(currency.name) != CurrencyType.NULL &&
+                currency.isActive
+        }
     }
 }
