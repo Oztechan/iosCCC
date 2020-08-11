@@ -11,19 +11,17 @@ import Combine
 final class CurrenciesViewModel: ObservableObject, CurrenciesEvent {
     
     // MARK: SEED
+    @Published var state = CurrenciesState()
     let effect = PassthroughSubject<CurrenciesEffect, Never>()
     lazy var event = self as CurrenciesEvent
-    @Published var state = CurrenciesState()
-    
-    private let coreDataRepository = CoreDataRepository.shared
-    private let userDefautRepository = UserDefaultsRepository()
+    var data = CurrenciesData()
     
     init() {
         self.initList()
     }
     
     private func initList() {
-        state.currencyList = coreDataRepository.getAllCurrencies()
+        state.currencyList = data.coreDataRepository.getAllCurrencies()
         state.isLoading = false
     }
     
@@ -38,7 +36,7 @@ final class CurrenciesViewModel: ObservableObject, CurrenciesEvent {
         
         self.state.currencyList.forEach {
             $0.isActive = state
-            coreDataRepository.updateCurrencyStateByName(name: $0.name, state: state)
+            data.coreDataRepository.updateCurrencyStateByName(name: $0.name, state: state)
         }
         let temp = self.state.currencyList
         self.state.currencyList = temp
@@ -46,23 +44,23 @@ final class CurrenciesViewModel: ObservableObject, CurrenciesEvent {
         if !state {
             effect.send(CurrenciesEffect.changeBaseCurrency(CurrencyType.NULL))
         } else {
-            if userDefautRepository.getBaseCurrency() == CurrencyType.NULL {
+            if data.userDefautRepository.getBaseCurrency() == CurrencyType.NULL {
                 effect.send(CurrenciesEffect.changeBaseCurrency(getFirstAvaiableBaseCurrencyOrNull()))
             } else {
-                effect.send(CurrenciesEffect.changeBaseCurrency(userDefautRepository.getBaseCurrency()))
+                effect.send(CurrenciesEffect.changeBaseCurrency(data.userDefautRepository.getBaseCurrency()))
             }
         }
     }
     
     func updateState(currency: Currency) {
         state.currencyList.filter { $0.name == currency.name }.first?.isActive = !currency.isActive
-        coreDataRepository.updateCurrencyStateByName(name: currency.name, state: !currency.isActive)
+        data.coreDataRepository.updateCurrencyStateByName(name: currency.name, state: !currency.isActive)
         
-        if CurrencyType.withLabel(currency.name) == userDefautRepository.getBaseCurrency()
-            || userDefautRepository.getBaseCurrency() == CurrencyType.NULL {
+        if CurrencyType.withLabel(currency.name) == data.userDefautRepository.getBaseCurrency()
+            || data.userDefautRepository.getBaseCurrency() == CurrencyType.NULL {
             effect.send( CurrenciesEffect.changeBaseCurrency(getFirstAvaiableBaseCurrencyOrNull()))
         } else {
-            effect.send(CurrenciesEffect.changeBaseCurrency(userDefautRepository.getBaseCurrency()))
+            effect.send(CurrenciesEffect.changeBaseCurrency(data.userDefautRepository.getBaseCurrency()))
         }
     }
 }

@@ -27,3 +27,7 @@ enum CurrenciesEffect {
 }
 
 // MARK: Data
+struct CurrenciesData {
+    let coreDataRepository = CoreDataRepository.shared
+    let userDefautRepository = UserDefaultsRepository()
+}

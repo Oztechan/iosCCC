@@ -9,20 +9,18 @@
 import Combine
 
 final class BarViewModel: ObservableObject, BarEvent {
-    
-    private let coreDataRepository = CoreDataRepository.shared
-    
     // MARK: SEED
+    @Published var state = BarState()
     let effect = PassthroughSubject<BarEffect, Never>()
     lazy var event = self as BarEvent
-    @Published var state = BarState()
+    var data = BarData()
     
     init() {
         initList()
     }
     
     private func initList() {
-        self.state.currencyList = coreDataRepository.getAllCurrencies()
+        self.state.currencyList = data.coreDataRepository.getAllCurrencies()
             .filter { $0.isActive}
         
         self.state.isLoading = false
