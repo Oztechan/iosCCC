@@ -35,7 +35,7 @@ struct CalculatorView: View {
                         HStack {
                             Image(vm.state.baseCurrency.stringValue.lowercased())
                                 .shadow(radius: 3)
-                            Text(vm.getOutputText()).font(.headline)
+                            Text(vm.state.output.toOutPutText(baseCurrency: vm.state.baseCurrency)).font(.headline)
                         }
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .bottomLeading)
                         .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
@@ -69,7 +69,7 @@ struct CalculatorView: View {
                         }.listRowBackground(Color("ColorBackground"))
                     }
                     
-                    KeyboardView(input: $vm.state.input)
+                    KeyboardView(event: vm.event)
                     
                 }
             }

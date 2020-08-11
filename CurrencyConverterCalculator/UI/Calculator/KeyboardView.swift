@@ -9,9 +9,7 @@
 import SwiftUI
 
 struct KeyboardView: View {
-    
-    @Binding
-    var input: String
+    var event: CalculatorEvent?
 
     let data = [
         [
@@ -54,7 +52,7 @@ struct KeyboardView: View {
                 HStack(alignment: .center) {
                     ForEach(items, id: \.self) { item in
                         Button(
-                            action: { self.input = item.operateAction(input: self.$input.wrappedValue) },
+                            action: { event?.keyPress(value: item.rawValue)},
                             label: {
                                 Text(item.rawValue)
                                     .font(.title2)
@@ -76,11 +74,11 @@ struct KeyboardView: View {
 }
 
 #if DEBUG
-struct KeyboardViewPreviews: PreviewProvider {    
+struct KeyboardViewPreviews: PreviewProvider {
     static var previews: some View {
-        KeyboardView(input: .constant("123"))
+        KeyboardView(event: nil)
             .previewLayout(.fixed(width: 300, height: 500))
-        KeyboardView(input: .constant("123"))
+        KeyboardView(event: nil)
             .previewLayout(.fixed(width: 300, height: 500))
             .preferredColorScheme(.dark)
     }

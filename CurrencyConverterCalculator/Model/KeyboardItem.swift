@@ -30,31 +30,4 @@ enum KeyboardItem: String {
     case ac = "AC"
     case del = "DEL"
     case closeParenthesis = ")"
-    
-    // swiftlint:disable cyclomatic_complexity
-    func operateAction(input: String) -> String {
-        switch self {
-        case .zero : return input + "0"
-        case .one : return input + "1"
-        case .two : return input + "2"
-        case .three : return input + "3"
-        case .four : return input + "4"
-        case .five : return input + "5"
-        case .six : return input + "6"
-        case .seven : return input + "7"
-        case .eight : return input + "8"
-        case .nine : return input + "9"
-        case .multiply : return input + "*"
-        case .divide : return input + "/"
-        case .minus : return input + "-"
-        case .dot : return input + "."
-        case .openParenthesis : return input + "("
-        case .percentage :return input + "%"
-        case .plus : return input + "+"
-        case .tribleZero : return input + "000"
-        case .closeParenthesis : return input + ")"
-        case .ac : return ""
-        case .del : return String(input.dropLast())
-        }
-    }
 }

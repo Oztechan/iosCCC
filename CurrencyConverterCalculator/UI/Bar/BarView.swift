@@ -12,6 +12,7 @@ struct BarView: View {
     @ObservedObject var vm = BarViewModel()
     @Binding var isBarDialogShown: Bool
     @Binding var baseCurrency: CurrencyType
+    
     var body: some View {
         
         NavigationView {

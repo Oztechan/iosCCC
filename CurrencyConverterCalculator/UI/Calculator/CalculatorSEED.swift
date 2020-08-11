@@ -7,10 +7,12 @@
 //
 
 import Foundation
+import Combine
 
 // MARK: State
 struct CalculatorState {
     var input = ""
+    var output = ""
     var currencyList = [Currency]()
     var isLoading = false
     var baseCurrency = CurrencyType.NULL
@@ -19,6 +21,8 @@ struct CalculatorState {
 
 // MARK: Event
 protocol CalculatorEvent {
+    init()
+    func keyPress(value: String)
 }
 
 // MARK: Effect
@@ -33,5 +37,5 @@ struct CalculatorData {
     let apiRepository = ApiRepository()
     let userDefaultRepository = UserDefaultsRepository()
     var rates: Rates?
-    var output = ""
+    var cancelable: Cancellable?
 }

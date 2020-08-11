@@ -31,6 +31,11 @@ final class CurrenciesViewModel: ObservableObject, CurrenciesEvent {
         )
     }
     
+    private func setBaseCurrency(newBase: CurrencyType) {
+        data.userDefautRepository.setBaseCurrency(value: newBase)
+        effect.send(CurrenciesEffect.changeBaseCurrency(newBase))
+    }
+    
     // MARK: Event
     func updateAllStates(state: Bool) {
         
@@ -42,12 +47,12 @@ final class CurrenciesViewModel: ObservableObject, CurrenciesEvent {
         self.state.currencyList = temp
         
         if !state {
-            effect.send(CurrenciesEffect.changeBaseCurrency(CurrencyType.NULL))
+            setBaseCurrency(newBase: CurrencyType.NULL)
         } else {
             if data.userDefautRepository.getBaseCurrency() == CurrencyType.NULL {
-                effect.send(CurrenciesEffect.changeBaseCurrency(getFirstAvaiableBaseCurrencyOrNull()))
+                setBaseCurrency(newBase: getFirstAvaiableBaseCurrencyOrNull())
             } else {
-                effect.send(CurrenciesEffect.changeBaseCurrency(data.userDefautRepository.getBaseCurrency()))
+                setBaseCurrency(newBase: data.userDefautRepository.getBaseCurrency())
             }
         }
     }
@@ -58,9 +63,9 @@ final class CurrenciesViewModel: ObservableObject, CurrenciesEvent {
         
         if CurrencyType.withLabel(currency.name) == data.userDefautRepository.getBaseCurrency()
             || data.userDefautRepository.getBaseCurrency() == CurrencyType.NULL {
-            effect.send( CurrenciesEffect.changeBaseCurrency(getFirstAvaiableBaseCurrencyOrNull()))
+            setBaseCurrency(newBase: getFirstAvaiableBaseCurrencyOrNull())
         } else {
-            effect.send(CurrenciesEffect.changeBaseCurrency(data.userDefautRepository.getBaseCurrency()))
+            setBaseCurrency(newBase: data.userDefautRepository.getBaseCurrency())
         }
     }
 }

@@ -17,23 +17,12 @@ final class CalculatorViewModel: ObservableObject, CalculatorEvent {
     @Published var state = CalculatorState()
     var data = CalculatorData()
     
-    private var cancelable: Cancellable?
-    
-    //    @Published var input = "" {
-    //        didSet { calculateOutput() }
-    //    }
-    //    @Published var baseCurrency: CurrencyType {
-    //        didSet {
-    //            userDefaultRepository.setBaseCurrency(value: baseCurrency)
-    //            fetchRates()
-    //        }
-    
     init() {
         state.baseCurrency = data.userDefaultRepository.getBaseCurrency()
         initList()
     }
     
-    deinit { cancelable?.cancel() }
+    deinit { data.cancelable?.cancel() }
     
     private func calculateOutput() {
         state.isLoading = true
@@ -41,12 +30,12 @@ final class CalculatorViewModel: ObservableObject, CalculatorEvent {
         do {
             let result = try expression.evaluate()
             
-            data.output = String(format: "%.2f", result)
+            state.output = String(format: "%.2f", result)
                 .replacingOccurrences(of: "inf", with: "")
                 .replacingOccurrences(of: "NULL", with: "")
             
         } catch {
-            data.output = ""
+            state.output = ""
         }
         updateList()
     }
@@ -63,7 +52,7 @@ final class CalculatorViewModel: ObservableObject, CalculatorEvent {
                     of: data.rates ?? 0.0
                 )as? Double  ?? 0.0
                 
-                let expression = Expression("\(rateOfCurrentRow)*\(data.output)")
+                let expression = Expression("\(rateOfCurrentRow)*\(state.output)")
                 
                 do {
                     let result = try expression.evaluate()
@@ -105,7 +94,7 @@ final class CalculatorViewModel: ObservableObject, CalculatorEvent {
     }
     
     func fetchRates() {
-        cancelable = data.apiRepository.getRatesByBase(base: state.baseCurrency.stringValue)
+        data.cancelable = data.apiRepository.getRatesByBase(base: state.baseCurrency.stringValue)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {
                 if case let .failure(error) = $0 {
@@ -117,24 +106,18 @@ final class CalculatorViewModel: ObservableObject, CalculatorEvent {
             })
     }
     
-    func getOutputText() -> String {
-        if data.output.isEmpty {
-            return state.baseCurrency.stringValue
-        } else {
-            return "\(state.baseCurrency.stringValue.replacingOccurrences(of: "NULL", with: "")) = \(data.output)"
+    // MARK: Event
+    func keyPress(value: String) {
+        switch value {
+        case "AC":
+            state.input = ""
+            state.output = ""
+        case "DEL":
+            state.input = String(state.input.dropLast())
+        default:
+            state.input += value
         }
+        calculateOutput()
     }
     
-}
-extension Array where Element == Currency {
-    func filterResults(baseCurrency: CurrencyType) -> [Currency] {
-        return self.filter { currency in
-            currency.value != "0.0" &&
-                currency.value != "0.00" &&
-                currency.value != "0" &&
-                currency.name != baseCurrency.stringValue &&
-                CurrencyType.withLabel(currency.name) != CurrencyType.NULL &&
-                currency.isActive
-        }
-    }
 }
