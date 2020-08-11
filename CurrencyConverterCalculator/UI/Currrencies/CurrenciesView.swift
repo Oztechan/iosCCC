@@ -6,6 +6,7 @@
 //  Copyright © 2019 Mustafa Ozhan. All rights reserved.
 //
 import SwiftUI
+import Combine
 
 struct CurrenciesView: View {
     
@@ -16,13 +17,13 @@ struct CurrenciesView: View {
     var body: some View {
         
         NavigationView {
+            if settingsViewModel.state.isLoading {
+                ProgressView()
+            }
             Form {
-                List(settingsViewModel.currencyList, id: \.name) { currency in
+                List(settingsViewModel.state.currencyList, id: \.name) { currency in
                     CurrencyItemView(item: currency, function: {
-                        baseCurrency = settingsViewModel.updateItem(
-                            item: currency,
-                            baseCurrency: baseCurrency
-                        )
+                        settingsViewModel.updateState(currency: currency)
                     })
                 }
                 .listRowBackground(Color("ColorBackground"))
@@ -30,27 +31,28 @@ struct CurrenciesView: View {
                 
                 leading: Button(
                     action: {
-                        self.baseCurrency = self.settingsViewModel.changeAllStates(
-                            state: true,
-                            baseCurrency: baseCurrency
-                        )
+                        self.settingsViewModel.updateAllStates(state: true)
                     },
                     label: { Text("Select All").foregroundColor(Color("ColorText")) }
                 ),
                 
                 trailing: Button(
                     action: {
-                        self.baseCurrency = self.settingsViewModel.changeAllStates(
-                            state: false,
-                            baseCurrency: baseCurrency
-                        )
+                        self.settingsViewModel.updateAllStates(state: false)
                     },
                     label: { Text("Deselect All").foregroundColor(Color("ColorText")) }
                 )
                 
             ).navigationBarTitle("Settings")
+        }.onReceive(self.settingsViewModel.effect) { observeEffects(effect: $0)}
+    }
+    
+    private func observeEffects(effect: CurrenciesEffect) {
+        switch effect {
+        case .changeBaseCurrency(let newBase): baseCurrency = newBase
         }
     }
+    
 }
 
 #if DEBUG

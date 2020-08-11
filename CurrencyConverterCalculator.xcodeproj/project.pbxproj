@@ -33,6 +33,7 @@
 		5CEE59FE230DD3AB0007F300 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEE59FD230DD3AB0007F300 /* BarView.swift */; };
 		5CF436832308126000164126 /* Currencies.json in Resources */ = {isa = PBXBuildFile; fileRef = 5CF436822308126000164126 /* Currencies.json */; };
 		5CF75F1022FB5F910024EB77 /* KeyboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF75F0F22FB5F910024EB77 /* KeyboardItem.swift */; };
+		5CF87A0724E2A6730025FE50 /* CurrenciesSEED.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF87A0624E2A6730025FE50 /* CurrenciesSEED.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		5CEE59FD230DD3AB0007F300 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		5CF436822308126000164126 /* Currencies.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Currencies.json; sourceTree = "<group>"; };
 		5CF75F0F22FB5F910024EB77 /* KeyboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardItem.swift; sourceTree = "<group>"; };
+		5CF87A0624E2A6730025FE50 /* CurrenciesSEED.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesSEED.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +185,7 @@
 				5C2F6E9923089C1300FD9D31 /* CurrencyItemView.swift */,
 				5C2F6E9623089BCB00FD9D31 /* CurrenciesView.swift */,
 				5C1B716B24D3433C00DDA8A3 /* CurrenciesViewModel.swift */,
+				5CF87A0624E2A6730025FE50 /* CurrenciesSEED.swift */,
 			);
 			path = Currrencies;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 				5C09A4D024D30BA10043038E /* UserDefaulltsRepository.swift in Sources */,
 				5CEE59FE230DD3AB0007F300 /* BarView.swift in Sources */,
 				5CF75F1022FB5F910024EB77 /* KeyboardItem.swift in Sources */,
+				5CF87A0724E2A6730025FE50 /* CurrenciesSEED.swift in Sources */,
 				5CCA74862311FB1900CFF721 /* InitialCurrency.swift in Sources */,
 				5C2F6E9723089BCB00FD9D31 /* CurrenciesView.swift in Sources */,
 				5C82CEA622FDCE510030F72E /* CurrencyResponse.swift in Sources */,
