@@ -10,7 +10,7 @@ import SwiftUI
 import CoreData
 
 @main
-struct CCCApp: App {    
+struct CCCApp: App {
     var body: some Scene {
         WindowGroup {
             CalculatorView()

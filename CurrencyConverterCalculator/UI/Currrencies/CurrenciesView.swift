@@ -7,11 +7,7 @@
 //
 import SwiftUI
 
-struct CurrenciesView: View, Effect {
-    
-    func asd(newBase: CurrencyType) {
-        baseCurrency = newBase
-    }
+struct CurrenciesView: View {
     
     @Binding var baseCurrency: CurrencyType
     
@@ -55,11 +51,6 @@ struct CurrenciesView: View, Effect {
             ).navigationBarTitle("Settings")
         }
     }
-}
-
-protocol Effect {
-
-    func asd(newBase: CurrencyType)
 }
 
 #if DEBUG

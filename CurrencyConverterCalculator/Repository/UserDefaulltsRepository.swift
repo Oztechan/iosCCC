@@ -8,23 +8,11 @@
 
 import Foundation
 
-class UserDefaultsRepository {
-    func setBaseCurrency(value: CurrencyType) {
-        UserDefaults.standard.setBaseCurrency(value: value)
-    }
-    func getBaseCurrency() -> CurrencyType {
-        let baseCurrency = UserDefaults.standard.getBaseCurrency()
-        
-        if baseCurrency == CurrencyType.NULL {
-            return CurrencyType.EUR
-        } else {
-            return baseCurrency
-        }
-    }
+class UserDefaultsRepository: UserDefaults {
     
-}
-
-extension UserDefaults {
+    enum UserDefaultsKeys: String {
+        case baseCurrency
+    }
     
     func setBaseCurrency(value: CurrencyType) {
         set(value.stringValue, forKey: UserDefaultsKeys.baseCurrency.rawValue)
@@ -33,8 +21,4 @@ extension UserDefaults {
     func getBaseCurrency() -> CurrencyType {
         return CurrencyType.withLabel(string(forKey: UserDefaultsKeys.baseCurrency.rawValue))
     }
-}
-
-enum UserDefaultsKeys: String {
-    case baseCurrency
 }
