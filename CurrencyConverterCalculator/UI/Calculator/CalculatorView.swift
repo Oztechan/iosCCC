@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct CalculatorView: View {
-    @ObservedObject var calculatorViewModel = CalculatorViewModel()
-    @State var isBarDialogShown = false
+    @ObservedObject var vm = CalculatorViewModel()
     
     init() {
         UITableView.appearance().tableHeaderView = UIView(
@@ -34,9 +33,9 @@ struct CalculatorView: View {
                     VStack(alignment: .leading) {
                         
                         HStack {
-                            Image(calculatorViewModel.baseCurrency.stringValue.lowercased())
+                            Image(vm.state.baseCurrency.stringValue.lowercased())
                                 .shadow(radius: 3)
-                            Text(calculatorViewModel.getOutputText()).font(.headline)
+                            Text(vm.state.output.toOutPutText(baseCurrency: vm.state.baseCurrency)).font(.headline)
                         }
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .bottomLeading)
                         .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
@@ -44,25 +43,25 @@ struct CalculatorView: View {
                     }
                     .lineLimit(1)
                     .onTapGesture {
-                        self.isBarDialogShown.toggle()
+                        vm.state.isBarDialogShown.toggle()
                     }.sheet(
-                        isPresented: $isBarDialogShown,
+                        isPresented: $vm.state.isBarDialogShown,
                         content: {
                             BarView(
-                                isBarDialogShown: $isBarDialogShown,
-                                baseCurrency: $calculatorViewModel.baseCurrency
+                                isBarDialogShown: $vm.state.isBarDialogShown,
+                                baseCurrency: $vm.state.baseCurrency
                             )
                         }
                     )
                     
-                    if calculatorViewModel.isLoading {
+                    if vm.state.isLoading {
                         ProgressView()
                     }
                     
                     Form {
                         List(
-                            calculatorViewModel.currencyList.filterResults(
-                                baseCurrency: calculatorViewModel.baseCurrency
+                            vm.state.currencyList.filterResults(
+                                baseCurrency: vm.state.baseCurrency
                             ),
                             id: \.value
                         ) { currency in
@@ -70,14 +69,14 @@ struct CalculatorView: View {
                         }.listRowBackground(Color("ColorBackground"))
                     }
                     
-                    KeyboardView(input: $calculatorViewModel.input)
+                    KeyboardView(event: vm.event)
                     
                 }
             }
-            .navigationBarTitle(calculatorViewModel.input)
+            .navigationBarTitle(vm.state.input)
             .navigationBarItems(
                 trailing: NavigationLink(
-                    destination: CurrenciesView(baseCurrency: $calculatorViewModel.baseCurrency)
+                    destination: CurrenciesView(baseCurrency: $vm.state.baseCurrency)
                 ) {
                     Image(systemName: "gear")
                         .imageScale(.large)
@@ -87,7 +86,7 @@ struct CalculatorView: View {
             
         }.accentColor(Color("ColorText"))
         .onAppear {
-            self.calculatorViewModel.fetchRates()
+            self.vm.fetchRates()
         }
         
     }

@@ -8,58 +8,64 @@
 
 import Combine
 
-final class CurrenciesViewModel: ObservableObject {
+final class CurrenciesViewModel: ObservableObject, CurrenciesEvent {
     
-    private let coreDataRepository = CoreDataRepository.shared
-    
-    @Published var currencyList = [Currency]()
-    @Published var isLoading = false
-    
-    var output = ""
+    // MARK: SEED
+    @Published var state = CurrenciesState()
+    let effect = PassthroughSubject<CurrenciesEffect, Never>()
+    lazy var event = self as CurrenciesEvent
+    var data = CurrenciesData()
     
     init() {
         self.initList()
     }
     
     private func initList() {
-        currencyList = coreDataRepository.getAllCurrencies()
-        self.isLoading = false
+        state.currencyList = data.coreDataRepository.getAllCurrencies()
+        state.isLoading = false
     }
     
-    func changeAllStates(state: Bool, baseCurrency: CurrencyType) -> CurrencyType {
+    private func getFirstAvaiableBaseCurrencyOrNull() -> CurrencyType {
+        return CurrencyType.withLabel(
+            self.state.currencyList.filter { $0.isActive == true }.first?.name
+        )
+    }
+    
+    private func setBaseCurrency(newBase: CurrencyType) {
+        data.userDefautRepository.setBaseCurrency(value: newBase)
+        effect.send(CurrenciesEffect.changeBaseCurrency(newBase))
+    }
+    
+    // MARK: Event
+    func updateAllStates(state: Bool) {
         
-        currencyList.forEach {
+        self.state.currencyList.forEach {
             $0.isActive = state
-            coreDataRepository.updateCurrencyStateByName(name: $0.name, state: state)
+            data.coreDataRepository.updateCurrencyStateByName(name: $0.name, state: state)
         }
-        let temp = currencyList
-        currencyList = temp
+        let temp = self.state.currencyList
+        self.state.currencyList = temp
         
         if !state {
-            return CurrencyType.NULL
+            setBaseCurrency(newBase: CurrencyType.NULL)
         } else {
-            if baseCurrency == CurrencyType.NULL {
-                return getFirstAvaiableBaseCurrencyOrNull()
+            if data.userDefautRepository.getBaseCurrency() == CurrencyType.NULL {
+                setBaseCurrency(newBase: getFirstAvaiableBaseCurrencyOrNull())
             } else {
-                return baseCurrency
+                setBaseCurrency(newBase: data.userDefautRepository.getBaseCurrency())
             }
         }
     }
     
-    func updateItem(item: Currency, baseCurrency: CurrencyType) -> CurrencyType {
-        currencyList.filter { $0.name == item.name }.first?.isActive = !item.isActive
-        coreDataRepository.updateCurrencyStateByName(name: item.name, state: !item.isActive)
+    func updateState(currency: Currency) {
+        state.currencyList.filter { $0.name == currency.name }.first?.isActive = !currency.isActive
+        data.coreDataRepository.updateCurrencyStateByName(name: currency.name, state: !currency.isActive)
         
-        if CurrencyType.withLabel(item.name) == baseCurrency || baseCurrency == CurrencyType.NULL {
-            return getFirstAvaiableBaseCurrencyOrNull()
+        if CurrencyType.withLabel(currency.name) == data.userDefautRepository.getBaseCurrency()
+            || data.userDefautRepository.getBaseCurrency() == CurrencyType.NULL {
+            setBaseCurrency(newBase: getFirstAvaiableBaseCurrencyOrNull())
         } else {
-            return baseCurrency
+            setBaseCurrency(newBase: data.userDefautRepository.getBaseCurrency())
         }
-    }
-    
-    func getFirstAvaiableBaseCurrencyOrNull() -> CurrencyType {
-        return CurrencyType.withLabel(
-            currencyList.filter { $0.isActive == true }.first?.name
-        )
     }
 }

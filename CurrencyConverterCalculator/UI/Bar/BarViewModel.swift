@@ -8,21 +8,33 @@
 
 import Combine
 
-final class BarViewModel: ObservableObject {
-    
-    private let coreDataRepository = CoreDataRepository.shared
-    
-    @Published var currencyList = [Currency]()
-    @Published var isLoading = true
+final class BarViewModel: ObservableObject, BarEvent {
+    // MARK: SEED
+    @Published var state = BarState()
+    let effect = PassthroughSubject<BarEffect, Never>()
+    lazy var event = self as BarEvent
+    var data = BarData()
     
     init() {
         initList()
     }
     
     private func initList() {
-        self.currencyList = coreDataRepository.getAllCurrencies()
+        self.state.currencyList = data.coreDataRepository.getAllCurrencies()
             .filter { $0.isActive}
         
-        self.isLoading = false
+        self.state.isLoading = false
+    }
+    
+    private func setBaseCurrency(newBase: CurrencyType) {
+        data.userDefaultsRepository.setBaseCurrency(value: newBase)
+        effect.send(BarEffect.changeBaseCurrency(newBase))
+    }
+    
+    // MARK: Event
+    func selectCurrency(currency: Currency) {
+        setBaseCurrency(newBase: CurrencyType.withLabel(currency.name))
+        effect.send(BarEffect.changeBaseCurrency(CurrencyType.withLabel(currency.name)))
+        effect.send(BarEffect.closeDiaog)
     }
 }

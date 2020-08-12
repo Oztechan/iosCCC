@@ -6,51 +6,49 @@
 //  Copyright © 2019 Mustafa Ozhan. All rights reserved.
 //
 import SwiftUI
+import Combine
 
 struct CurrenciesView: View {
     
     @Binding var baseCurrency: CurrencyType
     
-    @ObservedObject var settingsViewModel = CurrenciesViewModel()
+    @ObservedObject var vm = CurrenciesViewModel()
     
     var body: some View {
         
         NavigationView {
+            if vm.state.isLoading {
+                ProgressView()
+            }
             Form {
-                List(settingsViewModel.currencyList, id: \.name) { currency in
+                List(vm.state.currencyList, id: \.name) { currency in
                     CurrencyItemView(item: currency, function: {
-                        baseCurrency = settingsViewModel.updateItem(
-                            item: currency,
-                            baseCurrency: baseCurrency
-                        )
+                        vm.event.updateState(currency: currency)
                     })
                 }
                 .listRowBackground(Color("ColorBackground"))
             }.navigationBarItems(
                 
                 leading: Button(
-                    action: {
-                        self.baseCurrency = self.settingsViewModel.changeAllStates(
-                            state: true,
-                            baseCurrency: baseCurrency
-                        )
-                    },
+                    action: { vm.event.updateAllStates(state: true) },
                     label: { Text("Select All").foregroundColor(Color("ColorText")) }
                 ),
                 
                 trailing: Button(
-                    action: {
-                        self.baseCurrency = self.settingsViewModel.changeAllStates(
-                            state: false,
-                            baseCurrency: baseCurrency
-                        )
-                    },
+                    action: { vm.event.updateAllStates(state: false) },
                     label: { Text("Deselect All").foregroundColor(Color("ColorText")) }
                 )
                 
             ).navigationBarTitle("Settings")
+        }.onReceive(self.vm.effect) { observeEffects(effect: $0) }
+    }
+    
+    private func observeEffects(effect: CurrenciesEffect) {
+        switch effect {
+        case .changeBaseCurrency(let newBase): baseCurrency = newBase
         }
     }
+    
 }
 
 #if DEBUG
