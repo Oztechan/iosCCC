@@ -20,26 +20,37 @@ struct CurrenciesView: View {
             if vm.state.isLoading {
                 ProgressView()
             }
-            Form {
-                List(vm.state.currencyList, id: \.name) { currency in
-                    CurrencyItemView(item: currency, function: {
-                        vm.event.updateState(currency: currency)
-                    })
-                }
-                .listRowBackground(Color("ColorBackground"))
-            }.navigationBarItems(
+            VStack {
+                Form {
+                    List(vm.state.currencyList, id: \.name) { currency in
+                        CurrencyItemView(item: currency, function: {
+                            vm.event.updateState(currency: currency)
+                        })
+                    }
+                    .listRowBackground(Color("ColorBackground"))
+                }.navigationBarItems(
+                    
+                    leading: Button(
+                        action: { vm.event.updateAllStates(state: true) },
+                        label: { Text("Select All").foregroundColor(Color("ColorText")) }
+                    ),
+                    
+                    trailing: Button(
+                        action: { vm.event.updateAllStates(state: false) },
+                        label: { Text("Deselect All").foregroundColor(Color("ColorText")) }
+                    )
+                    
+                ).navigationBarTitle("Settings")
                 
-                leading: Button(
-                    action: { vm.event.updateAllStates(state: true) },
-                    label: { Text("Select All").foregroundColor(Color("ColorText")) }
-                ),
-                
-                trailing: Button(
-                    action: { vm.event.updateAllStates(state: false) },
-                    label: { Text("Deselect All").foregroundColor(Color("ColorText")) }
-                )
-                
-            ).navigationBarTitle("Settings")
+                HStack {
+                    Text("Please Select at east 2 ccurrencies").font(.subheadline)
+                    Spacer()
+                    Button(
+                        action: { },
+                        label: { Text("Done") }
+                    ).padding(.all, 5).padding(.trailing, 10)
+                }.padding(.all, 10).padding(.bottom, 5)
+            }
         }.onReceive(self.vm.effect) { observeEffects(effect: $0) }
     }
     
