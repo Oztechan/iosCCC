@@ -18,7 +18,6 @@
 		5C34765322F71C56007F9694 /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C34765222F71C56007F9694 /* CalculatorView.swift */; };
 		5C34765522F71C56007F9694 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C34765422F71C56007F9694 /* Assets.xcassets */; };
 		5C34765822F71C56007F9694 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C34765722F71C56007F9694 /* Preview Assets.xcassets */; };
-		5C34765B22F71C56007F9694 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C34765922F71C56007F9694 /* LaunchScreen.storyboard */; };
 		5C3790D322FA098900C8DBE9 /* CalculatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3790D222FA098900C8DBE9 /* CalculatorViewModel.swift */; };
 		5C3790D522FA184400C8DBE9 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3790D422FA184400C8DBE9 /* KeyboardView.swift */; };
 		5C3790D722FA243500C8DBE9 /* CalculatorItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3790D622FA243500C8DBE9 /* CalculatorItemView.swift */; };
@@ -53,7 +52,6 @@
 		5C34765222F71C56007F9694 /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
 		5C34765422F71C56007F9694 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5C34765722F71C56007F9694 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		5C34765A22F71C56007F9694 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5C34765C22F71C56007F9694 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C3790D222FA098900C8DBE9 /* CalculatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorViewModel.swift; sourceTree = "<group>"; };
 		5C3790D422FA184400C8DBE9 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
@@ -101,7 +99,6 @@
 			isa = PBXGroup;
 			children = (
 				5C34765422F71C56007F9694 /* Assets.xcassets */,
-				5C34765922F71C56007F9694 /* LaunchScreen.storyboard */,
 				5C34765C22F71C56007F9694 /* Info.plist */,
 				5C34764F22F71C56007F9694 /* CurrencyConverterCalculator.xcdatamodeld */,
 				5CF436822308126000164126 /* Currencies.json */,
@@ -289,7 +286,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CF436832308126000164126 /* Currencies.json in Resources */,
-				5C34765B22F71C56007F9694 /* LaunchScreen.storyboard in Resources */,
 				5C34765822F71C56007F9694 /* Preview Assets.xcassets in Resources */,
 				5C34765522F71C56007F9694 /* Assets.xcassets in Resources */,
 			);
@@ -352,17 +348,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		5C34765922F71C56007F9694 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5C34765A22F71C56007F9694 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		5C34765D22F71C56007F9694 /* Debug */ = {
