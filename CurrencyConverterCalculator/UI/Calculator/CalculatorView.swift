@@ -76,7 +76,7 @@ struct CalculatorView: View {
             .navigationBarTitle(vm.state.input)
             .navigationBarItems(
                 trailing: NavigationLink(
-                    destination: CurrenciesView(baseCurrency: $vm.state.baseCurrency)
+                    destination: CurrenciesView(baseCurrency: $vm.state.baseCurrency, isFirstRun: .constant(false))
                 ) {
                     Image(systemName: "gear")
                         .imageScale(.large)

@@ -27,7 +27,7 @@ class UserDefaultsRepository: UserDefaults {
         set(value, forKey: UserDefaultsKeys.firstRun.rawValue)
     }
     
-    func getBaseCurrency() -> Bool {
+    func isFirstRun() -> Bool {
         return bool(forKey: UserDefaultsKeys.firstRun.rawValue)
     }
 }

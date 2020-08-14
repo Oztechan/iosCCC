@@ -68,4 +68,11 @@ final class CurrenciesViewModel: ObservableObject, CurrenciesEvent {
             setBaseCurrency(newBase: data.userDefautRepository.getBaseCurrency())
         }
     }
+    
+    func onDoneClick() {
+        if state.currencyList.count > 2 {
+            data.userDefautRepository.setFirstRun(value: false)
+            effect.send(CurrenciesEffect.openCalculator)
+        }
+    }
 }
