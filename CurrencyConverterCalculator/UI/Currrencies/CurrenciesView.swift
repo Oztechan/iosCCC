@@ -12,6 +12,7 @@ struct CurrenciesView: View {
     
     @Binding var baseCurrency: CurrencyType
     @Binding var isFirstRun: Bool
+    @State var isAlertShown = false
     @ObservedObject var vm = CurrenciesViewModel()
     
     var body: some View {
@@ -44,7 +45,7 @@ struct CurrenciesView: View {
                 
                 if isFirstRun {
                     HStack {
-                        Text("Please Select at east 2 ccurrencies").font(.subheadline)
+                        Text("Please select at east 2 ccurrencies").font(.subheadline)
                         Spacer()
                         Button(
                             action: { vm.event.onDoneClick() },
@@ -53,7 +54,14 @@ struct CurrenciesView: View {
                     }.padding(.all, 10).padding(.bottom, 5)
                 }
             }
-        }.onReceive(self.vm.effect) { observeEffects(effect: $0) }
+        }
+        .onReceive(self.vm.effect) { observeEffects(effect: $0) }
+        .alert(isPresented: $isAlertShown) {
+            Alert(
+                title: Text("Please select at east 2 ccurrencies"),
+                dismissButton: .default(Text("OK"))
+            )
+        }
         
     }
     
@@ -61,6 +69,7 @@ struct CurrenciesView: View {
         switch effect {
         case .changeBaseCurrency(let newBase): baseCurrency = newBase
         case .openCalculator: isFirstRun = false
+        case .warningEffect: isAlertShown = true
         }
     }
     

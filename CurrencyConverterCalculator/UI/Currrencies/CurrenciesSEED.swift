@@ -25,6 +25,7 @@ protocol CurrenciesEvent {
 enum CurrenciesEffect {
     case changeBaseCurrency(CurrencyType)
     case openCalculator
+    case warningEffect
 }
 
 // MARK: Data

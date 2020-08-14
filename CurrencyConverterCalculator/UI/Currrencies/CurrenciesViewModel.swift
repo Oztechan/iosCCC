@@ -70,9 +70,11 @@ final class CurrenciesViewModel: ObservableObject, CurrenciesEvent {
     }
     
     func onDoneClick() {
-        if state.currencyList.count > 2 {
+        if state.currencyList.filter({ $0.isActive == true}).count >= 2 {
             data.userDefautRepository.setFirstRun(value: false)
             effect.send(CurrenciesEffect.openCalculator)
+        } else {
+            effect.send(CurrenciesEffect.warningEffect)
         }
     }
 }
