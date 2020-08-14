@@ -11,9 +11,19 @@ import CoreData
 
 @main
 struct CCCApp: App {
+    
+    @StateObject var appViewModel = AppViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            CalculatorView()
+            if appViewModel.isFirstRun {
+                CurrenciesView(
+                    baseCurrency: $appViewModel.baseCurrency,
+                    isFirstRun: $appViewModel.isFirstRun
+                )
+            } else {
+                CalculatorView()
+            }
         }
     }
 }
