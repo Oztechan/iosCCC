@@ -15,47 +15,74 @@ struct CurrenciesView: View {
     @State var isAlertShown = false
     @ObservedObject var vm = CurrenciesViewModel()
     
-    var body: some View {
+    init(baseCurrency: Binding<CurrencyType>, isFirstRun: Binding<Bool>) {
         
-        VStack {
-            if vm.state.isLoading {
-                ProgressView()
-            }
-            Form {
-                List(vm.state.currencyList, id: \.name) { currency in
-                    CurrencyItemView(item: currency, function: {
-                        vm.event.updateState(currency: currency)
-                    })
-                }
-                .listRowBackground(Color("ColorBackground"))
-            }
+        self._baseCurrency = baseCurrency
+        self._isFirstRun = isFirstRun
+        UITableView.appearance().tableHeaderView = UIView(
+            frame: CGRect(
+                x: 0,
+                y: 0,
+                width: 0,
+                height: Double.leastNonzeroMagnitude
+            )
+        )
+        UITableView.appearance().backgroundColor = UIColor(Color("ColorBackground"))
+    }
+    
+    var body: some View {
+        ZStack {
             
-            if isFirstRun {
+            Color("ColorBackgroundStrong").edgesIgnoringSafeArea(.all)
+            
+            VStack {
                 HStack {
-                    Text("Please select at east 2 ccurrencies").font(.subheadline)
+                    Text("Settings")
+                        .font(.title)
+                        .foregroundColor(Color("ColorText"))
+                        .padding(.leading, 10)
                     Spacer()
                     Button(
-                        action: { vm.event.onDoneClick() },
-                        label: { Text("Done") }
-                    ).padding(.all, 5).padding(.trailing, 10)
-                }.padding(.all, 10).padding(.bottom, 5)
+                        action: { vm.event.updateAllStates(state: true) },
+                        label: { Text("Select All").foregroundColor(Color("ColorText")) }
+                    ).padding(.trailing, 10)
+                    Button(
+                        action: { vm.event.updateAllStates(state: false) },
+                        label: { Text("Deselect All").foregroundColor(Color("ColorText")) }
+                    ).padding(.trailing, 10)
+                    
+                }.padding(.top, 10)
+                
+                if vm.state.isLoading {
+                    ProgressView()
+                }
+                
+                Form {
+                    List(vm.state.currencyList, id: \.name) { currency in
+                        CurrencyItemView(item: currency, function: {
+                            vm.event.updateState(currency: currency)
+                        })
+                    }
+                    .listRowBackground(Color("ColorBackground"))
+                }
+                
+                if isFirstRun {
+                    HStack {
+                        Text("Please select at east 2 ccurrencies").font(.subheadline)
+                        Spacer()
+                        Button(
+                            action: { vm.event.onDoneClick() },
+                            label: { Text("Done").foregroundColor(Color("ColorText")) }
+                        )
+                        .padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 15))
+                        .background(Color("ColorBackgroundWeak"))
+                    }
+                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+                }
             }
         }
-        .navigationBarItems(
-            
-            leading: Button(
-                action: { vm.event.updateAllStates(state: true) },
-                label: { Text("Select All").foregroundColor(Color("ColorText")) }
-            ),
-            
-            trailing: Button(
-                action: { vm.event.updateAllStates(state: false) },
-                label: { Text("Deselect All").foregroundColor(Color("ColorText")) }
-            )
-            
-        )
-        .navigationBarTitle("Settings")
-        .onReceive(self.vm.effect) { observeEffects(effect: $0) }
+        .background(Color("ColorBackgroundStrong"))
+        .onReceive(vm.effect) { observeEffects(effect: $0) }
         .alert(isPresented: $isAlertShown) {
             Alert(
                 title: Text("Please select at east 2 ccurrencies"),

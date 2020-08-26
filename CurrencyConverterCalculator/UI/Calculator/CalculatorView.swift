@@ -84,10 +84,9 @@ struct CalculatorView: View {
                 }
             )
             
-        }.accentColor(Color("ColorText"))
-        .onAppear {
-            self.vm.fetchRates()
         }
+        .accentColor(Color("ColorText"))
+        .onAppear { vm.fetchRates() }
         
     }
 }

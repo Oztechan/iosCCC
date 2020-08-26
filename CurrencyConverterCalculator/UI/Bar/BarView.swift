@@ -20,7 +20,7 @@ struct BarView: View {
                 ProgressView()
             }
             Form {
-                List(self.vm.state.currencyList, id: \.name) { currency in
+                List(vm.state.currencyList, id: \.name) { currency in
                     
                     BarItemView(item: currency)
                         .onTapGesture { vm.event.selectCurrency(currency: currency) }
@@ -28,7 +28,7 @@ struct BarView: View {
                     
                 }.listRowBackground(Color("ColorBackground"))
             }.navigationBarTitle("Base Currency")
-        }.onReceive(self.vm.effect) { observeEffects(effect: $0) }
+        }.onReceive(vm.effect) { observeEffects(effect: $0) }
     }
     
     private func observeEffects(effect: BarEffect) {
