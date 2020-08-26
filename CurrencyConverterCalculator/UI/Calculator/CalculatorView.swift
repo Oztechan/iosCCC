@@ -30,6 +30,23 @@ struct CalculatorView: View {
                 
                 VStack {
                     
+                    HStack {
+                        Spacer()
+                        Text(vm.state.input)
+                            .font(.title)
+                            .foregroundColor(Color("ColorText"))
+                        
+                        Spacer()
+                        NavigationLink(
+                            destination: CurrenciesView(baseCurrency: $vm.state.baseCurrency, isFirstRun: .constant(false))
+                        ) {
+                            Image(systemName: "gear")
+                                .imageScale(.large)
+                                .accentColor(Color("ColorText"))
+                                .padding(.trailing, 15)
+                        }
+                    }
+                    
                     VStack(alignment: .leading) {
                         
                         HStack {
@@ -38,7 +55,7 @@ struct CalculatorView: View {
                             Text(vm.state.output.toOutPutText(baseCurrency: vm.state.baseCurrency)).font(.headline)
                         }
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .bottomLeading)
-                        .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
+                        .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
                         
                     }
                     .lineLimit(1)
@@ -73,17 +90,7 @@ struct CalculatorView: View {
                     
                 }
             }
-            .navigationBarTitle(vm.state.input)
-            .navigationBarItems(
-                trailing: NavigationLink(
-                    destination: CurrenciesView(baseCurrency: $vm.state.baseCurrency, isFirstRun: .constant(false))
-                ) {
-                    Image(systemName: "gear")
-                        .imageScale(.large)
-                        .accentColor(Color("ColorText"))
-                }
-            )
-            
+            .navigationBarHidden(true)
         }
         .accentColor(Color("ColorText"))
         .onAppear { vm.fetchRates() }
