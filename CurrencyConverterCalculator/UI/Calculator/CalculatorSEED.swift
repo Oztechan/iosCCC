@@ -32,10 +32,9 @@ enum CalculatorEffect {
 }
 
 // MARK: Data
-struct CalculatorData {
+class CalculatorData: AppData {
     let coreDataRepository = CoreDataRepository.shared
     let apiRepository = ApiRepository()
-    let userDefaultRepository = UserDefaultsRepository()
     var rates: Rates?
     var cancelable: Cancellable?
 }

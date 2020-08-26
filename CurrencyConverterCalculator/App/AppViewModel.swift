@@ -16,8 +16,8 @@ final class AppViewModel: ObservableObject {
     
     init() {
         self.state = AppState(
-            baseCurrency: data.userDefaultsRepository.getBaseCurrency(),
-            isFirstRun: data.userDefaultsRepository.isFirstRun()
+            baseCurrency: data.defaults.getBaseCurrency(),
+            isFirstRun: data.defaults.isFirstRun()
         )
     }
 }

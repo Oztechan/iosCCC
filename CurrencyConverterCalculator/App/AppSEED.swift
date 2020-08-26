@@ -15,11 +15,11 @@ struct AppState {
 }
 
 // MARK: Data
-struct AppData {
-    let userDefaultsRepository = UserDefaultsRepository()
+class AppData {
+    let defaults = UserDefaultsRepository()
     
     init() {
-        userDefaultsRepository.register(defaults: [
+        defaults.register(defaults: [
             UserDefaultsRepository.UserDefaultsKeys.baseCurrency.rawValue: CurrencyType.NULL.stringValue,
             UserDefaultsRepository.UserDefaultsKeys.firstRun.rawValue: true
         ])
