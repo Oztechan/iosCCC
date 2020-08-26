@@ -17,44 +17,44 @@ struct CurrenciesView: View {
     
     var body: some View {
         
-        NavigationView {
+        VStack {
             if vm.state.isLoading {
                 ProgressView()
             }
-            VStack {
-                Form {
-                    List(vm.state.currencyList, id: \.name) { currency in
-                        CurrencyItemView(item: currency, function: {
-                            vm.event.updateState(currency: currency)
-                        })
-                    }
-                    .listRowBackground(Color("ColorBackground"))
-                }.navigationBarItems(
-                    
-                    leading: Button(
-                        action: { vm.event.updateAllStates(state: true) },
-                        label: { Text("Select All").foregroundColor(Color("ColorText")) }
-                    ),
-                    
-                    trailing: Button(
-                        action: { vm.event.updateAllStates(state: false) },
-                        label: { Text("Deselect All").foregroundColor(Color("ColorText")) }
-                    )
-                    
-                ).navigationBarTitle("Settings")
-                
-                if isFirstRun {
-                    HStack {
-                        Text("Please select at east 2 ccurrencies").font(.subheadline)
-                        Spacer()
-                        Button(
-                            action: { vm.event.onDoneClick() },
-                            label: { Text("Done") }
-                        ).padding(.all, 5).padding(.trailing, 10)
-                    }.padding(.all, 10).padding(.bottom, 5)
+            Form {
+                List(vm.state.currencyList, id: \.name) { currency in
+                    CurrencyItemView(item: currency, function: {
+                        vm.event.updateState(currency: currency)
+                    })
                 }
+                .listRowBackground(Color("ColorBackground"))
+            }
+            
+            if isFirstRun {
+                HStack {
+                    Text("Please select at east 2 ccurrencies").font(.subheadline)
+                    Spacer()
+                    Button(
+                        action: { vm.event.onDoneClick() },
+                        label: { Text("Done") }
+                    ).padding(.all, 5).padding(.trailing, 10)
+                }.padding(.all, 10).padding(.bottom, 5)
             }
         }
+        .navigationBarItems(
+            
+            leading: Button(
+                action: { vm.event.updateAllStates(state: true) },
+                label: { Text("Select All").foregroundColor(Color("ColorText")) }
+            ),
+            
+            trailing: Button(
+                action: { vm.event.updateAllStates(state: false) },
+                label: { Text("Deselect All").foregroundColor(Color("ColorText")) }
+            )
+            
+        )
+        .navigationBarTitle("Settings")
         .onReceive(self.vm.effect) { observeEffects(effect: $0) }
         .alert(isPresented: $isAlertShown) {
             Alert(
