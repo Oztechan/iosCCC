@@ -18,15 +18,17 @@ struct CurrenciesState {
 protocol CurrenciesEvent {
     func updateAllStates(state: Bool)
     func updateState(currency: Currency)
+    func onDoneClick()
 }
 
 // MARK: Effect
 enum CurrenciesEffect {
     case changeBaseCurrency(CurrencyType)
+    case openCalculator
+    case warningEffect
 }
 
 // MARK: Data
-struct CurrenciesData {
+class CurrenciesData: AppData {
     let coreDataRepository = CoreDataRepository.shared
-    let userDefautRepository = UserDefaultsRepository()
 }

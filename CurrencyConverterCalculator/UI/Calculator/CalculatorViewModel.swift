@@ -18,7 +18,7 @@ final class CalculatorViewModel: ObservableObject, CalculatorEvent {
     var data = CalculatorData()
     
     init() {
-        state.baseCurrency = data.userDefaultRepository.getBaseCurrency()
+        state.baseCurrency = data.defaults.getBaseCurrency()
         initList()
     }
     

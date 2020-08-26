@@ -12,6 +12,7 @@ class UserDefaultsRepository: UserDefaults {
     
     enum UserDefaultsKeys: String {
         case baseCurrency
+        case firstRun
     }
     
     func setBaseCurrency(value: CurrencyType) {
@@ -20,5 +21,13 @@ class UserDefaultsRepository: UserDefaults {
     
     func getBaseCurrency() -> CurrencyType {
         return CurrencyType.withLabel(string(forKey: UserDefaultsKeys.baseCurrency.rawValue))
+    }
+    
+    func setFirstRun(value: Bool) {
+        set(value, forKey: UserDefaultsKeys.firstRun.rawValue)
+    }
+    
+    func isFirstRun() -> Bool {
+        return bool(forKey: UserDefaultsKeys.firstRun.rawValue)
     }
 }

@@ -26,7 +26,6 @@ enum BarEffect {
 }
 
 // MARK: Data
-struct BarData {
+class BarData: AppData {
     let coreDataRepository = CoreDataRepository.shared
-    let userDefaultsRepository = UserDefaultsRepository()
 }

@@ -30,15 +30,33 @@ struct CalculatorView: View {
                 
                 VStack {
                     
+                    HStack {
+                        Spacer()
+                        Text(vm.state.input)
+                            .foregroundColor(Color("ColorText"))
+                            .font(.title2)
+                        Spacer()
+                        NavigationLink(
+                            destination: CurrenciesView(baseCurrency: $vm.state.baseCurrency, isFirstRun: .constant(false))
+                        ) {
+                            Image(systemName: "gear")
+                                .imageScale(.large)
+                                .accentColor(Color("ColorText"))
+                                .padding(.trailing, 15)
+                            
+                        }
+                    }.frame(width: .none, height: 40, alignment: .center)
+                    
                     VStack(alignment: .leading) {
-                        
+
                         HStack {
                             Image(vm.state.baseCurrency.stringValue.lowercased())
                                 .shadow(radius: 3)
-                            Text(vm.state.output.toOutPutText(baseCurrency: vm.state.baseCurrency)).font(.headline)
+                            Text(vm.state.output.toOutPutText(baseCurrency: vm.state.baseCurrency))
+                                .foregroundColor(Color("ColorText"))
                         }
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .bottomLeading)
-                        .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
+                        .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
                         
                     }
                     .lineLimit(1)
@@ -73,21 +91,10 @@ struct CalculatorView: View {
                     
                 }
             }
-            .navigationBarTitle(vm.state.input)
-            .navigationBarItems(
-                trailing: NavigationLink(
-                    destination: CurrenciesView(baseCurrency: $vm.state.baseCurrency)
-                ) {
-                    Image(systemName: "gear")
-                        .imageScale(.large)
-                        .accentColor(Color("ColorText"))
-                }
-            )
-            
-        }.accentColor(Color("ColorText"))
-        .onAppear {
-            self.vm.fetchRates()
+            .navigationBarHidden(true)
         }
+        .accentColor(Color("ColorText"))
+        .onAppear { vm.fetchRates() }
         
     }
 }

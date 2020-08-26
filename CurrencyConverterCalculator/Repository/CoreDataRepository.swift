@@ -59,7 +59,7 @@ class CoreDataRepository {
         temCurrency.longName = initialCurrency.longName
         temCurrency.symbol = initialCurrency.symbol
         temCurrency.value = "0.0"
-        temCurrency.isActive = true
+        temCurrency.isActive = false
         
         do {
             try self.persistentContainer.viewContext.save()
