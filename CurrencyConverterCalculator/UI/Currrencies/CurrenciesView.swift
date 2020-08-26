@@ -10,6 +10,7 @@ import Combine
 
 struct CurrenciesView: View {
     
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Binding var baseCurrency: CurrencyType
     @Binding var isFirstRun: Bool
     @State var isAlertShown = false
@@ -37,10 +38,22 @@ struct CurrenciesView: View {
             
             VStack {
                 HStack {
-                    Text("Settings")
-                        .font(.title)
-                        .foregroundColor(Color("ColorText"))
-                        .padding(.leading, 10)
+                    if !isFirstRun {
+                        Button(
+                            action: { presentationMode.wrappedValue.dismiss() },
+                            label: {
+                                Image(systemName: "chevron.left")
+                                    .imageScale(.large)
+                                    .accentColor(Color("ColorText"))
+                                    .padding(.leading, 10)
+                                
+                                Text("Back")
+                                    .foregroundColor(Color("ColorText"))
+                            }
+                        ).padding(.trailing, 10)
+                        
+                    }
+                    
                     Spacer()
                     Button(
                         action: { vm.event.updateAllStates(state: true) },
@@ -49,9 +62,10 @@ struct CurrenciesView: View {
                     Button(
                         action: { vm.event.updateAllStates(state: false) },
                         label: { Text("Deselect All").foregroundColor(Color("ColorText")) }
-                    ).padding(.trailing, 10)
+                    )
                     
-                }.padding(.top, 10)
+                }
+                .padding(EdgeInsets(top: 15, leading: 10, bottom: 10, trailing: 20))
                 
                 if vm.state.isLoading {
                     ProgressView()
@@ -80,6 +94,7 @@ struct CurrenciesView: View {
                     .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                 }
             }
+            .navigationBarHidden(true)
         }
         .background(Color("ColorBackgroundStrong"))
         .onReceive(vm.effect) { observeEffects(effect: $0) }
