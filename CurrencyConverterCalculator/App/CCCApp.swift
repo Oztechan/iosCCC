@@ -12,14 +12,14 @@ import CoreData
 @main
 struct CCCApp: App {
     
-    @StateObject var appViewModel = AppViewModel()
+    @StateObject var vm = AppViewModel()
     
     var body: some Scene {
         WindowGroup {
-            if appViewModel.isFirstRun {
+            if vm.state.isFirstRun {
                 CurrenciesView(
-                    baseCurrency: $appViewModel.baseCurrency,
-                    isFirstRun: $appViewModel.isFirstRun
+                    baseCurrency: $vm.state.baseCurrency,
+                    isFirstRun: $vm.state.isFirstRun
                 )
             } else {
                 CalculatorView()

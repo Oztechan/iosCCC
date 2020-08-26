@@ -9,26 +9,15 @@
 import Foundation
 
 final class AppViewModel: ObservableObject {
-    private let userDefaultRepository = UserDefaultsRepository()
     
-    @Published var baseCurrency: CurrencyType {
-        didSet {
-            userDefaultRepository.setBaseCurrency(value: baseCurrency)
-        }
-    }
-    @Published var isFirstRun: Bool {
-        didSet {
-            userDefaultRepository.setFirstRun(value: isFirstRun)
-        }
-    }
+    // MARK: SEED
+    @Published var state: AppState
+    var data = AppData()
     
     init() {
-        userDefaultRepository.register(defaults: [
-            UserDefaultsRepository.UserDefaultsKeys.baseCurrency.rawValue: CurrencyType.NULL.stringValue,
-            UserDefaultsRepository.UserDefaultsKeys.firstRun.rawValue: true
-        ])
-        
-        self.baseCurrency = userDefaultRepository.getBaseCurrency()
-        self.isFirstRun = userDefaultRepository.isFirstRun()
+        self.state = AppState(
+            baseCurrency: data.userDefaultsRepository.getBaseCurrency(),
+            isFirstRun: data.userDefaultsRepository.isFirstRun()
+        )
     }
 }
