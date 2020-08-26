@@ -33,9 +33,8 @@ struct CalculatorView: View {
                     HStack {
                         Spacer()
                         Text(vm.state.input)
-                            .font(.title)
                             .foregroundColor(Color("ColorText"))
-                        
+                            .font(.title2)
                         Spacer()
                         NavigationLink(
                             destination: CurrenciesView(baseCurrency: $vm.state.baseCurrency, isFirstRun: .constant(false))
@@ -44,15 +43,17 @@ struct CalculatorView: View {
                                 .imageScale(.large)
                                 .accentColor(Color("ColorText"))
                                 .padding(.trailing, 15)
+                            
                         }
-                    }
+                    }.frame(width: .none, height: 40, alignment: .center)
                     
                     VStack(alignment: .leading) {
-                        
+
                         HStack {
                             Image(vm.state.baseCurrency.stringValue.lowercased())
                                 .shadow(radius: 3)
-                            Text(vm.state.output.toOutPutText(baseCurrency: vm.state.baseCurrency)).font(.headline)
+                            Text(vm.state.output.toOutPutText(baseCurrency: vm.state.baseCurrency))
+                                .foregroundColor(Color("ColorText"))
                         }
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .bottomLeading)
                         .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))

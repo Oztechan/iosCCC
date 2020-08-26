@@ -56,7 +56,6 @@ struct KeyboardView: View {
                             label: {
                                 Text(item.rawValue)
                                     .font(.title2)
-                                    .bold()
                                     .foregroundColor(Color("ColorText"))
                                     .frame(
                                         minWidth: 0,

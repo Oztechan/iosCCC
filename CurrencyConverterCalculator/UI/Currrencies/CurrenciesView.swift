@@ -65,7 +65,7 @@ struct CurrenciesView: View {
                     )
                     
                 }
-                .padding(EdgeInsets(top: 15, leading: 10, bottom: 10, trailing: 20))
+                .padding(EdgeInsets(top: 20, leading: 10, bottom: 5, trailing: 20))
                 
                 if vm.state.isLoading {
                     ProgressView()
@@ -91,7 +91,7 @@ struct CurrenciesView: View {
                         .padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 15))
                         .background(Color("ColorBackgroundWeak"))
                     }
-                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 10, trailing: 10))
                 }
             }
             .navigationBarHidden(true)
