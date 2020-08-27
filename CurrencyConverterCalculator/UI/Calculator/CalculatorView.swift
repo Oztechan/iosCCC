@@ -30,7 +30,7 @@ struct CalculatorView: View {
                 
                 VStack {
                     
-                    CalculationView(
+                    CalculationInputView(
                         input: vm.state.input,
                         destinationView: CurrenciesView(
                             baseCurrency: $vm.state.baseCurrency,
@@ -38,29 +38,10 @@ struct CalculatorView: View {
                         )
                     )
                     
-                    VStack(alignment: .leading) {
-
-                        HStack {
-                            Image(vm.state.baseCurrency.stringValue.lowercased())
-                                .shadow(radius: 3)
-                            Text(vm.state.output.toOutPutText(baseCurrency: vm.state.baseCurrency))
-                                .foregroundColor(Color("ColorText"))
-                        }
-                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .bottomLeading)
-                        .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
-                        
-                    }
-                    .lineLimit(1)
-                    .onTapGesture {
-                        vm.state.isBarDialogShown.toggle()
-                    }.sheet(
-                        isPresented: $vm.state.isBarDialogShown,
-                        content: {
-                            BarView(
-                                isBarDialogShown: $vm.state.isBarDialogShown,
-                                baseCurrency: $vm.state.baseCurrency
-                            )
-                        }
+                    CalculationOutputView(
+                        isBarDialogShown: $vm.state.isBarDialogShown,
+                        baseCurrency: $vm.state.baseCurrency,
+                        output: vm.state.output
                     )
                     
                     if vm.state.isLoading {

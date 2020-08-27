@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct CalculationView: View {
+struct CalculationInputView: View {
     
     var input: String
     var destinationView: CurrenciesView
@@ -32,16 +32,16 @@ struct CalculationView: View {
 }
 
 #if DEBUG
-struct CalculationViewPreview: PreviewProvider {
+struct CalculationInputViewPreview: PreviewProvider {
     static var previews: some View {
-        CalculationView(
+        CalculationInputView(
             input: "1+2+3",
             destinationView: CurrenciesView(
                 baseCurrency: .constant(CurrencyType.EUR),
                 isFirstRun: .constant(false)
             )
         )
-        CalculationView(
+        CalculationInputView(
             input: "1+2+3",
             destinationView: CurrenciesView(
                 baseCurrency: .constant(CurrencyType.EUR),
