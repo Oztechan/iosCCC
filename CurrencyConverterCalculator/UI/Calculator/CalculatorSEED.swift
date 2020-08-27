@@ -21,7 +21,6 @@ struct CalculatorState {
 
 // MARK: Event
 protocol CalculatorEvent {
-    init()
     func keyPress(value: String)
 }
 

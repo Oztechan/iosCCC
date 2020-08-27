@@ -20,6 +20,7 @@ struct CurrenciesView: View {
         
         self._baseCurrency = baseCurrency
         self._isFirstRun = isFirstRun
+        
         UITableView.appearance().tableHeaderView = UIView(
             frame: CGRect(
                 x: 0,
@@ -37,35 +38,12 @@ struct CurrenciesView: View {
             Color("ColorBackgroundStrong").edgesIgnoringSafeArea(.all)
             
             VStack {
-                HStack {
-                    if !isFirstRun {
-                        Button(
-                            action: { presentationMode.wrappedValue.dismiss() },
-                            label: {
-                                Image(systemName: "chevron.left")
-                                    .imageScale(.large)
-                                    .accentColor(Color("ColorText"))
-                                    .padding(.leading, 10)
-                                
-                                Text("Back")
-                                    .foregroundColor(Color("ColorText"))
-                            }
-                        ).padding(.trailing, 10)
-                        
-                    }
-                    
-                    Spacer()
-                    Button(
-                        action: { vm.event.updateAllStates(state: true) },
-                        label: { Text("Select All").foregroundColor(Color("ColorText")) }
-                    ).padding(.trailing, 10)
-                    Button(
-                        action: { vm.event.updateAllStates(state: false) },
-                        label: { Text("Deselect All").foregroundColor(Color("ColorText")) }
-                    )
-                    
-                }
-                .padding(EdgeInsets(top: 20, leading: 10, bottom: 5, trailing: 20))
+                
+                CurrencyToolbarView(
+                    isFirstRun: $isFirstRun,
+                    onBackClick: { presentationMode.wrappedValue.dismiss() },
+                    onAllStateUpdateClick: { vm.updateAllStates(state: $0) }
+                )
                 
                 if vm.state.isLoading {
                     ProgressView()
@@ -73,16 +51,20 @@ struct CurrenciesView: View {
                 
                 Form {
                     List(vm.state.currencyList, id: \.name) { currency in
-                        CurrencyItemView(item: currency, function: {
-                            vm.event.updateState(currency: currency)
-                        })
+                        CurrencyItemView(
+                            item: currency,
+                            onItemClick: { vm.event.updateState(currency: currency) }
+                        )
                     }
                     .listRowBackground(Color("ColorBackground"))
                 }
                 
                 if isFirstRun {
                     HStack {
-                        Text("Please select at east 2 ccurrencies").font(.subheadline)
+                        
+                        Text("Please select at east 2 ccurrencies")
+                            .foregroundColor(Color("ColorText"))
+                            .font(.subheadline)
                         Spacer()
                         Button(
                             action: { vm.event.onDoneClick() },
@@ -90,9 +72,11 @@ struct CurrenciesView: View {
                         )
                         .padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 15))
                         .background(Color("ColorBackgroundWeak"))
+                        
                     }
                     .padding(EdgeInsets(top: 0, leading: 10, bottom: 10, trailing: 10))
                 }
+                
             }
             .navigationBarHidden(true)
         }
@@ -120,8 +104,14 @@ struct CurrenciesView: View {
 #if DEBUG
 struct SettingsViewPreviews: PreviewProvider {
     static var previews: some View {
-        CurrenciesView(baseCurrency: .constant(CurrencyType.EUR), isFirstRun: .constant(false))
-        CurrenciesView(baseCurrency: .constant(CurrencyType.EUR), isFirstRun: .constant(false)).preferredColorScheme(.dark)
+        CurrenciesView(
+            baseCurrency: .constant(CurrencyType.EUR),
+            isFirstRun: .constant(false)
+        )
+        CurrenciesView(
+            baseCurrency: .constant(CurrencyType.EUR),
+            isFirstRun: .constant(false)
+        ).preferredColorScheme(.dark)
     }
 }
 #endif
