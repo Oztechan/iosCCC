@@ -13,12 +13,14 @@ struct CalculatorItemView: View {
     
     var body: some View {
         HStack {
+            
             Text(item.value).foregroundColor(Color("ColorText"))
             Text(item.symbol).foregroundColor(Color("ColorText"))
             Spacer()
             Text(item.name).foregroundColor(Color("ColorText"))
             Image(item.name.lowercased())
                 .shadow(radius: 3)
+            
         }
     }
 }

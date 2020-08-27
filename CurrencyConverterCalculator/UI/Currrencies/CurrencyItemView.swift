@@ -13,13 +13,21 @@ struct CurrencyItemView: View {
     
     var body: some View {
         HStack {
+            
             Image(item.name.lowercased())
                 .shadow(radius: 3)
-            Text(item.name).frame(width: 45)
-            Text(item.longName).font(.footnote)
-            Text(item.symbol).font(.footnote)
+            Text(item.name)
+                .frame(width: 45)
+                .foregroundColor(Color("ColorText"))
+            Text(item.longName)
+                .font(.footnote)
+                .foregroundColor(Color("ColorText"))
+            Text(item.symbol)
+                .font(.footnote)
+                .foregroundColor(Color("ColorText"))
             Spacer()
             Image(systemName: $item.isActive.wrappedValue ? "checkmark.circle.fill" : "circle")
+            
         }
         .onTapGesture {
             self.$item.isActive.wrappedValue.toggle()

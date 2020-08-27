@@ -15,6 +15,7 @@ struct CalculationInputView: View {
     
     var body: some View {
         HStack {
+            
             Spacer()
             Text(input)
                 .foregroundColor(Color("ColorText"))
@@ -27,6 +28,7 @@ struct CalculationInputView: View {
                     .padding(.trailing, 15)
                 
             }
+            
         }.frame(width: .none, height: 40, alignment: .center)
     }
 }

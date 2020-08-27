@@ -16,6 +16,7 @@ struct CCCApp: App {
     
     var body: some Scene {
         WindowGroup {
+            
             if vm.state.isFirstRun {
                 CurrenciesView(
                     baseCurrency: $vm.state.baseCurrency,
@@ -24,6 +25,7 @@ struct CCCApp: App {
             } else {
                 CalculatorView()
             }
+            
         }
     }
 }

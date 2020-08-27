@@ -16,10 +16,13 @@ struct BarView: View {
     var body: some View {
         
         NavigationView {
+            
             if vm.state.isLoading {
                 ProgressView()
             }
+            
             Form {
+                
                 List(vm.state.currencyList, id: \.name) { currency in
                     
                     BarItemView(item: currency)
@@ -27,7 +30,9 @@ struct BarView: View {
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                     
                 }.listRowBackground(Color("ColorBackground"))
+                
             }.navigationBarTitle("Base Currency")
+            
         }.onReceive(vm.effect) { observeEffects(effect: $0) }
     }
     

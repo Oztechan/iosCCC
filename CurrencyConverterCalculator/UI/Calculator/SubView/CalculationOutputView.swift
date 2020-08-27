@@ -17,10 +17,8 @@ struct CalculationOutputView: View {
         VStack(alignment: .leading) {
             
             HStack {
-                Image(baseCurrency.stringValue.lowercased())
-                    .shadow(radius: 3)
-                Text(output.toOutPutText(baseCurrency: baseCurrency))
-                    .foregroundColor(Color("ColorText"))
+                Image(baseCurrency.stringValue.lowercased()).shadow(radius: 3)
+                Text(output.toOutPutText(baseCurrency: baseCurrency)).foregroundColor(Color("ColorText"))
             }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .bottomLeading)
             .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))

@@ -20,6 +20,7 @@ struct CurrenciesView: View {
         
         self._baseCurrency = baseCurrency
         self._isFirstRun = isFirstRun
+        
         UITableView.appearance().tableHeaderView = UIView(
             frame: CGRect(
                 x: 0,
@@ -37,7 +38,9 @@ struct CurrenciesView: View {
             Color("ColorBackgroundStrong").edgesIgnoringSafeArea(.all)
             
             VStack {
+                
                 HStack {
+                    
                     if !isFirstRun {
                         Button(
                             action: { presentationMode.wrappedValue.dismiss() },
@@ -47,8 +50,7 @@ struct CurrenciesView: View {
                                     .accentColor(Color("ColorText"))
                                     .padding(.leading, 10)
                                 
-                                Text("Back")
-                                    .foregroundColor(Color("ColorText"))
+                                Text("Back").foregroundColor(Color("ColorText"))
                             }
                         ).padding(.trailing, 10)
                         
@@ -82,7 +84,10 @@ struct CurrenciesView: View {
                 
                 if isFirstRun {
                     HStack {
-                        Text("Please select at east 2 ccurrencies").font(.subheadline)
+                        
+                        Text("Please select at east 2 ccurrencies")
+                            .foregroundColor(Color("ColorText"))
+                            .font(.subheadline)
                         Spacer()
                         Button(
                             action: { vm.event.onDoneClick() },
@@ -90,9 +95,11 @@ struct CurrenciesView: View {
                         )
                         .padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 15))
                         .background(Color("ColorBackgroundWeak"))
+                        
                     }
                     .padding(EdgeInsets(top: 0, leading: 10, bottom: 10, trailing: 10))
                 }
+                
             }
             .navigationBarHidden(true)
         }

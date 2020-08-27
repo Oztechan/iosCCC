@@ -49,8 +49,10 @@ struct KeyboardView: View {
         
         VStack(alignment: .center) {
             ForEach(data, id: \.self) { items in
+                
                 HStack(alignment: .center) {
                     ForEach(items, id: \.self) { item in
+                        
                         Button(
                             action: { event?.keyPress(value: item.rawValue)},
                             label: {
@@ -65,8 +67,10 @@ struct KeyboardView: View {
                                     )
                             }
                         )
+                        
                     }
                 }
+                
             }
         }.background(Color("ColorBackgroundStrong"))
     }
