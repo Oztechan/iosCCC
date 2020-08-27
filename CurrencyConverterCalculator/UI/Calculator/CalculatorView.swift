@@ -30,22 +30,13 @@ struct CalculatorView: View {
                 
                 VStack {
                     
-                    HStack {
-                        Spacer()
-                        Text(vm.state.input)
-                            .foregroundColor(Color("ColorText"))
-                            .font(.title2)
-                        Spacer()
-                        NavigationLink(
-                            destination: CurrenciesView(baseCurrency: $vm.state.baseCurrency, isFirstRun: .constant(false))
-                        ) {
-                            Image(systemName: "gear")
-                                .imageScale(.large)
-                                .accentColor(Color("ColorText"))
-                                .padding(.trailing, 15)
-                            
-                        }
-                    }.frame(width: .none, height: 40, alignment: .center)
+                    CalculationView(
+                        input: vm.state.input,
+                        destinationView: CurrenciesView(
+                            baseCurrency: $vm.state.baseCurrency,
+                            isFirstRun: .constant(false)
+                        )
+                    )
                     
                     VStack(alignment: .leading) {
 
