@@ -39,35 +39,11 @@ struct CurrenciesView: View {
             
             VStack {
                 
-                HStack {
-                    
-                    if !isFirstRun {
-                        Button(
-                            action: { presentationMode.wrappedValue.dismiss() },
-                            label: {
-                                Image(systemName: "chevron.left")
-                                    .imageScale(.large)
-                                    .accentColor(Color("ColorText"))
-                                    .padding(.leading, 10)
-                                
-                                Text("Back").foregroundColor(Color("ColorText"))
-                            }
-                        ).padding(.trailing, 10)
-                        
-                    }
-                    
-                    Spacer()
-                    Button(
-                        action: { vm.event.updateAllStates(state: true) },
-                        label: { Text("Select All").foregroundColor(Color("ColorText")) }
-                    ).padding(.trailing, 10)
-                    Button(
-                        action: { vm.event.updateAllStates(state: false) },
-                        label: { Text("Deselect All").foregroundColor(Color("ColorText")) }
-                    )
-                    
-                }
-                .padding(EdgeInsets(top: 20, leading: 10, bottom: 5, trailing: 20))
+                CurrencyToolbarView(
+                    isFirstRun: $isFirstRun,
+                    functionBack: { presentationMode.wrappedValue.dismiss() },
+                    functionAllStateUpdate: { vm.updateAllStates(state: $0) }
+                )
                 
                 if vm.state.isLoading {
                     ProgressView()
@@ -127,8 +103,14 @@ struct CurrenciesView: View {
 #if DEBUG
 struct SettingsViewPreviews: PreviewProvider {
     static var previews: some View {
-        CurrenciesView(baseCurrency: .constant(CurrencyType.EUR), isFirstRun: .constant(false))
-        CurrenciesView(baseCurrency: .constant(CurrencyType.EUR), isFirstRun: .constant(false)).preferredColorScheme(.dark)
+        CurrenciesView(
+            baseCurrency: .constant(CurrencyType.EUR),
+            isFirstRun: .constant(false)
+        )
+        CurrenciesView(
+            baseCurrency: .constant(CurrencyType.EUR),
+            isFirstRun: .constant(false)
+        ).preferredColorScheme(.dark)
     }
 }
 #endif
