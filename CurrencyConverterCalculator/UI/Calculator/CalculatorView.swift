@@ -57,7 +57,7 @@ struct CalculatorView: View {
                         }.listRowBackground(Color("ColorBackground"))
                     }
                     
-                    KeyboardView(event: vm.event)
+                    KeyboardView(onKeyClick: { key in vm.event.keyPress(value: key) })
                     
                 }
             }

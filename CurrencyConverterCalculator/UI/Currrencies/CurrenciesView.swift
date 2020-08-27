@@ -41,8 +41,8 @@ struct CurrenciesView: View {
                 
                 CurrencyToolbarView(
                     isFirstRun: $isFirstRun,
-                    functionBack: { presentationMode.wrappedValue.dismiss() },
-                    functionAllStateUpdate: { vm.updateAllStates(state: $0) }
+                    onBackClick: { presentationMode.wrappedValue.dismiss() },
+                    onAllStateUpdateClick: { vm.updateAllStates(state: $0) }
                 )
                 
                 if vm.state.isLoading {
@@ -51,9 +51,10 @@ struct CurrenciesView: View {
                 
                 Form {
                     List(vm.state.currencyList, id: \.name) { currency in
-                        CurrencyItemView(item: currency, function: {
-                            vm.event.updateState(currency: currency)
-                        })
+                        CurrencyItemView(
+                            item: currency,
+                            onItemClick: { vm.event.updateState(currency: currency) }
+                        )
                     }
                     .listRowBackground(Color("ColorBackground"))
                 }
