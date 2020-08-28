@@ -31,8 +31,8 @@ struct CalculatorView: View {
                     CalculationInputView(
                         input: vm.state.input,
                         destinationView: CurrenciesView(
-                            baseCurrency: $vm.state.baseCurrency,
-                            isFirstRun: .constant(false)
+                            isFirstRun: .constant(false),
+                            baseCurrencyChange: {newBase in vm.event.baseCurrencyChange(newBase: newBase)}
                         )
                     )
                     

@@ -120,4 +120,10 @@ final class CalculatorViewModel: ObservableObject, CalculatorEvent {
         calculateOutput()
     }
     
+    func baseCurrencyChange(newBase: CurrencyType) {
+        data.defaults.setBaseCurrency(value: newBase)
+        state.baseCurrency = newBase
+        fetchRates()
+    }
+    
 }

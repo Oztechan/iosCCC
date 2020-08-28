@@ -22,12 +22,12 @@ struct CalculatorState {
 // MARK: Event
 protocol CalculatorEvent {
     func keyPress(value: String)
+    func baseCurrencyChange(newBase: CurrencyType)
 }
 
 // MARK: Effect
 enum CalculatorEffect {
-    case changeBaseCurrency(CurrencyType)
-    case closeDiaog
+    
 }
 
 // MARK: Data

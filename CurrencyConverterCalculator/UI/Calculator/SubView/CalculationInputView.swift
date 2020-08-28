@@ -39,15 +39,15 @@ struct CalculationInputViewPreview: PreviewProvider {
         CalculationInputView(
             input: "1+2+3",
             destinationView: CurrenciesView(
-                baseCurrency: .constant(CurrencyType.EUR),
-                isFirstRun: .constant(false)
+                isFirstRun: .constant(false),
+                baseCurrencyChange: {_ in }
             )
         )
         CalculationInputView(
             input: "1+2+3",
             destinationView: CurrenciesView(
-                baseCurrency: .constant(CurrencyType.EUR),
-                isFirstRun: .constant(false)
+                isFirstRun: .constant(false),
+                baseCurrencyChange: {_ in }
             )
         )
         .preferredColorScheme(.dark)
