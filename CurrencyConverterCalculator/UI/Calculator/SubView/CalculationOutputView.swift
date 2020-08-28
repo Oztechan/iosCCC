@@ -10,7 +10,8 @@ import SwiftUI
 struct CalculationOutputView: View {
     
     @Binding var isBarDialogShown: Bool
-    @Binding var baseCurrency: CurrencyType
+    var baseCurrency: CurrencyType
+    var baseCurrencyChange: (CurrencyType) -> Void
     var output: String
     
     var body: some View {
@@ -32,7 +33,7 @@ struct CalculationOutputView: View {
             content: {
                 BarView(
                     isBarDialogShown: $isBarDialogShown,
-                    baseCurrency: $baseCurrency
+                    baseCurrencyChange: baseCurrencyChange
                 )
             }
         )
@@ -44,12 +45,14 @@ struct CalculationOutputViewPreview: PreviewProvider {
     static var previews: some View {
         CalculationOutputView(
             isBarDialogShown: .constant(true),
-            baseCurrency: .constant(CurrencyType.EUR),
+            baseCurrency: CurrencyType.EUR,
+            baseCurrencyChange: {_ in},
             output: "123"
         )
         CalculationOutputView(
             isBarDialogShown: .constant(true),
-            baseCurrency: .constant(CurrencyType.EUR),
+            baseCurrency: CurrencyType.EUR,
+            baseCurrencyChange: {_ in},
             output: "123"
         )
         .preferredColorScheme(.dark)

@@ -11,7 +11,7 @@ struct BarView: View {
     
     @ObservedObject var vm = BarViewModel()
     @Binding var isBarDialogShown: Bool
-    @Binding var baseCurrency: CurrencyType
+    var baseCurrencyChange: (CurrencyType) -> Void
     
     var body: some View {
         
@@ -39,7 +39,7 @@ struct BarView: View {
     private func observeEffects(effect: BarEffect) {
         switch effect {
         case .changeBaseCurrency(let newBase):
-            baseCurrency = newBase
+            baseCurrencyChange(newBase)
         case .closeDiaog:
             isBarDialogShown = false
         }
@@ -51,11 +51,11 @@ struct BarViewPreviews: PreviewProvider {
     static var previews: some View {
         BarView(
             isBarDialogShown: .constant(true),
-            baseCurrency: .constant(CurrencyType.EUR)
+            baseCurrencyChange: {_ in }
         )
         BarView(
             isBarDialogShown: .constant(true),
-            baseCurrency: .constant(CurrencyType.EUR)
+            baseCurrencyChange: {_ in }
         ).preferredColorScheme(.dark)
     }
 }

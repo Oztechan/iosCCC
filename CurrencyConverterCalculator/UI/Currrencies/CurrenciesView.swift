@@ -12,13 +12,13 @@ struct CurrenciesView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Binding var isFirstRun: Bool
-    var currencyChangeEffect: (CurrencyType) -> Void
+    var baseCurrencyChange: (CurrencyType) -> Void
     @State var isAlertShown = false
     @ObservedObject var vm = CurrenciesViewModel()
     
     init(isFirstRun: Binding<Bool>, baseCurrencyChange: @escaping (CurrencyType) -> Void) {
         
-        self.currencyChangeEffect = baseCurrencyChange
+        self.baseCurrencyChange = baseCurrencyChange
         self._isFirstRun = isFirstRun
         
         UITableView.appearance().tableHeaderView = UIView(
@@ -93,7 +93,7 @@ struct CurrenciesView: View {
     
     private func observeEffects(effect: CurrenciesEffect) {
         switch effect {
-        case .changeBaseCurrencyEffect(let newBase): currencyChangeEffect(newBase)
+        case .changeBaseCurrencyEffect(let newBase): baseCurrencyChange(newBase)
         case .openCalculatorEffect: isFirstRun = false
         case .warningEffect: isAlertShown = true
         }
