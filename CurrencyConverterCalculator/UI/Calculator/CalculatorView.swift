@@ -49,12 +49,13 @@ struct CalculatorView: View {
                     
                     Form {
                         List(
-                            vm.state.currencyList.filterResults(
-                                baseCurrency: vm.state.baseCurrency
-                            ),
+                            vm.state.currencyList.filterResults(baseCurrency: vm.state.baseCurrency),
                             id: \.value
-                        ) { currency in
-                            CalculatorItemView(item: currency)
+                        ) {
+                            CalculatorItemView(
+                                item: $0,
+                                clickEvent: { item in vm.event.onItemClicked(item: item) }
+                            )
                         }.listRowBackground(Color("ColorBackground"))
                     }
                     

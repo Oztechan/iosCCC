@@ -23,6 +23,7 @@ struct CalculatorState {
 protocol CalculatorEvent {
     func keyPress(value: String)
     func baseCurrencyChange(newBase: CurrencyType)
+    func onItemClicked(item: Currency)
 }
 
 // MARK: Effect
