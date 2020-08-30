@@ -12,6 +12,7 @@ import Foundation
 struct CurrenciesState {
     var currencyList = [Currency]()
     var isLoading = false
+    var isAlertShown = false
 }
 
 // MARK: Event

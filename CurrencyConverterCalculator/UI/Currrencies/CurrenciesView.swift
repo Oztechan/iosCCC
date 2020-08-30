@@ -13,7 +13,6 @@ struct CurrenciesView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Binding var isFirstRun: Bool
     var baseCurrencyChange: (CurrencyType) -> Void
-    @State var isAlertShown = false
     @ObservedObject var vm = CurrenciesViewModel()
     
     init(isFirstRun: Binding<Bool>, baseCurrencyChange: @escaping (CurrencyType) -> Void) {
@@ -82,7 +81,7 @@ struct CurrenciesView: View {
         }
         .background(Color("ColorBackgroundStrong"))
         .onReceive(vm.effect) { observeEffects(effect: $0) }
-        .alert(isPresented: $isAlertShown) {
+        .alert(isPresented: $vm.state.isAlertShown) {
             Alert(
                 title: Text("Please select at east 2 ccurrencies"),
                 dismissButton: .default(Text("OK"))
@@ -93,9 +92,12 @@ struct CurrenciesView: View {
     
     private func observeEffects(effect: CurrenciesEffect) {
         switch effect {
-        case .changeBaseCurrencyEffect(let newBase): baseCurrencyChange(newBase)
-        case .openCalculatorEffect: isFirstRun = false
-        case .warningEffect: isAlertShown = true
+        case .changeBaseCurrencyEffect(let newBase):
+            baseCurrencyChange(newBase)
+        case .openCalculatorEffect:
+            isFirstRun = false
+        case .warningEffect:
+            vm.state.isAlertShown = true
         }
     }
     
