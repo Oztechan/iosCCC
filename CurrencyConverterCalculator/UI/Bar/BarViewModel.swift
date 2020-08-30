@@ -10,7 +10,7 @@ import Combine
 
 final class BarViewModel: ObservableObject, BarEvent {
     // MARK: SEED
-    @Published var state = BarState()
+    @Published private(set) var state = BarState()
     let effect = PassthroughSubject<BarEffect, Never>()
     lazy var event = self as BarEvent
     var data = BarData()
