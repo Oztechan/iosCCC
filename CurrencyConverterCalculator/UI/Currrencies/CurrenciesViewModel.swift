@@ -32,7 +32,7 @@ final class CurrenciesViewModel: ObservableObject, CurrenciesEvent {
     }
     
     private func setBaseCurrency(newBase: CurrencyType) {
-        data.defaults.setBaseCurrency(value: newBase)
+        data.defaults.baseCurrency = newBase
         effect.send(CurrenciesEffect.changeBaseCurrencyEffect(newBase))
     }
     
@@ -49,7 +49,7 @@ final class CurrenciesViewModel: ObservableObject, CurrenciesEvent {
         if !state {
             setBaseCurrency(newBase: CurrencyType.NULL)
         } else {
-            if data.defaults.getBaseCurrency() == CurrencyType.NULL {
+            if data.defaults.baseCurrency == CurrencyType.NULL {
                 setBaseCurrency(newBase: getFirstAvaiableBaseCurrencyOrNull())
             }
         }
@@ -59,15 +59,15 @@ final class CurrenciesViewModel: ObservableObject, CurrenciesEvent {
         state.currencyList.filter { $0.name == currency.name }.first?.isActive = !currency.isActive
         data.coreDataRepository.updateCurrencyStateByName(name: currency.name, state: !currency.isActive)
         
-        if CurrencyType.withLabel(currency.name) == data.defaults.getBaseCurrency()
-            || data.defaults.getBaseCurrency() == CurrencyType.NULL {
+        if CurrencyType.withLabel(currency.name) == data.defaults.baseCurrency
+            || data.defaults.baseCurrency == CurrencyType.NULL {
             setBaseCurrency(newBase: getFirstAvaiableBaseCurrencyOrNull())
         }
     }
     
     func onDoneClick() {
         if state.currencyList.filter({ $0.isActive == true}).count >= 2 {
-            data.defaults.setFirstRun(value: false)
+            data.defaults.firstRun = false
             effect.send(CurrenciesEffect.openCalculatorEffect)
         } else {
             effect.send(CurrenciesEffect.warningEffect)

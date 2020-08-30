@@ -15,19 +15,14 @@ class UserDefaultsRepository: UserDefaults {
         case firstRun
     }
     
-    func setBaseCurrency(value: CurrencyType) {
-        set(value.stringValue, forKey: UserDefaultsKeys.baseCurrency.rawValue)
+    var baseCurrency: CurrencyType {
+        get { CurrencyType.withLabel(string(forKey: UserDefaultsKeys.baseCurrency.rawValue)) }
+        
+        set { self.set(newValue.stringValue, forKey: UserDefaultsKeys.baseCurrency.rawValue) }
     }
     
-    func getBaseCurrency() -> CurrencyType {
-        return CurrencyType.withLabel(string(forKey: UserDefaultsKeys.baseCurrency.rawValue))
-    }
-    
-    func setFirstRun(value: Bool) {
-        set(value, forKey: UserDefaultsKeys.firstRun.rawValue)
-    }
-    
-    func isFirstRun() -> Bool {
-        return bool(forKey: UserDefaultsKeys.firstRun.rawValue)
+    var firstRun: Bool {
+        get { bool(forKey: UserDefaultsKeys.firstRun.rawValue) }
+        set { self.set(newValue, forKey: UserDefaultsKeys.firstRun.rawValue) }
     }
 }

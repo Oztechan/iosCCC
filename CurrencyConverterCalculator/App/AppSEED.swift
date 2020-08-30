@@ -10,7 +10,6 @@ import Foundation
 
 // MARK: State
 struct AppState {
-    var baseCurrency: CurrencyType
     var isFirstRun: Bool
 }
 

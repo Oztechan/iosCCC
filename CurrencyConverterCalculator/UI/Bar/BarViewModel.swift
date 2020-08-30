@@ -27,7 +27,7 @@ final class BarViewModel: ObservableObject, BarEvent {
     }
     
     private func setBaseCurrency(newBase: CurrencyType) {
-        data.defaults.setBaseCurrency(value: newBase)
+        data.defaults.baseCurrency = newBase
         effect.send(BarEffect.changeBaseCurrency(newBase))
     }
     

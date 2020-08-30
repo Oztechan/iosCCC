@@ -15,9 +15,6 @@ final class AppViewModel: ObservableObject {
     var data = AppData()
     
     init() {
-        self.state = AppState(
-            baseCurrency: data.defaults.getBaseCurrency(),
-            isFirstRun: data.defaults.isFirstRun()
-        )
+        self.state = AppState(isFirstRun: data.defaults.firstRun)
     }
 }
