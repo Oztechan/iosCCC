@@ -68,8 +68,10 @@ struct CalculatorView: View {
             isPresented: $vm.state.isBarDialogShown,
             content: {
                 BarView(
-                    isBarDialogShown: $vm.state.isBarDialogShown,
-                    baseCurrencyChange: { newBase in vm.event.baseCurrencyChange(newBase: newBase) }
+                    baseCurrencyChange: { newBase in
+                        vm.event.baseCurrencyChange(newBase: newBase)
+                    },
+                    onBarClick: { vm.event.onBarClick() }
                 )
             }
         )

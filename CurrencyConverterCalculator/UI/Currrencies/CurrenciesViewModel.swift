@@ -11,7 +11,7 @@ import Combine
 final class CurrenciesViewModel: ObservableObject, CurrenciesEvent {
     
     // MARK: SEED
-    @Published private(set) var state = CurrenciesState()
+    @Published var state = CurrenciesState()
     let effect = PassthroughSubject<CurrenciesEffect, Never>()
     lazy var event = self as CurrenciesEvent
     var data = CurrenciesData()

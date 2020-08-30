@@ -11,7 +11,7 @@ import Foundation
 final class AppViewModel: ObservableObject {
     
     // MARK: SEED
-    @Published private(set) var state: AppState
+    @Published var state: AppState
     var data = AppData()
     
     init() {

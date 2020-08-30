@@ -12,7 +12,7 @@ import Foundation
 final class CalculatorViewModel: ObservableObject, CalculatorEvent {
     
     // MARK: SEED
-    @Published private(set) var state = CalculatorState()
+    @Published var state = CalculatorState()
     let effect = PassthroughSubject<CalculatorEffect, Never>()
     lazy var event = self as CalculatorEvent
     var data = CalculatorData()

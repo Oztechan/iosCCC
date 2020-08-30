@@ -10,8 +10,8 @@ import SwiftUI
 struct BarView: View {
     
     @ObservedObject var vm = BarViewModel()
-    @Binding var isBarDialogShown: Bool
     var baseCurrencyChange: (CurrencyType) -> Void
+    var onBarClick: () -> Void
     
     var body: some View {
         
@@ -41,7 +41,7 @@ struct BarView: View {
         case .changeBaseCurrency(let newBase):
             baseCurrencyChange(newBase)
         case .closeDiaog:
-            isBarDialogShown = false
+            onBarClick()
         }
     }
 }
@@ -49,14 +49,9 @@ struct BarView: View {
 #if DEBUG
 struct BarViewPreviews: PreviewProvider {    
     static var previews: some View {
-        BarView(
-            isBarDialogShown: .constant(true),
-            baseCurrencyChange: {_ in }
-        )
-        BarView(
-            isBarDialogShown: .constant(true),
-            baseCurrencyChange: {_ in }
-        ).preferredColorScheme(.dark)
+        BarView(baseCurrencyChange: {_ in }, onBarClick: {})
+        BarView(baseCurrencyChange: {_ in }, onBarClick: {})
+            .preferredColorScheme(.dark)
     }
 }
 #endif
