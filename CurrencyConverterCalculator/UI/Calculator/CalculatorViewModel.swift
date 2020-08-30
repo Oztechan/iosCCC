@@ -12,9 +12,9 @@ import Foundation
 final class CalculatorViewModel: ObservableObject, CalculatorEvent {
     
     // MARK: SEED
+    @Published private(set) var state = CalculatorState()
     let effect = PassthroughSubject<CalculatorEffect, Never>()
     lazy var event = self as CalculatorEvent
-    @Published var state = CalculatorState()
     var data = CalculatorData()
     
     init() {
@@ -134,4 +134,7 @@ final class CalculatorViewModel: ObservableObject, CalculatorEvent {
         baseCurrencyChange(newBase: CurrencyType.withLabel(item.name))
     }
     
+    func onBarClick() {
+        state.isBarDialogShown.toggle()
+    }
 }

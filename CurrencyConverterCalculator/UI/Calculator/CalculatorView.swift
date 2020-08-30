@@ -37,10 +37,9 @@ struct CalculatorView: View {
                     )
                     
                     CalculationOutputView(
-                        isBarDialogShown: $vm.state.isBarDialogShown,
                         baseCurrency: vm.state.baseCurrency,
-                        baseCurrencyChange: {newBase in vm.event.baseCurrencyChange(newBase: newBase)},
-                        output: vm.state.output
+                        output: vm.state.output,
+                        onBarCick: {vm.event.onBarClick()}
                     )
                     
                     if vm.state.isLoading {
@@ -65,6 +64,15 @@ struct CalculatorView: View {
             }
             .navigationBarHidden(true)
         }
+        .sheet(
+            isPresented: $vm.state.isBarDialogShown,
+            content: {
+                BarView(
+                    isBarDialogShown: $vm.state.isBarDialogShown,
+                    baseCurrencyChange: { newBase in vm.event.baseCurrencyChange(newBase: newBase) }
+                )
+            }
+        )
         .accentColor(Color("ColorText"))
         .onAppear { vm.fetchRates() }
         

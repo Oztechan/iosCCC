@@ -24,6 +24,7 @@ protocol CalculatorEvent {
     func keyPress(value: String)
     func baseCurrencyChange(newBase: CurrencyType)
     func onItemClicked(item: Currency)
+    func onBarClick()
 }
 
 // MARK: Effect
