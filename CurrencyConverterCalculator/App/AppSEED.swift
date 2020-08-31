@@ -13,6 +13,10 @@ struct AppState {
     var isFirstRun: Bool
 }
 
+protocol AppEvent {
+    func firstRunChange()
+}
+
 // MARK: Data
 class AppData {
     let defaults = UserDefaultsRepository()

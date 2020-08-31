@@ -8,13 +8,18 @@
 
 import Foundation
 
-final class AppViewModel: ObservableObject {
+final class AppViewModel: ObservableObject, AppEvent {
     
     // MARK: SEED
-    @Published var state: AppState
+    @Published private(set) var state: AppState
+    lazy var event = self as AppEvent
     var data = AppData()
     
     init() {
         self.state = AppState(isFirstRun: data.defaults.firstRun)
+    }
+    
+    func firstRunChange() {
+        state.isFirstRun.toggle()
     }
 }

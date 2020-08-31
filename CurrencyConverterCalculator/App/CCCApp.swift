@@ -19,8 +19,8 @@ struct CCCApp: App {
             
             if vm.state.isFirstRun {
                 CurrenciesView(
-                    isFirstRun: $vm.state.isFirstRun,
-                    baseCurrencyChange: {_ in }
+                    isFirstRun: vm.state.isFirstRun,
+                    firstRunChange: vm.event.firstRunChange
                 )
             } else {
                 CalculatorView()
