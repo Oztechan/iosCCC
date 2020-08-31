@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CurrencyToolbarView: View {
     
-    @Binding var isFirstRun: Bool
+    var isFirstRun: Bool
     var onBackClick: () -> Void
     var onAllStateUpdateClick: (Bool) -> Void
     
@@ -50,12 +50,12 @@ struct CurrencyToolbarView: View {
 struct CurrencyToolbarViewPreview: PreviewProvider {
     static var previews: some View {
         CurrencyToolbarView(
-            isFirstRun: .constant(false),
+            isFirstRun: false,
             onBackClick: {},
             onAllStateUpdateClick: {_ in }
         )
         CurrencyToolbarView(
-            isFirstRun: .constant(false),
+            isFirstRun: false,
             onBackClick: {},
             onAllStateUpdateClick: {_ in }
         )

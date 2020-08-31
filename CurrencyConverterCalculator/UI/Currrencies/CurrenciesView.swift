@@ -39,7 +39,7 @@ struct CurrenciesView: View {
             VStack {
                 
                 CurrencyToolbarView(
-                    isFirstRun: $isFirstRun,
+                    isFirstRun: isFirstRun,
                     onBackClick: { presentationMode.wrappedValue.dismiss() },
                     onAllStateUpdateClick: { vm.updateAllStates(state: $0) }
                 )
