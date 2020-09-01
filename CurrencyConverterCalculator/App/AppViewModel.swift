@@ -11,15 +11,17 @@ import Foundation
 final class AppViewModel: ObservableObject, AppEvent {
     
     // MARK: SEED
-    @Published private(set) var state: AppState
-    lazy var event = self as AppEvent
-    var data = AppData()
+    @Published
+    private(set) var state: AppState
+    private(set) lazy var event = self as AppEvent
+    private(set) var data = AppData()
     
     init() {
-        self.state = AppState(isFirstRun: data.defaults.firstRun)
+        self.state = AppState(isAppInitialised: !data.firstRun)
     }
-    
-    func firstRunChange() {
-        state.isFirstRun.toggle()
+    // MARK: Event
+    func appInitialiseEvent() {
+        data.firstRun = false
+        state.isAppInitialised = true
     }
 }

@@ -7,24 +7,20 @@
 //
 
 import Foundation
+import SwiftUI
 
 // MARK: State
 struct AppState {
-    var isFirstRun: Bool
+    var isAppInitialised: Bool
 }
 
+// MARK: Event
 protocol AppEvent {
-    func firstRunChange()
+    func appInitialiseEvent()
 }
 
 // MARK: Data
-class AppData {
-    let defaults = UserDefaultsRepository()
-    
-    init() {
-        defaults.register(defaults: [
-            UserDefaultsRepository.UserDefaultsKeys.baseCurrency.rawValue: CurrencyType.NULL.stringValue,
-            UserDefaultsRepository.UserDefaultsKeys.firstRun.rawValue: true
-        ])
-    }
+struct AppData {
+    @AppStorage(UserDefaultKeys.firstRun.rawValue)
+    var firstRun = true
 }

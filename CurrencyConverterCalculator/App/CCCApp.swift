@@ -17,13 +17,10 @@ struct CCCApp: App {
     var body: some Scene {
         WindowGroup {
             
-            if vm.state.isFirstRun {
-                CurrenciesView(
-                    isFirstRun: vm.state.isFirstRun,
-                    firstRunChange: vm.event.firstRunChange
-                )
-            } else {
+            if vm.state.isAppInitialised {
                 CalculatorView()
+            } else {
+                CurrenciesView(appInitialiseEffect: vm.event.appInitialiseEvent)
             }
             
         }
