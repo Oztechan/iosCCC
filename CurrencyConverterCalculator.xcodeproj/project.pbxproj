@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5C09A4D024D30BA10043038E /* UserDefaulltsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C09A4CF24D30BA10043038E /* UserDefaulltsRepository.swift */; };
+		5C09A4D024D30BA10043038E /* DefaulltsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C09A4CF24D30BA10043038E /* DefaulltsRepository.swift */; };
 		5C157A6D2306FACA0088E712 /* BarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C157A6C2306FACA0088E712 /* BarItemView.swift */; };
 		5C1B716C24D3433C00DDA8A3 /* CurrenciesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B716B24D3433C00DDA8A3 /* CurrenciesViewModel.swift */; };
 		5C1EC71F24CDA30B0084251A /* CCCApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1EC71E24CDA30B0084251A /* CCCApp.swift */; };
@@ -44,7 +44,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5C09A4CF24D30BA10043038E /* UserDefaulltsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaulltsRepository.swift; sourceTree = "<group>"; };
+		5C09A4CF24D30BA10043038E /* DefaulltsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaulltsRepository.swift; sourceTree = "<group>"; };
 		5C157A6C2306FACA0088E712 /* BarItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarItemView.swift; sourceTree = "<group>"; };
 		5C1B716B24D3433C00DDA8A3 /* CurrenciesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesViewModel.swift; sourceTree = "<group>"; };
 		5C1EC71E24CDA30B0084251A /* CCCApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCCApp.swift; sourceTree = "<group>"; };
@@ -189,7 +189,7 @@
 			children = (
 				5CCA74802311D0E900CFF721 /* CoreDataRepository.swift */,
 				5C82CEA322FDCC420030F72E /* ApiRepository.swift */,
-				5C09A4CF24D30BA10043038E /* UserDefaulltsRepository.swift */,
+				5C09A4CF24D30BA10043038E /* DefaulltsRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -351,7 +351,7 @@
 				5C1EC71F24CDA30B0084251A /* CCCApp.swift in Sources */,
 				5C8B378C24F7BF7E0075786D /* CalculationOutputView.swift in Sources */,
 				5C905B8424F5635600D5CA6D /* AppSEED.swift in Sources */,
-				5C09A4D024D30BA10043038E /* UserDefaulltsRepository.swift in Sources */,
+				5C09A4D024D30BA10043038E /* DefaulltsRepository.swift in Sources */,
 				5CEE59FE230DD3AB0007F300 /* BarView.swift in Sources */,
 				5CF75F1022FB5F910024EB77 /* KeyboardItem.swift in Sources */,
 				5CF87A0724E2A6730025FE50 /* CurrenciesSEED.swift in Sources */,

@@ -9,9 +9,9 @@ import SwiftUI
 
 struct CalculationOutputView: View {
     
-    @Binding var isBarDialogShown: Bool
-    @Binding var baseCurrency: CurrencyType
+    var baseCurrency: CurrencyType
     var output: String
+    var barClickEvent: () -> Void
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -24,18 +24,9 @@ struct CalculationOutputView: View {
             .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
             
         }
+        .contentShape(Rectangle())
         .lineLimit(1)
-        .onTapGesture {
-            isBarDialogShown.toggle()
-        }.sheet(
-            isPresented: $isBarDialogShown,
-            content: {
-                BarView(
-                    isBarDialogShown: $isBarDialogShown,
-                    baseCurrency: $baseCurrency
-                )
-            }
-        )
+        .onTapGesture { barClickEvent() }
     }
 }
 
@@ -43,14 +34,14 @@ struct CalculationOutputView: View {
 struct CalculationOutputViewPreview: PreviewProvider {
     static var previews: some View {
         CalculationOutputView(
-            isBarDialogShown: .constant(true),
-            baseCurrency: .constant(CurrencyType.EUR),
-            output: "123"
+            baseCurrency: CurrencyType.EUR,
+            output: "123",
+            barClickEvent: {}
         )
         CalculationOutputView(
-            isBarDialogShown: .constant(true),
-            baseCurrency: .constant(CurrencyType.EUR),
-            output: "123"
+            baseCurrency: CurrencyType.EUR,
+            output: "123",
+            barClickEvent: {}
         )
         .preferredColorScheme(.dark)
     }

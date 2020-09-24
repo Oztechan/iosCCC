@@ -12,13 +12,13 @@ import Foundation
 final class CalculatorViewModel: ObservableObject, CalculatorEvent {
     
     // MARK: SEED
+    @Published private(set) var state = CalculatorState()
     let effect = PassthroughSubject<CalculatorEffect, Never>()
-    lazy var event = self as CalculatorEvent
-    @Published var state = CalculatorState()
-    var data = CalculatorData()
+    private(set) lazy var event = self as CalculatorEvent
+    private(set) var data = CalculatorData()
     
     init() {
-        state.baseCurrency = data.defaults.getBaseCurrency()
+        state.baseCurrency = data.baseCurrency
         initList()
     }
     
@@ -88,26 +88,28 @@ final class CalculatorViewModel: ObservableObject, CalculatorEvent {
         allCurrencies.forEach { currency in
             if CurrencyType.withLabel(currency.name) != CurrencyType.NULL {
                 state.currencyList.append(currency)
-                
             }
         }
     }
     
     func fetchRates() {
+        state.isLoading = true
         data.cancelable = data.apiRepository.getRatesByBase(base: state.baseCurrency.stringValue)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {
                 if case let .failure(error) = $0 {
                     print(error)
                 }
+                self.state.isLoading = false
             }, receiveValue: {
                 self.data.rates = $0.rates
                 self.updateList()
+                self.state.isLoading = false
             })
     }
     
     // MARK: Event
-    func keyPress(value: String) {
+    func keyPressEvent(value: String) {
         switch value {
         case "AC":
             state.input = ""
@@ -115,9 +117,31 @@ final class CalculatorViewModel: ObservableObject, CalculatorEvent {
         case "DEL":
             state.input = String(state.input.dropLast())
         default:
-            state.input += value
+            if state.input.count > data.maximumInput {
+                data.alertText = "Maximum number of input exceeded."
+                effect.send(CalculatorEffect.maximumInputEffect)
+            } else if state.currencyList.filter({ $0.isActive==true }).count < 2 {
+                data.alertText = "Please select at east 2 ccurrencies."
+                effect.send(CalculatorEffect.fewCurrencyEffect)
+            } else {
+                state.input += value
+            }
         }
         calculateOutput()
     }
     
+    func baseCurrencyChangeEvent(newBase: CurrencyType) {
+        data.baseCurrency = newBase
+        state.baseCurrency = newBase
+        fetchRates()
+    }
+    
+    func itemClickEvent(item: Currency) {
+        state.input = item.value
+        baseCurrencyChangeEvent(newBase: CurrencyType.withLabel(item.name))
+    }
+    
+    func barClickEvent() {
+        effect.send(CalculatorEffect.showBarEffect)
+    }
 }

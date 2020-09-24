@@ -11,15 +11,18 @@ import Combine
 struct CurrenciesView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @Binding var baseCurrency: CurrencyType
-    @Binding var isFirstRun: Bool
     @State var isAlertShown = false
     @ObservedObject var vm = CurrenciesViewModel()
     
-    init(baseCurrency: Binding<CurrencyType>, isFirstRun: Binding<Bool>) {
-        
-        self._baseCurrency = baseCurrency
-        self._isFirstRun = isFirstRun
+    var baseCurrencyChangeEffect: ((CurrencyType) -> Void)?
+    var appInitialiseEvent: (() -> Void)?
+    
+    init(
+        appInitialiseEvent: (() -> Void)? = nil,
+        baseCurrencyChangeEffect: ((CurrencyType) -> Void)? = nil
+    ) {
+        self.appInitialiseEvent = appInitialiseEvent
+        self.baseCurrencyChangeEffect = baseCurrencyChangeEffect
         
         UITableView.appearance().tableHeaderView = UIView(
             frame: CGRect(
@@ -40,9 +43,9 @@ struct CurrenciesView: View {
             VStack {
                 
                 CurrencyToolbarView(
-                    isFirstRun: $isFirstRun,
-                    onBackClick: { presentationMode.wrappedValue.dismiss() },
-                    onAllStateUpdateClick: { vm.updateAllStates(state: $0) }
+                    firstRun: vm.data.firstRun,
+                    backClickEvent: { presentationMode.wrappedValue.dismiss() },
+                    updateAllEvent: { vm.updateAllEvent(state: $0) }
                 )
                 
                 if vm.state.isLoading {
@@ -53,13 +56,13 @@ struct CurrenciesView: View {
                     List(vm.state.currencyList, id: \.name) { currency in
                         CurrencyItemView(
                             item: currency,
-                            onItemClick: { vm.event.updateState(currency: currency) }
+                            updateCurrencyEvent: { vm.event.updateCurrencyEvent(currency: currency) }
                         )
                     }
                     .listRowBackground(Color("ColorBackground"))
                 }
                 
-                if isFirstRun {
+                if vm.data.firstRun {
                     HStack {
                         
                         Text("Please select at east 2 ccurrencies")
@@ -67,7 +70,7 @@ struct CurrenciesView: View {
                             .font(.subheadline)
                         Spacer()
                         Button(
-                            action: { vm.event.onDoneClick() },
+                            action: { vm.event.doneClickEvent() },
                             label: { Text("Done").foregroundColor(Color("ColorText")) }
                         )
                         .padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 15))
@@ -84,7 +87,7 @@ struct CurrenciesView: View {
         .onReceive(vm.effect) { observeEffects(effect: $0) }
         .alert(isPresented: $isAlertShown) {
             Alert(
-                title: Text("Please select at east 2 ccurrencies"),
+                title: Text("Please select at east 2 ccurrencies."),
                 dismissButton: .default(Text("OK"))
             )
         }
@@ -93,9 +96,12 @@ struct CurrenciesView: View {
     
     private func observeEffects(effect: CurrenciesEffect) {
         switch effect {
-        case .changeBaseCurrency(let newBase): baseCurrency = newBase
-        case .openCalculator: isFirstRun = false
-        case .warningEffect: isAlertShown = true
+        case .baseCurrencyChangeEffect(let newBase):
+            baseCurrencyChangeEffect?(newBase)
+        case .appInitialiseEffect:
+            appInitialiseEvent?()
+        case .alertEffect:
+            isAlertShown = true
         }
     }
     
@@ -104,14 +110,8 @@ struct CurrenciesView: View {
 #if DEBUG
 struct SettingsViewPreviews: PreviewProvider {
     static var previews: some View {
-        CurrenciesView(
-            baseCurrency: .constant(CurrencyType.EUR),
-            isFirstRun: .constant(false)
-        )
-        CurrenciesView(
-            baseCurrency: .constant(CurrencyType.EUR),
-            isFirstRun: .constant(false)
-        ).preferredColorScheme(.dark)
+        CurrenciesView()
+        CurrenciesView().preferredColorScheme(.dark)
     }
 }
 #endif

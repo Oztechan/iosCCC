@@ -10,9 +10,9 @@ import SwiftUI
 struct BarView: View {
     
     @ObservedObject var vm = BarViewModel()
-    @Binding var isBarDialogShown: Bool
-    @Binding var baseCurrency: CurrencyType
-    
+    var baseCurrencyChangeEvent: (CurrencyType) -> Void
+    @Binding var isBarShown: Bool
+
     var body: some View {
         
         NavigationView {
@@ -26,7 +26,7 @@ struct BarView: View {
                 List(vm.state.currencyList, id: \.name) { currency in
                     
                     BarItemView(item: currency)
-                        .onTapGesture { vm.event.selectCurrency(currency: currency) }
+                        .onTapGesture { vm.event.selectCurrencyEvent(currency: currency) }
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                     
                 }.listRowBackground(Color("ColorBackground"))
@@ -38,10 +38,10 @@ struct BarView: View {
     
     private func observeEffects(effect: BarEffect) {
         switch effect {
-        case .changeBaseCurrency(let newBase):
-            baseCurrency = newBase
-        case .closeDiaog:
-            isBarDialogShown = false
+        case .changeBaseCurrencyEffect(let newBase):
+            baseCurrencyChangeEvent(newBase)
+        case .closeDiaogEffect:
+            isBarShown = false
         }
     }
 }
@@ -49,14 +49,9 @@ struct BarView: View {
 #if DEBUG
 struct BarViewPreviews: PreviewProvider {    
     static var previews: some View {
-        BarView(
-            isBarDialogShown: .constant(true),
-            baseCurrency: .constant(CurrencyType.EUR)
-        )
-        BarView(
-            isBarDialogShown: .constant(true),
-            baseCurrency: .constant(CurrencyType.EUR)
-        ).preferredColorScheme(.dark)
+        BarView(baseCurrencyChangeEvent: {_ in }, isBarShown: .constant(true))
+        BarView(baseCurrencyChangeEvent: {_ in }, isBarShown: .constant(true))
+            .preferredColorScheme(.dark)
     }
 }
 #endif

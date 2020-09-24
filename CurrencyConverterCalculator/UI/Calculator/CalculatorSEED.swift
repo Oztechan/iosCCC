@@ -16,24 +16,29 @@ struct CalculatorState {
     var currencyList = [Currency]()
     var isLoading = false
     var baseCurrency = CurrencyType.NULL
-    var isBarDialogShown = false
 }
 
 // MARK: Event
 protocol CalculatorEvent {
-    func keyPress(value: String)
+    func keyPressEvent(value: String)
+    func baseCurrencyChangeEvent(newBase: CurrencyType)
+    func itemClickEvent(item: Currency)
+    func barClickEvent()
 }
 
 // MARK: Effect
 enum CalculatorEffect {
-    case changeBaseCurrency(CurrencyType)
-    case closeDiaog
+    case showBarEffect
+    case maximumInputEffect
+    case fewCurrencyEffect
 }
 
 // MARK: Data
-class CalculatorData: AppData {
+class CalculatorData: AppData {    
     let coreDataRepository = CoreDataRepository.shared
     let apiRepository = ApiRepository()
     var rates: Rates?
     var cancelable: Cancellable?
+    let maximumInput = 15
+    var alertText = ""
 }

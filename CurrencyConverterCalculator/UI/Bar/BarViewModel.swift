@@ -10,10 +10,10 @@ import Combine
 
 final class BarViewModel: ObservableObject, BarEvent {
     // MARK: SEED
-    @Published var state = BarState()
+    @Published private(set) var state = BarState()
     let effect = PassthroughSubject<BarEffect, Never>()
-    lazy var event = self as BarEvent
-    var data = BarData()
+    private(set) lazy var event = self as BarEvent
+    private(set) var data = BarData()
     
     init() {
         initList()
@@ -27,14 +27,14 @@ final class BarViewModel: ObservableObject, BarEvent {
     }
     
     private func setBaseCurrency(newBase: CurrencyType) {
-        data.defaults.setBaseCurrency(value: newBase)
-        effect.send(BarEffect.changeBaseCurrency(newBase))
+        data.baseCurrency = newBase
+        effect.send(BarEffect.changeBaseCurrencyEffect(newBase))
     }
     
     // MARK: Event
-    func selectCurrency(currency: Currency) {
+    func selectCurrencyEvent(currency: Currency) {
         setBaseCurrency(newBase: CurrencyType.withLabel(currency.name))
-        effect.send(BarEffect.changeBaseCurrency(CurrencyType.withLabel(currency.name)))
-        effect.send(BarEffect.closeDiaog)
+        effect.send(BarEffect.changeBaseCurrencyEffect(CurrencyType.withLabel(currency.name)))
+        effect.send(BarEffect.closeDiaogEffect)
     }
 }

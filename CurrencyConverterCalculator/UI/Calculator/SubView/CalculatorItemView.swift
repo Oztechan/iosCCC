@@ -10,7 +10,8 @@ import SwiftUI
 struct CalculatorItemView: View {
     
     var item: Currency
-    
+    var itemClickEvent: (Currency) -> Void
+
     var body: some View {
         HStack {
             
@@ -22,15 +23,19 @@ struct CalculatorItemView: View {
                 .shadow(radius: 3)
             
         }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            itemClickEvent(item)
+        }
     }
 }
 
 #if DEBUG
 struct CalculatorItemViewPreviews: PreviewProvider {
     static var previews: some View {
-        CalculatorItemView(item: Currency() )
+        CalculatorItemView(item: Currency(), itemClickEvent: {_ in})
             .previewLayout(.fixed(width: 300, height: 60))
-        CalculatorItemView(item: Currency() )
+        CalculatorItemView(item: Currency(), itemClickEvent: {_ in})
             .previewLayout(.fixed(width: 300, height: 60)).preferredColorScheme(.dark)
     }
 }

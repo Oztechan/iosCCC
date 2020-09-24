@@ -8,16 +8,20 @@
 
 import Foundation
 
-final class AppViewModel: ObservableObject {
+final class AppViewModel: ObservableObject, AppEvent {
     
     // MARK: SEED
-    @Published var state: AppState
-    var data = AppData()
+    @Published
+    private(set) var state: AppState
+    private(set) lazy var event = self as AppEvent
+    private(set) var data = AppData()
     
     init() {
-        self.state = AppState(
-            baseCurrency: data.defaults.getBaseCurrency(),
-            isFirstRun: data.defaults.isFirstRun()
-        )
+        self.state = AppState(calculatorViewVisibility: !data.firstRun)
+    }
+    // MARK: Event
+    func appInitialiseEvent() {
+        data.firstRun = false
+        state.calculatorViewVisibility = true
     }
 }

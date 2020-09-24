@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CalculatorView: View {
     @ObservedObject var vm = CalculatorViewModel()
+    @State var isBarShown = false
+    @State var isAlertShown = false
     
     init() {
         UITableView.appearance().tableHeaderView = UIView(frame: CGRect(
@@ -30,16 +32,15 @@ struct CalculatorView: View {
                     
                     CalculationInputView(
                         input: vm.state.input,
-                        destinationView: CurrenciesView(
-                            baseCurrency: $vm.state.baseCurrency,
-                            isFirstRun: .constant(false)
-                        )
+                        destinationView: CurrenciesView(baseCurrencyChangeEffect: { newBase in
+                            vm.event.baseCurrencyChangeEvent(newBase: newBase)
+                        })
                     )
                     
                     CalculationOutputView(
-                        isBarDialogShown: $vm.state.isBarDialogShown,
-                        baseCurrency: $vm.state.baseCurrency,
-                        output: vm.state.output
+                        baseCurrency: vm.state.baseCurrency,
+                        output: vm.state.output,
+                        barClickEvent: {vm.event.barClickEvent()}
                     )
                     
                     if vm.state.isLoading {
@@ -48,24 +49,52 @@ struct CalculatorView: View {
                     
                     Form {
                         List(
-                            vm.state.currencyList.filterResults(
-                                baseCurrency: vm.state.baseCurrency
-                            ),
+                            vm.state.currencyList.filterResults(baseCurrency: vm.state.baseCurrency),
                             id: \.value
-                        ) { currency in
-                            CalculatorItemView(item: currency)
+                        ) {
+                            CalculatorItemView(
+                                item: $0,
+                                itemClickEvent: { item in vm.event.itemClickEvent(item: item) }
+                            )
                         }.listRowBackground(Color("ColorBackground"))
                     }
                     
-                    KeyboardView(onKeyClick: { key in vm.event.keyPress(value: key) })
+                    KeyboardView(keyPressEvent: { key in vm.event.keyPressEvent(value: key) })
                     
                 }
             }
             .navigationBarHidden(true)
         }
+        .sheet(
+            isPresented: $isBarShown,
+            content: {
+                BarView(
+                    baseCurrencyChangeEvent: { newBase in
+                        vm.event.baseCurrencyChangeEvent(newBase: newBase)
+                    },
+                    isBarShown: $isBarShown
+                )
+            }
+        ).alert(isPresented: $isAlertShown) {
+            Alert(
+                title: Text(vm.data.alertText),
+                dismissButton: .default(Text("OK"))
+            )
+        }
         .accentColor(Color("ColorText"))
+        .onReceive(vm.effect) { observeEffects(effect: $0) }
         .onAppear { vm.fetchRates() }
         
+    }
+    
+    private func observeEffects(effect: CalculatorEffect) {
+        switch effect {
+        case .showBarEffect:
+            isBarShown = true
+        case .maximumInputEffect,
+             .fewCurrencyEffect:
+            isAlertShown = true
+        }
     }
 }
 

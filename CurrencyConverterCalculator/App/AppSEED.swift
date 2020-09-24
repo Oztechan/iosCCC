@@ -7,21 +7,37 @@
 //
 
 import Foundation
+import SwiftUI
 
 // MARK: State
 struct AppState {
-    var baseCurrency: CurrencyType
-    var isFirstRun: Bool
+    var calculatorViewVisibility: Bool
+}
+
+// MARK: Event
+protocol AppEvent {
+    func appInitialiseEvent()
 }
 
 // MARK: Data
 class AppData {
-    let defaults = UserDefaultsRepository()
+    private let defaults = DefaultsRepository()
+    
+    var baseCurrency: CurrencyType {
+        get { return defaults.baseCurrency }
+        set { defaults.baseCurrency = newValue }
+    }
+    
+    var firstRun: Bool {
+        get { return defaults.firstRun }
+        set { defaults.firstRun = newValue }
+    }
     
     init() {
         defaults.register(defaults: [
-            UserDefaultsRepository.UserDefaultsKeys.baseCurrency.rawValue: CurrencyType.NULL.stringValue,
-            UserDefaultsRepository.UserDefaultsKeys.firstRun.rawValue: true
+            DefaultsRepository.Keys.baseCurrency.rawValue: CurrencyType.NULL.stringValue,
+            DefaultsRepository.Keys.firstRun.rawValue: true
         ])
     }
+
 }
