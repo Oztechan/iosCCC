@@ -11,8 +11,8 @@ struct BarView: View {
     
     @ObservedObject var vm = BarViewModel()
     var baseCurrencyChange: (CurrencyType) -> Void
-    var onBarClick: () -> Void
-    
+    @Binding var isBarShown: Bool
+
     var body: some View {
         
         NavigationView {
@@ -41,7 +41,7 @@ struct BarView: View {
         case .changeBaseCurrency(let newBase):
             baseCurrencyChange(newBase)
         case .closeDiaog:
-            onBarClick()
+            isBarShown = false
         }
     }
 }
@@ -49,8 +49,8 @@ struct BarView: View {
 #if DEBUG
 struct BarViewPreviews: PreviewProvider {    
     static var previews: some View {
-        BarView(baseCurrencyChange: {_ in }, onBarClick: {})
-        BarView(baseCurrencyChange: {_ in }, onBarClick: {})
+        BarView(baseCurrencyChange: {_ in }, isBarShown: .constant(true))
+        BarView(baseCurrencyChange: {_ in }, isBarShown: .constant(true))
             .preferredColorScheme(.dark)
     }
 }

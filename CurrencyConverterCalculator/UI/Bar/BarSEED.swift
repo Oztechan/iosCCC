@@ -26,6 +26,14 @@ enum BarEffect {
 }
 
 // MARK: Data
-class BarData: AppData {
+struct BarData {
+    let defaults = DefaultsRepository()
+    
+    init() {
+        defaults.register(defaults: [
+            DefaultsRepository.Keys.baseCurrency.rawValue: CurrencyType.NULL.stringValue,
+            DefaultsRepository.Keys.firstRun.rawValue: true
+        ])
+    }
     let coreDataRepository = CoreDataRepository.shared
 }

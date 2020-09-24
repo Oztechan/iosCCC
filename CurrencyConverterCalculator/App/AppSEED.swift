@@ -11,7 +11,7 @@ import SwiftUI
 
 // MARK: State
 struct AppState {
-    var isAppInitialised: Bool
+    var calculatorViewVisibility: Bool
 }
 
 // MARK: Event
@@ -20,7 +20,24 @@ protocol AppEvent {
 }
 
 // MARK: Data
-struct AppData {
-    @AppStorage(UserDefaultKeys.firstRun.rawValue)
-    var firstRun = true
+class AppData {
+    private let defaults = DefaultsRepository()
+    
+    var baseCurrency: CurrencyType {
+        get { return defaults.baseCurrency }
+        set { defaults.baseCurrency = newValue }
+    }
+    
+    var firstRun: Bool {
+        get { return defaults.firstRun }
+        set { defaults.firstRun = newValue }
+    }
+    
+    init() {
+        defaults.register(defaults: [
+            DefaultsRepository.Keys.baseCurrency.rawValue: CurrencyType.NULL.stringValue,
+            DefaultsRepository.Keys.firstRun.rawValue: true
+        ])
+    }
+
 }

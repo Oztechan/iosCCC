@@ -16,7 +16,6 @@ struct CalculatorState {
     var currencyList = [Currency]()
     var isLoading = false
     var baseCurrency = CurrencyType.NULL
-    var isBarDialogShown = false
 }
 
 // MARK: Event
@@ -29,11 +28,20 @@ protocol CalculatorEvent {
 
 // MARK: Effect
 enum CalculatorEffect {
-    
+    case barEffect
 }
 
 // MARK: Data
-class CalculatorData: AppData {
+struct CalculatorData {
+    let defaults = DefaultsRepository()
+    
+    init() {
+        defaults.register(defaults: [
+            DefaultsRepository.Keys.baseCurrency.rawValue: CurrencyType.NULL.stringValue,
+            DefaultsRepository.Keys.firstRun.rawValue: true
+        ])
+    }
+    
     let coreDataRepository = CoreDataRepository.shared
     let apiRepository = ApiRepository()
     var rates: Rates?

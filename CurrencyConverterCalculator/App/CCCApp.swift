@@ -17,7 +17,7 @@ struct CCCApp: App {
     var body: some Scene {
         WindowGroup {
             
-            if vm.state.isAppInitialised {
+            if vm.state.calculatorViewVisibility {
                 CalculatorView()
             } else {
                 CurrenciesView(appInitialiseEffect: vm.event.appInitialiseEvent)

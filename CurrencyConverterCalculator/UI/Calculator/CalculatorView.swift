@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CalculatorView: View {
     @ObservedObject var vm = CalculatorViewModel()
+    @State var isBarShown = false
     
     init() {
         UITableView.appearance().tableHeaderView = UIView(frame: CGRect(
@@ -30,10 +31,9 @@ struct CalculatorView: View {
                     
                     CalculationInputView(
                         input: vm.state.input,
-                        destinationView: CurrenciesView(
-                            isFirstRun: .constant(false),
-                            baseCurrencyChange: { newBase in vm.event.baseCurrencyChange(newBase: newBase) }
-                        )
+                        destinationView: CurrenciesView(baseCurrencyChangeEffect: { newBase in
+                            vm.event.baseCurrencyChange(newBase: newBase)
+                        })
                     )
                     
                     CalculationOutputView(
@@ -65,19 +65,26 @@ struct CalculatorView: View {
             .navigationBarHidden(true)
         }
         .sheet(
-            isPresented: $vm.state.isBarDialogShown,
+            isPresented: $isBarShown,
             content: {
                 BarView(
                     baseCurrencyChange: { newBase in
                         vm.event.baseCurrencyChange(newBase: newBase)
                     },
-                    onBarClick: { vm.event.onBarClick() }
+                    isBarShown: $isBarShown
                 )
             }
         )
         .accentColor(Color("ColorText"))
         .onAppear { vm.fetchRates() }
         
+    }
+    
+    private func observeEffects(effect: CalculatorEffect) {
+        switch effect {
+        case .barEffect:
+            isBarShown = true
+        }
     }
 }
 

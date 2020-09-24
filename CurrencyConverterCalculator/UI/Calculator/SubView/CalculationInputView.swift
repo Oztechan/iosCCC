@@ -38,17 +38,11 @@ struct CalculationInputViewPreview: PreviewProvider {
     static var previews: some View {
         CalculationInputView(
             input: "1+2+3",
-            destinationView: CurrenciesView(
-                isFirstRun: .constant(false),
-                baseCurrencyChange: {_ in }
-            )
+            destinationView: CurrenciesView()
         )
         CalculationInputView(
             input: "1+2+3",
-            destinationView: CurrenciesView(
-                isFirstRun: .constant(false),
-                baseCurrencyChange: {_ in }
-            )
+            destinationView: CurrenciesView()
         )
         .preferredColorScheme(.dark)
     }

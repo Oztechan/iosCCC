@@ -11,10 +11,11 @@ import Combine
 final class CurrenciesViewModel: ObservableObject, CurrenciesEvent {
     
     // MARK: SEED
-    @Published var state = CurrenciesState()
+    @Published
+    private(set) var state = CurrenciesState()
     let effect = PassthroughSubject<CurrenciesEffect, Never>()
-    lazy var event = self as CurrenciesEvent
-    var data = CurrenciesData()
+    private(set) lazy var event = self as CurrenciesEvent
+    private(set) var data = CurrenciesData()
     
     init() {
         self.initList()
@@ -32,12 +33,12 @@ final class CurrenciesViewModel: ObservableObject, CurrenciesEvent {
     }
     
     private func setBaseCurrency(newBase: CurrencyType) {
-        data.defaults.baseCurrency = newBase
-        effect.send(CurrenciesEffect.changeBaseCurrencyEffect(newBase))
+        data.baseCurrency = newBase
+        effect.send(CurrenciesEffect.baseCurrencyChangeEffect(newBase))
     }
     
     // MARK: Event
-    func updateAllStates(state: Bool) {
+    func updateAllEvent(state: Bool) {
         
         self.state.currencyList.forEach {
             $0.isActive = state
@@ -49,28 +50,28 @@ final class CurrenciesViewModel: ObservableObject, CurrenciesEvent {
         if !state {
             setBaseCurrency(newBase: CurrencyType.NULL)
         } else {
-            if data.defaults.baseCurrency == CurrencyType.NULL {
+            if data.baseCurrency == CurrencyType.NULL {
                 setBaseCurrency(newBase: getFirstAvaiableBaseCurrencyOrNull())
             }
         }
     }
     
-    func updateState(currency: Currency) {
+    func updateCurrencyEvent(currency: Currency) {
         state.currencyList.filter { $0.name == currency.name }.first?.isActive = !currency.isActive
         data.coreDataRepository.updateCurrencyStateByName(name: currency.name, state: !currency.isActive)
         
-        if CurrencyType.withLabel(currency.name) == data.defaults.baseCurrency
-            || data.defaults.baseCurrency == CurrencyType.NULL {
+        if currency.name == data.baseCurrency.stringValue
+            || data.baseCurrency == CurrencyType.NULL {
             setBaseCurrency(newBase: getFirstAvaiableBaseCurrencyOrNull())
         }
     }
     
-    func onDoneClick() {
-        if state.currencyList.filter({ $0.isActive == true}).count >= 2 {
-            data.defaults.firstRun = false
-            effect.send(CurrenciesEffect.openCalculatorEffect)
+    func doneClickEvent() {
+        if state.currencyList.filter({ $0.isActive == true }).count >= 2 {
+            data.firstRun = false
+            effect.send(CurrenciesEffect.appInitialiseEffect)
         } else {
-            effect.send(CurrenciesEffect.warningEffect)
+            effect.send(CurrenciesEffect.alertEffect)
         }
     }
 }

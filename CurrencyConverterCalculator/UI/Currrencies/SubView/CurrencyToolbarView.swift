@@ -10,16 +10,16 @@ import SwiftUI
 
 struct CurrencyToolbarView: View {
     
-    var isFirstRun: Bool
-    var onBackClick: () -> Void
-    var onAllStateUpdateClick: (Bool) -> Void
+    var firstRun: Bool
+    var backClickEffect: () -> Void
+    var updateAllEffect: (Bool) -> Void
     
     var body: some View {
         HStack {
             
-            if !isFirstRun {
+            if !firstRun {
                 Button(
-                    action: { onBackClick() },
+                    action: backClickEffect,
                     label: {
                         Image(systemName: "chevron.left")
                             .imageScale(.large)
@@ -34,11 +34,11 @@ struct CurrencyToolbarView: View {
             
             Spacer()
             Button(
-                action: { onAllStateUpdateClick(true) },
+                action: { updateAllEffect(true) },
                 label: { Text("Select All").foregroundColor(Color("ColorText")) }
             ).padding(.trailing, 10)
             Button(
-                action: { onAllStateUpdateClick(false) },
+                action: { updateAllEffect(false) },
                 label: { Text("Deselect All").foregroundColor(Color("ColorText")) }
             )
             
@@ -50,14 +50,14 @@ struct CurrencyToolbarView: View {
 struct CurrencyToolbarViewPreview: PreviewProvider {
     static var previews: some View {
         CurrencyToolbarView(
-            isFirstRun: false,
-            onBackClick: {},
-            onAllStateUpdateClick: {_ in }
+            firstRun: false,
+            backClickEffect: {},
+            updateAllEffect: {_ in }
         )
         CurrencyToolbarView(
-            isFirstRun: false,
-            onBackClick: {},
-            onAllStateUpdateClick: {_ in }
+            firstRun: false,
+            backClickEffect: {},
+            updateAllEffect: {_ in }
         )
         .preferredColorScheme(.dark)
     }

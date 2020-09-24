@@ -17,11 +17,11 @@ final class AppViewModel: ObservableObject, AppEvent {
     private(set) var data = AppData()
     
     init() {
-        self.state = AppState(isAppInitialised: !data.firstRun)
+        self.state = AppState(calculatorViewVisibility: !data.firstRun)
     }
     // MARK: Event
     func appInitialiseEvent() {
         data.firstRun = false
-        state.isAppInitialised = true
+        state.calculatorViewVisibility = true
     }
 }

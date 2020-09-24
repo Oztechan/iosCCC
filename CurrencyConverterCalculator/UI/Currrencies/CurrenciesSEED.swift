@@ -9,24 +9,24 @@
 import Foundation
 
 // MARK: State
+
 struct CurrenciesState {
     var currencyList = [Currency]()
     var isLoading = false
-    var isAlertShown = false
 }
 
 // MARK: Event
 protocol CurrenciesEvent {
-    func updateAllStates(state: Bool)
-    func updateState(currency: Currency)
-    func onDoneClick()
+    func updateAllEvent(state: Bool)
+    func updateCurrencyEvent(currency: Currency)
+    func doneClickEvent()
 }
 
 // MARK: Effect
 enum CurrenciesEffect {
-    case changeBaseCurrencyEffect(CurrencyType)
-    case openCalculatorEffect
-    case warningEffect
+    case baseCurrencyChangeEffect(CurrencyType)
+    case appInitialiseEffect
+    case alertEffect
 }
 
 // MARK: Data
