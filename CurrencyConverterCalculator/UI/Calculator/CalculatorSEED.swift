@@ -29,6 +29,8 @@ protocol CalculatorEvent {
 // MARK: Effect
 enum CalculatorEffect {
     case showBarEffect
+    case maximumInputEffect
+    case fewCurrencyEffect
 }
 
 // MARK: Data
@@ -37,4 +39,6 @@ class CalculatorData: AppData {
     let apiRepository = ApiRepository()
     var rates: Rates?
     var cancelable: Cancellable?
+    let maximumInput = 15
+    var alertText = ""
 }

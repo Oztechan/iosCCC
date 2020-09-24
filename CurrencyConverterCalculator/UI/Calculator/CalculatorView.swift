@@ -10,6 +10,7 @@ import SwiftUI
 struct CalculatorView: View {
     @ObservedObject var vm = CalculatorViewModel()
     @State var isBarShown = false
+    @State var isAlertShown = false
     
     init() {
         UITableView.appearance().tableHeaderView = UIView(frame: CGRect(
@@ -74,7 +75,12 @@ struct CalculatorView: View {
                     isBarShown: $isBarShown
                 )
             }
-        )
+        ).alert(isPresented: $isAlertShown) {
+            Alert(
+                title: Text(vm.data.alertText),
+                dismissButton: .default(Text("OK"))
+            )
+        }
         .accentColor(Color("ColorText"))
         .onReceive(vm.effect) { observeEffects(effect: $0) }
         .onAppear { vm.fetchRates() }
@@ -85,6 +91,9 @@ struct CalculatorView: View {
         switch effect {
         case .showBarEffect:
             isBarShown = true
+        case .maximumInputEffect,
+             .fewCurrencyEffect:
+            isAlertShown = true
         }
     }
 }

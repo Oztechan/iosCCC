@@ -88,7 +88,6 @@ final class CalculatorViewModel: ObservableObject, CalculatorEvent {
         allCurrencies.forEach { currency in
             if CurrencyType.withLabel(currency.name) != CurrencyType.NULL {
                 state.currencyList.append(currency)
-                
             }
         }
     }
@@ -118,7 +117,15 @@ final class CalculatorViewModel: ObservableObject, CalculatorEvent {
         case "DEL":
             state.input = String(state.input.dropLast())
         default:
-            state.input += value
+            if state.input.count > data.maximumInput {
+                data.alertText = "Maximum number of input exceeded."
+                effect.send(CalculatorEffect.maximumInputEffect)
+            } else if state.currencyList.filter({ $0.isActive==true }).count < 2 {
+                data.alertText = "Please select at east 2 ccurrencies."
+                effect.send(CalculatorEffect.fewCurrencyEffect)
+            } else {
+                state.input += value
+            }
         }
         calculateOutput()
     }

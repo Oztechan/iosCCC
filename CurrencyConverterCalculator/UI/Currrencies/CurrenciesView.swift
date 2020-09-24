@@ -23,7 +23,7 @@ struct CurrenciesView: View {
     ) {
         self.appInitialiseEvent = appInitialiseEvent
         self.baseCurrencyChangeEffect = baseCurrencyChangeEffect
-
+        
         UITableView.appearance().tableHeaderView = UIView(
             frame: CGRect(
                 x: 0,
@@ -87,7 +87,7 @@ struct CurrenciesView: View {
         .onReceive(vm.effect) { observeEffects(effect: $0) }
         .alert(isPresented: $isAlertShown) {
             Alert(
-                title: Text("Please select at east 2 ccurrencies"),
+                title: Text("Please select at east 2 ccurrencies."),
                 dismissButton: .default(Text("OK"))
             )
         }
