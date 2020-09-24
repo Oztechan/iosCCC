@@ -18,10 +18,10 @@ struct CurrenciesView: View {
     var appInitialiseEvent: (() -> Void)?
     
     init(
-        appInitialiseEffect: (() -> Void)? = nil,
+        appInitialiseEvent: (() -> Void)? = nil,
         baseCurrencyChangeEffect: ((CurrencyType) -> Void)? = nil
     ) {
-        self.appInitialiseEvent = appInitialiseEffect
+        self.appInitialiseEvent = appInitialiseEvent
         self.baseCurrencyChangeEffect = baseCurrencyChangeEffect
 
         UITableView.appearance().tableHeaderView = UIView(
@@ -44,8 +44,8 @@ struct CurrenciesView: View {
                 
                 CurrencyToolbarView(
                     firstRun: vm.data.firstRun,
-                    backClickEffect: { presentationMode.wrappedValue.dismiss() },
-                    updateAllEffect: { vm.updateAllEvent(state: $0) }
+                    backClickEvent: { presentationMode.wrappedValue.dismiss() },
+                    updateAllEvent: { vm.updateAllEvent(state: $0) }
                 )
                 
                 if vm.state.isLoading {
@@ -56,7 +56,7 @@ struct CurrenciesView: View {
                     List(vm.state.currencyList, id: \.name) { currency in
                         CurrencyItemView(
                             item: currency,
-                            updateCurrencyEffect: { vm.event.updateCurrencyEvent(currency: currency) }
+                            updateCurrencyEvent: { vm.event.updateCurrencyEvent(currency: currency) }
                         )
                     }
                     .listRowBackground(Color("ColorBackground"))

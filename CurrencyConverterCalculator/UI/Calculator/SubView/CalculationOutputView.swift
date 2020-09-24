@@ -11,7 +11,7 @@ struct CalculationOutputView: View {
     
     var baseCurrency: CurrencyType
     var output: String
-    var onBarCick: () -> Void
+    var barClickEvent: () -> Void
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -24,8 +24,9 @@ struct CalculationOutputView: View {
             .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
             
         }
+        .contentShape(Rectangle())
         .lineLimit(1)
-        .onTapGesture { onBarCick() }
+        .onTapGesture { barClickEvent() }
     }
 }
 
@@ -35,12 +36,12 @@ struct CalculationOutputViewPreview: PreviewProvider {
         CalculationOutputView(
             baseCurrency: CurrencyType.EUR,
             output: "123",
-            onBarCick: {}
+            barClickEvent: {}
         )
         CalculationOutputView(
             baseCurrency: CurrencyType.EUR,
             output: "123",
-            onBarCick: {}
+            barClickEvent: {}
         )
         .preferredColorScheme(.dark)
     }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CurrencyItemView: View {
     @ObservedObject var item: Currency
-    var updateCurrencyEffect: () -> Void
+    var updateCurrencyEvent: () -> Void
     
     var body: some View {
         HStack {
@@ -29,9 +29,10 @@ struct CurrencyItemView: View {
             Image(systemName: $item.isActive.wrappedValue ? "checkmark.circle.fill" : "circle")
             
         }
+        .contentShape(Rectangle())
         .onTapGesture {
             self.$item.isActive.wrappedValue.toggle()
-            updateCurrencyEffect()
+            updateCurrencyEvent()
         }
         .lineLimit(1)
     }
@@ -40,7 +41,7 @@ struct CurrencyItemView: View {
 #if DEBUG
 struct SettingsItemViewPreviews: PreviewProvider {
     static var previews: some View {
-        CurrencyItemView(item: Currency(), updateCurrencyEffect: {})
+        CurrencyItemView(item: Currency(), updateCurrencyEvent: {})
             .previewLayout(.fixed(width: 300, height: 36))
     }
 }

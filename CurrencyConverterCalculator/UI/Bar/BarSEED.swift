@@ -16,24 +16,16 @@ struct BarState {
 
 // MARK: Event
 protocol BarEvent {
-    func selectCurrency(currency: Currency)
+    func selectCurrencyEvent(currency: Currency)
 }
 
 // MARK: Effect
 enum BarEffect {
-    case changeBaseCurrency(CurrencyType)
-    case closeDiaog
+    case changeBaseCurrencyEffect(CurrencyType)
+    case closeDiaogEffect
 }
 
 // MARK: Data
-struct BarData {
-    let defaults = DefaultsRepository()
-    
-    init() {
-        defaults.register(defaults: [
-            DefaultsRepository.Keys.baseCurrency.rawValue: CurrencyType.NULL.stringValue,
-            DefaultsRepository.Keys.firstRun.rawValue: true
-        ])
-    }
+class BarData: AppData {
     let coreDataRepository = CoreDataRepository.shared
 }

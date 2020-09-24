@@ -26,6 +26,7 @@ struct BarItemView: View {
             Spacer()
             
         }
+        .contentShape(Rectangle())
         .lineLimit(1)
     }
 }

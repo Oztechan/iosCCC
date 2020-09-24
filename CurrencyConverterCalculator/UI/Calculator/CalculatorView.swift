@@ -32,14 +32,14 @@ struct CalculatorView: View {
                     CalculationInputView(
                         input: vm.state.input,
                         destinationView: CurrenciesView(baseCurrencyChangeEffect: { newBase in
-                            vm.event.baseCurrencyChange(newBase: newBase)
+                            vm.event.baseCurrencyChangeEvent(newBase: newBase)
                         })
                     )
                     
                     CalculationOutputView(
                         baseCurrency: vm.state.baseCurrency,
                         output: vm.state.output,
-                        onBarCick: {vm.event.onBarClick()}
+                        barClickEvent: {vm.event.barClickEvent()}
                     )
                     
                     if vm.state.isLoading {
@@ -53,12 +53,12 @@ struct CalculatorView: View {
                         ) {
                             CalculatorItemView(
                                 item: $0,
-                                clickEvent: { item in vm.event.onItemClicked(item: item) }
+                                itemClickEvent: { item in vm.event.itemClickEvent(item: item) }
                             )
                         }.listRowBackground(Color("ColorBackground"))
                     }
                     
-                    KeyboardView(onKeyClick: { key in vm.event.keyPress(value: key) })
+                    KeyboardView(keyPressEvent: { key in vm.event.keyPressEvent(value: key) })
                     
                 }
             }
@@ -68,21 +68,22 @@ struct CalculatorView: View {
             isPresented: $isBarShown,
             content: {
                 BarView(
-                    baseCurrencyChange: { newBase in
-                        vm.event.baseCurrencyChange(newBase: newBase)
+                    baseCurrencyChangeEvent: { newBase in
+                        vm.event.baseCurrencyChangeEvent(newBase: newBase)
                     },
                     isBarShown: $isBarShown
                 )
             }
         )
         .accentColor(Color("ColorText"))
+        .onReceive(vm.effect) { observeEffects(effect: $0) }
         .onAppear { vm.fetchRates() }
         
     }
     
     private func observeEffects(effect: CalculatorEffect) {
         switch effect {
-        case .barEffect:
+        case .showBarEffect:
             isBarShown = true
         }
     }

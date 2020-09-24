@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct KeyboardView: View {
-    var onKeyClick: (String) -> Void
+    var keyPressEvent: (String) -> Void
 
     let data = [
         [
@@ -54,7 +54,7 @@ struct KeyboardView: View {
                     ForEach(items, id: \.self) { item in
                         
                         Button(
-                            action: { onKeyClick(item.rawValue)},
+                            action: { keyPressEvent(item.rawValue)},
                             label: {
                                 Text(item.rawValue)
                                     .font(.title2)
@@ -79,9 +79,9 @@ struct KeyboardView: View {
 #if DEBUG
 struct KeyboardViewPreviews: PreviewProvider {
     static var previews: some View {
-        KeyboardView(onKeyClick: {_ in })
+        KeyboardView(keyPressEvent: {_ in })
             .previewLayout(.fixed(width: 300, height: 500))
-        KeyboardView(onKeyClick: {_ in })
+        KeyboardView(keyPressEvent: {_ in })
             .previewLayout(.fixed(width: 300, height: 500))
             .preferredColorScheme(.dark)
     }

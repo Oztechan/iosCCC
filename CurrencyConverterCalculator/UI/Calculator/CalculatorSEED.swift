@@ -20,28 +20,19 @@ struct CalculatorState {
 
 // MARK: Event
 protocol CalculatorEvent {
-    func keyPress(value: String)
-    func baseCurrencyChange(newBase: CurrencyType)
-    func onItemClicked(item: Currency)
-    func onBarClick()
+    func keyPressEvent(value: String)
+    func baseCurrencyChangeEvent(newBase: CurrencyType)
+    func itemClickEvent(item: Currency)
+    func barClickEvent()
 }
 
 // MARK: Effect
 enum CalculatorEffect {
-    case barEffect
+    case showBarEffect
 }
 
 // MARK: Data
-struct CalculatorData {
-    let defaults = DefaultsRepository()
-    
-    init() {
-        defaults.register(defaults: [
-            DefaultsRepository.Keys.baseCurrency.rawValue: CurrencyType.NULL.stringValue,
-            DefaultsRepository.Keys.firstRun.rawValue: true
-        ])
-    }
-    
+class CalculatorData: AppData {    
     let coreDataRepository = CoreDataRepository.shared
     let apiRepository = ApiRepository()
     var rates: Rates?

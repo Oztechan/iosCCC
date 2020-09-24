@@ -20,7 +20,7 @@ struct CCCApp: App {
             if vm.state.calculatorViewVisibility {
                 CalculatorView()
             } else {
-                CurrenciesView(appInitialiseEffect: vm.event.appInitialiseEvent)
+                CurrenciesView(appInitialiseEvent: vm.event.appInitialiseEvent)
             }
             
         }

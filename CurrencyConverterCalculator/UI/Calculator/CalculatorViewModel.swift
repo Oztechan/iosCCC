@@ -18,7 +18,7 @@ final class CalculatorViewModel: ObservableObject, CalculatorEvent {
     private(set) var data = CalculatorData()
     
     init() {
-        state.baseCurrency = data.defaults.baseCurrency
+        state.baseCurrency = data.baseCurrency
         initList()
     }
     
@@ -110,7 +110,7 @@ final class CalculatorViewModel: ObservableObject, CalculatorEvent {
     }
     
     // MARK: Event
-    func keyPress(value: String) {
+    func keyPressEvent(value: String) {
         switch value {
         case "AC":
             state.input = ""
@@ -123,18 +123,18 @@ final class CalculatorViewModel: ObservableObject, CalculatorEvent {
         calculateOutput()
     }
     
-    func baseCurrencyChange(newBase: CurrencyType) {
-        data.defaults.baseCurrency = newBase
+    func baseCurrencyChangeEvent(newBase: CurrencyType) {
+        data.baseCurrency = newBase
         state.baseCurrency = newBase
         fetchRates()
     }
     
-    func onItemClicked(item: Currency) {
+    func itemClickEvent(item: Currency) {
         state.input = item.value
-        baseCurrencyChange(newBase: CurrencyType.withLabel(item.name))
+        baseCurrencyChangeEvent(newBase: CurrencyType.withLabel(item.name))
     }
     
-    func onBarClick() {
-        effect.send(CalculatorEffect.barEffect)
+    func barClickEvent() {
+        effect.send(CalculatorEffect.showBarEffect)
     }
 }

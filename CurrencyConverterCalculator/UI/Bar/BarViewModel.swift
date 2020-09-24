@@ -27,14 +27,14 @@ final class BarViewModel: ObservableObject, BarEvent {
     }
     
     private func setBaseCurrency(newBase: CurrencyType) {
-        data.defaults.baseCurrency = newBase
-        effect.send(BarEffect.changeBaseCurrency(newBase))
+        data.baseCurrency = newBase
+        effect.send(BarEffect.changeBaseCurrencyEffect(newBase))
     }
     
     // MARK: Event
-    func selectCurrency(currency: Currency) {
+    func selectCurrencyEvent(currency: Currency) {
         setBaseCurrency(newBase: CurrencyType.withLabel(currency.name))
-        effect.send(BarEffect.changeBaseCurrency(CurrencyType.withLabel(currency.name)))
-        effect.send(BarEffect.closeDiaog)
+        effect.send(BarEffect.changeBaseCurrencyEffect(CurrencyType.withLabel(currency.name)))
+        effect.send(BarEffect.closeDiaogEffect)
     }
 }
