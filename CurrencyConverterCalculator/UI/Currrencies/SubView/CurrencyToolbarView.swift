@@ -53,13 +53,7 @@ struct CurrencyToolbarViewPreview: PreviewProvider {
             firstRun: false,
             backClickEvent: {},
             updateAllEvent: {_ in }
-        )
-        CurrencyToolbarView(
-            firstRun: false,
-            backClickEvent: {},
-            updateAllEvent: {_ in }
-        )
-        .preferredColorScheme(.dark)
+        ).makeForPreviewProvider()
     }
 }
 #endif

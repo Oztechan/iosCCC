@@ -37,13 +37,7 @@ struct CalculationOutputViewPreview: PreviewProvider {
             baseCurrency: CurrencyType.EUR,
             output: "123",
             barClickEvent: {}
-        )
-        CalculationOutputView(
-            baseCurrency: CurrencyType.EUR,
-            output: "123",
-            barClickEvent: {}
-        )
-        .preferredColorScheme(.dark)
+        ).makeForPreviewProvider()
     }
 }
 #endif

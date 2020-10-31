@@ -35,8 +35,7 @@ struct CalculatorItemViewPreviews: PreviewProvider {
     static var previews: some View {
         CalculatorItemView(item: Currency(), itemClickEvent: {_ in})
             .previewLayout(.fixed(width: 300, height: 60))
-        CalculatorItemView(item: Currency(), itemClickEvent: {_ in})
-            .previewLayout(.fixed(width: 300, height: 60)).preferredColorScheme(.dark)
+            .makeForPreviewProvider()
     }
 }
 #endif

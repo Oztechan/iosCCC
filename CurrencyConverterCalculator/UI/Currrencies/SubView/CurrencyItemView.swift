@@ -43,6 +43,7 @@ struct SettingsItemViewPreviews: PreviewProvider {
     static var previews: some View {
         CurrencyItemView(item: Currency(), updateCurrencyEvent: {})
             .previewLayout(.fixed(width: 300, height: 36))
+            .makeForPreviewProvider()
     }
 }
 #endif

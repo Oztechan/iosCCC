@@ -49,9 +49,7 @@ struct BarView: View {
 #if DEBUG
 struct BarViewPreviews: PreviewProvider {    
     static var previews: some View {
-        BarView(baseCurrencyChangeEvent: {_ in }, isBarShown: .constant(true))
-        BarView(baseCurrencyChangeEvent: {_ in }, isBarShown: .constant(true))
-            .preferredColorScheme(.dark)
+        BarView(baseCurrencyChangeEvent: {_ in }, isBarShown: .constant(true)).makeForPreviewProvider()
     }
 }
 #endif

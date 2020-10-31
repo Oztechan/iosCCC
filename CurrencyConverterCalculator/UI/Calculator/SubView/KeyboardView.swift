@@ -81,9 +81,7 @@ struct KeyboardViewPreviews: PreviewProvider {
     static var previews: some View {
         KeyboardView(keyPressEvent: {_ in })
             .previewLayout(.fixed(width: 300, height: 500))
-        KeyboardView(keyPressEvent: {_ in })
-            .previewLayout(.fixed(width: 300, height: 500))
-            .preferredColorScheme(.dark)
+            .makeForPreviewProvider()
     }
 }
 #endif

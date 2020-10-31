@@ -35,10 +35,9 @@ struct BarItemView: View {
 struct BarItemViewPreviews: PreviewProvider {
     static var previews: some View {
         BarItemView(item: Currency())
+            .makeForPreviewProvider()
             .previewLayout(.fixed(width: 300, height: 60))
-        BarItemView(item: Currency())
-            .previewLayout(.fixed(width: 300, height: 60))
-            .preferredColorScheme(.dark)
+            
     }
 }
 #endif

@@ -39,12 +39,7 @@ struct CalculationInputViewPreview: PreviewProvider {
         CalculationInputView(
             input: "1+2+3",
             destinationView: CurrenciesView()
-        )
-        CalculationInputView(
-            input: "1+2+3",
-            destinationView: CurrenciesView()
-        )
-        .preferredColorScheme(.dark)
+        ).makeForPreviewProvider()
     }
 }
 #endif

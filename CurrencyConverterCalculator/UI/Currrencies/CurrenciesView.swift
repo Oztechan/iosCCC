@@ -110,8 +110,7 @@ struct CurrenciesView: View {
 #if DEBUG
 struct SettingsViewPreviews: PreviewProvider {
     static var previews: some View {
-        CurrenciesView()
-        CurrenciesView().preferredColorScheme(.dark)
+        CurrenciesView().makeForPreviewProvider()
     }
 }
 #endif

@@ -101,8 +101,7 @@ struct CalculatorView: View {
 #if DEBUG
 struct CalculatorViewCalculatorViewPreviews: PreviewProvider {
     static var previews: some View {
-        CalculatorView()
-        CalculatorView().preferredColorScheme(.dark)
+        CalculatorView().makeForPreviewProvider()
     }
 }
 #endif
